@@ -16,6 +16,9 @@
 		11FFFD021F05067000CEC7EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 11FFFD001F05067000CEC7EB /* LaunchScreen.storyboard */; };
 		11FFFD0D1F05067000CEC7EB /* NineZeroArtTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFD0C1F05067000CEC7EB /* NineZeroArtTests.m */; };
 		11FFFD181F05067000CEC7EB /* NineZeroArtUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFD171F05067000CEC7EB /* NineZeroArtUITests.m */; };
+		A701BE25B50EAB1534BC221C /* libPods-NineZeroArt.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 741BE1F0E6AF44FE28D2DE8F /* libPods-NineZeroArt.a */; };
+		A9081A47ECD7C87841A9D794 /* libPods-NineZeroArtTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 23D0E6EBA898E9CEED69BCAE /* libPods-NineZeroArtTests.a */; };
+		C75EE8634F7122F6D2DD6F99 /* libPods-NineZeroArtUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CED3318F8EF30FB392AAE19F /* libPods-NineZeroArtUITests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +56,15 @@
 		11FFFD131F05067000CEC7EB /* NineZeroArtUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NineZeroArtUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FFFD171F05067000CEC7EB /* NineZeroArtUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NineZeroArtUITests.m; sourceTree = "<group>"; };
 		11FFFD191F05067000CEC7EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		23D0E6EBA898E9CEED69BCAE /* libPods-NineZeroArtTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroArtTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		741BE1F0E6AF44FE28D2DE8F /* libPods-NineZeroArt.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroArt.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7091EC8146B6187E2607674 /* Pods-NineZeroArtUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArtUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArtUITests/Pods-NineZeroArtUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		CBAD63CDA1FD1995907283F2 /* Pods-NineZeroArtTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArtTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArtTests/Pods-NineZeroArtTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CD5B8A51CE01B77A4BB4E4F5 /* Pods-NineZeroArt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArt.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArt/Pods-NineZeroArt.debug.xcconfig"; sourceTree = "<group>"; };
+		CED3318F8EF30FB392AAE19F /* libPods-NineZeroArtUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NineZeroArtUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E2969F325C267AF827603F64 /* Pods-NineZeroArtUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArtUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArtUITests/Pods-NineZeroArtUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F3C841BE6D42AEB9EDDD74CF /* Pods-NineZeroArtTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArtTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArtTests/Pods-NineZeroArtTests.release.xcconfig"; sourceTree = "<group>"; };
+		FCC517FA0C7F905C0D1BB66D /* Pods-NineZeroArt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NineZeroArt.release.xcconfig"; path = "Pods/Target Support Files/Pods-NineZeroArt/Pods-NineZeroArt.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A701BE25B50EAB1534BC221C /* libPods-NineZeroArt.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A9081A47ECD7C87841A9D794 /* libPods-NineZeroArtTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C75EE8634F7122F6D2DD6F99 /* libPods-NineZeroArtUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,6 +102,8 @@
 				11FFFD0B1F05067000CEC7EB /* NineZeroArtTests */,
 				11FFFD161F05067000CEC7EB /* NineZeroArtUITests */,
 				11FFFCED1F05067000CEC7EB /* Products */,
+				A25706453480FA0D60C55DC0 /* Pods */,
+				3817249095DF1F35A10BD613 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -143,6 +160,29 @@
 			path = NineZeroArtUITests;
 			sourceTree = "<group>";
 		};
+		3817249095DF1F35A10BD613 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				741BE1F0E6AF44FE28D2DE8F /* libPods-NineZeroArt.a */,
+				23D0E6EBA898E9CEED69BCAE /* libPods-NineZeroArtTests.a */,
+				CED3318F8EF30FB392AAE19F /* libPods-NineZeroArtUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A25706453480FA0D60C55DC0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CD5B8A51CE01B77A4BB4E4F5 /* Pods-NineZeroArt.debug.xcconfig */,
+				FCC517FA0C7F905C0D1BB66D /* Pods-NineZeroArt.release.xcconfig */,
+				CBAD63CDA1FD1995907283F2 /* Pods-NineZeroArtTests.debug.xcconfig */,
+				F3C841BE6D42AEB9EDDD74CF /* Pods-NineZeroArtTests.release.xcconfig */,
+				C7091EC8146B6187E2607674 /* Pods-NineZeroArtUITests.debug.xcconfig */,
+				E2969F325C267AF827603F64 /* Pods-NineZeroArtUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -150,9 +190,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11FFFD1C1F05067100CEC7EB /* Build configuration list for PBXNativeTarget "NineZeroArt" */;
 			buildPhases = (
+				571A5E4BF244A7571A607AD8 /* [CP] Check Pods Manifest.lock */,
 				11FFFCE81F05067000CEC7EB /* Sources */,
 				11FFFCE91F05067000CEC7EB /* Frameworks */,
 				11FFFCEA1F05067000CEC7EB /* Resources */,
+				8AE18EFE1C5FBC82A506BBCF /* [CP] Embed Pods Frameworks */,
+				4DA7616AD57BBA14D7DE1821 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +210,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11FFFD1F1F05067100CEC7EB /* Build configuration list for PBXNativeTarget "NineZeroArtTests" */;
 			buildPhases = (
+				D80AE61A60E12773E81EE27F /* [CP] Check Pods Manifest.lock */,
 				11FFFD041F05067000CEC7EB /* Sources */,
 				11FFFD051F05067000CEC7EB /* Frameworks */,
 				11FFFD061F05067000CEC7EB /* Resources */,
+				EF129C633E21C7F954A5A92A /* [CP] Embed Pods Frameworks */,
+				3849B982F1C0701D8A28FF5E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,9 +231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11FFFD221F05067100CEC7EB /* Build configuration list for PBXNativeTarget "NineZeroArtUITests" */;
 			buildPhases = (
+				A8926B0DCFF0A3F4FFC3F5F7 /* [CP] Check Pods Manifest.lock */,
 				11FFFD0F1F05067000CEC7EB /* Sources */,
 				11FFFD101F05067000CEC7EB /* Frameworks */,
 				11FFFD111F05067000CEC7EB /* Resources */,
+				DC2EFC27C23B20DF237761F3 /* [CP] Embed Pods Frameworks */,
+				13783F781EC14E250B17E4EE /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -273,6 +322,144 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		13783F781EC14E250B17E4EE /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArtUITests/Pods-NineZeroArtUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3849B982F1C0701D8A28FF5E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArtTests/Pods-NineZeroArtTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4DA7616AD57BBA14D7DE1821 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArt/Pods-NineZeroArt-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		571A5E4BF244A7571A607AD8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		8AE18EFE1C5FBC82A506BBCF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArt/Pods-NineZeroArt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8926B0DCFF0A3F4FFC3F5F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D80AE61A60E12773E81EE27F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		DC2EFC27C23B20DF237761F3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArtUITests/Pods-NineZeroArtUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EF129C633E21C7F954A5A92A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NineZeroArtTests/Pods-NineZeroArtTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		11FFFCE81F05067000CEC7EB /* Sources */ = {
@@ -429,30 +616,65 @@
 		};
 		11FFFD1D1F05067100CEC7EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD5B8A51CE01B77A4BB4E4F5 /* Pods-NineZeroArt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/JSPatch",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/Optional",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/UMeng/UMengMobClick",
+				);
 				INFOPLIST_FILE = NineZeroArt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = NZ.NineZeroArt;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/TalkingData",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		11FFFD1E1F05067100CEC7EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCC517FA0C7F905C0D1BB66D /* Pods-NineZeroArt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6H2SM536G6;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/JSPatch",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/Optional",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/QQSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/UMeng/UMengMobClick",
+				);
 				INFOPLIST_FILE = NineZeroArt/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = NZ.NineZeroArt;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/ShareSDK/Support/PlatformSDK/WeChatSDK",
+					"$(PROJECT_DIR)/NineZeroArt/ThirdPart/TalkingData",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		11FFFD201F05067100CEC7EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBAD63CDA1FD1995907283F2 /* Pods-NineZeroArtTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 6H2SM536G6;
@@ -466,6 +688,7 @@
 		};
 		11FFFD211F05067100CEC7EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F3C841BE6D42AEB9EDDD74CF /* Pods-NineZeroArtTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 6H2SM536G6;
@@ -479,6 +702,7 @@
 		};
 		11FFFD231F05067100CEC7EB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7091EC8146B6187E2607674 /* Pods-NineZeroArtUITests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				INFOPLIST_FILE = NineZeroArtUITests/Info.plist;
@@ -491,6 +715,7 @@
 		};
 		11FFFD241F05067100CEC7EB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E2969F325C267AF827603F64 /* Pods-NineZeroArtUITests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = 6H2SM536G6;
 				INFOPLIST_FILE = NineZeroArtUITests/Info.plist;
@@ -520,6 +745,7 @@
 				11FFFD1E1F05067100CEC7EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11FFFD1F1F05067100CEC7EB /* Build configuration list for PBXNativeTarget "NineZeroArtTests" */ = {
 			isa = XCConfigurationList;
@@ -528,6 +754,7 @@
 				11FFFD211F05067100CEC7EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		11FFFD221F05067100CEC7EB /* Build configuration list for PBXNativeTarget "NineZeroArtUITests" */ = {
 			isa = XCConfigurationList;
@@ -536,6 +763,7 @@
 				11FFFD241F05067100CEC7EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
