@@ -14,9 +14,9 @@
 @property (strong, nonatomic) UIWindow *window;
 
 @property (readonly, strong) NSPersistentContainer *persistentContainer;
-
+@property (atomic) bool active;
+    
 - (void)saveContext;
-
 
 @end
 
