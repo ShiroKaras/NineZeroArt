@@ -13,7 +13,6 @@
     SKProfileService    *_profileService;
     SKScanningService   *_scanningService;
     SKCommonService     *_commonService;
-    SKStrongHoldService *_strongholdService;
     QNUploadManager     *_qiniuService;
 }
 
@@ -32,7 +31,6 @@
         _profileService     = [[SKProfileService alloc] init];
         _scanningService    = [[SKScanningService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
-        _strongholdService  = [[SKStrongHoldService alloc] init];
         _qiniuService       = [[QNUploadManager alloc] init];
     }
     return self;
@@ -54,11 +52,6 @@
 
 - (SKCommonService *)commonService {
     return _commonService;
-}
-
-
-- (SKStrongHoldService *)strongholdService {
-    return _strongholdService;
 }
 
 - (QNUploadManager *)qiniuService {

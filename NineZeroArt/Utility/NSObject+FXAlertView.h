@@ -55,7 +55,7 @@
  *  @param title              标题(nil则无标题)
  *  @param cancelTitle        取消按钮标题(nil则为:取消)
  *  @param twoOtherTitleArray 另外两个选择按钮的标题, NSString数组(按先后顺序展示)
- *  @param firstSelBTHandler  第一个选择按钮触发的Handler Block
+ *  @param firstBTHandler  第一个选择按钮触发的Handler Block
  *  @param secondSelBTHandler 第二个选择按钮触发的Handler Block
  */
 - (void)fx_presentSelectSheetWithTitle:(NSString *)title

@@ -18,15 +18,6 @@ typedef void (^SKIndexScanningCallback) (BOOL success, SKIndexScanning *indexSca
 
 @interface SKCommonService : NSObject
 
-// 首页信息
-- (void)getHomepageInfoCallBack:(SKIndexInfoCallback)callback;
-
-// 获取开屏图
-- (void)getPeacock:(SKResponseCallback)callback;
-
-// 获取广告图和扫一扫类型(3.0)
-- (void)getPublicPage:(SKIndexScanningCallback)callback;
-
 // Qiniu Token
 - (void)getQiniuPublicTokenWithCompletion:(SKGetTokenCallback)callback;
 
@@ -34,7 +25,7 @@ typedef void (^SKIndexScanningCallback) (BOOL success, SKIndexScanning *indexSca
 
 /**
  *  @brief 获取七牛下载链接
- *  @param key      服务器给的key
+ *  @param keys      服务器给的key
  */
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback;
 

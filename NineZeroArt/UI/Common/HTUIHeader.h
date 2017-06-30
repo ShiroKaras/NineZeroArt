@@ -21,12 +21,10 @@
 #import "HTUIHelper.h"
 #import "HUD+Utility.h"
 #import "NSString+Utility.h"
-#import "SKImageHelper.h"
 //#import "SKServiceManager.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "UIImage+Extension.h"
 #import "UIViewController+HTTips.h"
-#import "YXEasing.h"
 #import "easing.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
@@ -39,7 +37,6 @@
 #import <YLGIFImage/YLImageView.h>
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
 
-#import "TalkingData.h"
 #import "UMMobClick/MobClick.h"
 
 #endif /* HTUIHeader_h */

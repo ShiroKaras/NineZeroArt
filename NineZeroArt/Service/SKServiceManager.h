@@ -7,13 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "HTLogicHeader.h"
+#import "SKLogicHeader.h"
 
 #import "SKLoginService.h"
 #import "SKProfileService.h"
 #import "SKCommonService.h"
 #import "SKScanningService.h"
-#import "SKStrongHoldService.h"
 #import <Qiniu/QiniuSDK.h>
 
 @interface SKServiceManager : NSObject
@@ -31,9 +30,6 @@
 
 /** commonService, 负责公共部分相关业务 */
 - (SKCommonService *)commonService;
-
-/** strongholdService, 负责据点部分相关业务 */
-- (SKStrongHoldService *)strongholdService;
 
 /** qiniuService, 负责七牛相关的业务 */
 - (QNUploadManager *)qiniuService;

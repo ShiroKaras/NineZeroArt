@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AppStoreID</key>
+	<string>1117413473</string>
+	<key>JPUSHServiceAppKey</key>
+	<string>a55e70211d78ad951ecca453</string>
+	<key>JPUSHServiceChannel</key>
+	<string>90</string>
+	<key>AMapServicesAPIKey</key>
+	<string>2cb1a94b85ace5b91f5f00b37c0422e9</string>
+	<key>ShareSDKAppKey</key>
+	<string>117f8a0b99f70</string>
+	<key>SSDKPlatformTypeSinaWeiboAppKey</key>
+	<string>1266848941</string>
+	<key>SSDKPlatformTypeSinaWeiboAppSecret</key>
+	<string>af1a2b939f9d65313ae08ce40e4428b5</string>
+	<key>SSDKPlatformTypeSinaWeiboRedirectUri</key>
+	<string>http://www.sharesdk.cn</string>
+	<key>SSDKPlatformTypeWechatAppId</key>
+	<string>wxfb8f0b079901a486</string>
+	<key>SSDKPlatformTypeWechatAppSecret</key>
+	<string>9b878253531427e0216f4c456a6216bc</string>
+	<key>SSDKPlatformTypeQQAppId</key>
+	<string>1105267679</string>
+	<key>SSDKPlatformTypeQQAppKey</key>
+	<string>kQ0GorXbIWGY7LMk</string>
+	<key>UMAnalyticsConfigAppKey</key>
+	<string>574011a6e0f55acb3200270a</string>
+	<key>TalkingDataSession</key>
+	<string>EB304F0B34B5B775BD23554F6456B3C4</string>
+	<key>EasyARAppKey</key>
+	<string>Xe0xQqtQ9vL7AjMdLqW2c8SovCLsaGtqCKChl285py1Ba7aAMwtGbKLTqQm8gyxveP1Skb9q37dUNkupEqp6fLPnxOd7fghQLNmO1f07ca1144bf716f23b53826e0d24889ajEdFsvWFcHYPDhmyJBeamJMp4PyZPzzur5JR7EVNO8jKW7D6bxh4bIFO7DO2aOvqkTD</string>
+</dict>
+</plist>

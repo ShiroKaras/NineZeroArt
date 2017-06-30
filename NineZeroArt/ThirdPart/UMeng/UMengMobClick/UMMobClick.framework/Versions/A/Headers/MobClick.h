@@ -59,7 +59,7 @@ typedef NS_ENUM (NSUInteger, eScenarioType)
 ///---------------------------------------------------------------------------------------
 
 /** 初始化友盟统计模块
- @param UMAnalyticsConfig 实例类，具体参照该类成员的参数定义
+ @param configure 实例类，具体参照该类成员的参数定义
  @return void
  */
 + (void) startWithConfigure:(UMAnalyticsConfig *)configure;
