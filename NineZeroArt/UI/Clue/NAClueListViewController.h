@@ -11,3 +11,10 @@
 @interface NAClueListViewController : UIViewController
 
 @end
+
+
+@interface NAClueCell : UITableViewCell
+@property (nonatomic, strong) UIImageView *backImageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *placeLabel;
+@end

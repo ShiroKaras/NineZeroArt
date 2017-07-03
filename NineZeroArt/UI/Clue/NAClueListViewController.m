@@ -16,6 +16,12 @@
 
 @implementation NAClueListViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
@@ -26,7 +32,7 @@
     self.tableView.dataSource = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
+    [self.tableView registerClass:[NAClueCell class] forCellReuseIdentifier:NSStringFromClass([NAClueCell class])];
     [self.view addSubview:self.tableView];
     
     UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
@@ -65,12 +71,12 @@
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([UITableViewCell class]) forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor clearColor];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    for (UIView *view in cell.contentView.subviews) {
-        [view removeFromSuperview];
+    NAClueCell *cell = [self.tableView dequeueReusableCellWithIdentifier:NSStringFromClass([NAClueCell class]) forIndexPath:indexPath];
+    if (cell==nil) {
+        cell = [[NAClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NAClueCell class])];
     }
+    cell.titleLabel.text = @"北京美年达周年庆";
+    cell.placeLabel.text = @"北京";
     return cell;
 }
 
@@ -85,11 +91,71 @@
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.clueArray.count;
+    return 5;
+//    return self.clueArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
+}
+
+
+@end
+
+
+@interface NAClueCell()
+
+@end
+
+@implementation NAClueCell
+
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    if (self == [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.backgroundColor = COMMON_BG_COLOR;
+        
+        _backImageView = [UIImageView new];
+//        _backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_labpage_loading.imageset"]];
+        _backImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backImageView.layer.masksToBounds = YES;
+        [self.contentView addSubview:_backImageView];
+        [_backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH, ROUND_WIDTH_FLOAT(128)));
+            make.top.equalTo(self.contentView);
+            make.left.equalTo(self.contentView);
+        }];
+        
+        UIImageView *icon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_cluepage_place"]];
+        [self.contentView addSubview:icon];
+        [icon mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(23), ROUND_WIDTH_FLOAT(23)));
+            make.top.equalTo(ROUND_WIDTH(68));
+            make.left.equalTo(ROUND_WIDTH(6));
+        }];
+        
+        _titleLabel = [UILabel new];
+        _titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(20);
+        _titleLabel.textColor = [UIColor whiteColor];
+        [self.contentView addSubview:_titleLabel];
+        [_titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(icon.mas_right).offset(6);
+            make.right.equalTo(self.contentView.mas_right).offset(-6);
+            make.centerY.equalTo(icon);
+            make.height.equalTo(ROUND_WIDTH(26));
+        }];
+        
+        _placeLabel = [UILabel new];
+        _placeLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(16);
+        _placeLabel.textColor = [UIColor whiteColor];
+        [self.contentView addSubview:_placeLabel];
+        [_placeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_titleLabel);
+            make.right.equalTo(_titleLabel);
+            make.top.equalTo(_titleLabel.mas_bottom).offset(10);
+            make.height.equalTo(ROUND_WIDTH(22));
+        }];
+    }
+    return self;
 }
 
 

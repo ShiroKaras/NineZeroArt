@@ -24,6 +24,7 @@
 #import "DemoDanmakuItem.h"
 
 #import "NAProfileViewController.h"
+#import "NAClueListViewController.h"
 
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
@@ -134,7 +135,7 @@
     UIButton *taskButton = [UIButton new];
     [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list"] forState:UIControlStateNormal];
     [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list_highlight"] forState:UIControlStateHighlighted];
-    [taskButton addTarget:self action:@selector(didClickTaskButton:) forControlEvents:UIControlEventTouchUpInside];
+    [taskButton addTarget:self action:@selector(didClickClueButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:taskButton];
     taskButton.size = CGSizeMake(32, 32);
     taskButton.top = 16;
@@ -266,8 +267,9 @@
     [self.navigationController pushViewController:controller animated:YES];
 }
 
-- (void)didClickTaskButton:(UIButton *)sender {
-    
+- (void)didClickClueButton:(UIButton *)sender {
+    NAClueListViewController *controller = [[NAClueListViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark  FXDanmakuDelegate
