@@ -7,31 +7,100 @@
 //
 
 #import "NAProfileViewController.h"
+#import "HTUIHeader.h"
 
 @interface NAProfileViewController ()
-
+@property (nonatomic, strong) UIImageView *avatarImageView;
+@property (nonatomic, strong) UILabel *usernameLabel;
 @end
 
 @implementation NAProfileViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    [self createUI];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)createUI {
+    WS(weakSelf);
+    
+    //标题
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.width, 49)];
+    [self.view addSubview:titleView];
+    UIImageView *titleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_userpage_titletext"]];
+    [titleView addSubview:titleImageView];
+    [titleImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(titleView);
+    }];
+    
+    _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    [self.view addSubview:_avatarImageView];
+    [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64)));
+        make.centerX.equalTo(titleView);
+        make.top.equalTo(titleView.mas_bottom).offset(ROUND_HEIGHT_FLOAT(20));
+    }];
+    
+    _usernameLabel = [UILabel new];
+    _usernameLabel.text = @"我是一个零仔";
+    _usernameLabel.textColor = [UIColor whiteColor];
+    _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
+    [self.view addSubview:_usernameLabel];
+    [_usernameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(weakSelf.view);
+        make.top.equalTo(_avatarImageView.mas_bottom).offset(ROUND_HEIGHT_FLOAT(10));
+    }];
+    
+    [self.view layoutIfNeeded];
+    NSArray *titleArray = @[@"我的礼券",@"清除缓存",@"关于"];
+    for (int i = 0; i<3; i++) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, _usernameLabel.bottom+ROUND_HEIGHT_FLOAT(30+50*i), weakSelf.view.width, ROUND_HEIGHT_FLOAT(50))];
+        [self.view addSubview:view];
+        UIView *underline = [[UIView alloc] initWithFrame:CGRectMake(16, ROUND_HEIGHT_FLOAT(49), view.width-32, 1)];
+        underline.backgroundColor = COMMON_SELECTED_COLOR;
+        [view addSubview:underline];
+        
+        UILabel *titleLabel = [UILabel new];
+        titleLabel.text = titleArray[i];
+        titleLabel.textColor = COMMON_TEXT_2_COLOR;
+        titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+        [titleLabel sizeToFit];
+        [view addSubview:titleLabel];
+        titleLabel.left = 16;
+        titleLabel.centerY = view.height/2;
+        
+        if (i==0|i==2) {
+            UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_userpage_next"]];
+            [view addSubview:arrow];
+            arrow.right = view.right-11.5;
+            arrow.centerY = view.height/2;
+        }
+    }
+    
+    UIButton *quitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, _usernameLabel.bottom+ROUND_HEIGHT_FLOAT(30+50*3+50), self.view.width, ROUND_HEIGHT_FLOAT(50))];
+    [quitButton setBackgroundColor:COMMON_TITLE_BG_COLOR];
+    [quitButton setImage:[UIImage imageNamed:@"img_userpage_exit"] forState:UIControlStateNormal];
+    [quitButton setImage:[UIImage imageNamed:@"img_userpage_exit_highlight"] forState:UIControlStateHighlighted];
+    [quitButton addTarget:self action:@selector(didClickQuitButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:quitButton];
 }
-*/
+
+#pragma mark - Actions
+
+- (void)didClickQuitButton:(UIButton*)sender {
+    
+}
 
 @end

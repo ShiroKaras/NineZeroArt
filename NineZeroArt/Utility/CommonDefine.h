@@ -33,11 +33,11 @@
 #define WS(weakSelf) __weak __typeof(&*self) weakSelf = self;
 
 // 布局换算比例
-#define ROUND_WIDTH(w) @((w / 320.0) * SCREEN_WIDTH)
-#define ROUND_HEIGHT(h) @((h / 568.0) * SCREEN_HEIGHT)
+#define ROUND_WIDTH(w) @(((w) / 320.0) * SCREEN_WIDTH)
+#define ROUND_HEIGHT(h) @(((h) / 568.0) * SCREEN_HEIGHT)
 
-#define ROUND_WIDTH_FLOAT(w) (w / 320.0) * SCREEN_WIDTH
-#define ROUND_HEIGHT_FLOAT(h) (h / 568.0) * SCREEN_HEIGHT
+#define ROUND_WIDTH_FLOAT(w) ((w) / 320.0) * SCREEN_WIDTH
+#define ROUND_HEIGHT_FLOAT(h) ((h) / 568.0) * SCREEN_HEIGHT
 
 //#define ARTICLE_URL_STRING @"http://101.201.39.169:8001/views/article.html"
 //#define ANSWER_URL_STRING @"http://101.201.39.169:8001/views/answer.html"

@@ -7,6 +7,9 @@
 //
 
 #import "ViewController.h"
+#import "HTUIHeader.h"
+
+#import "SKSwipeViewController.h"
 
 @interface ViewController ()
 
@@ -14,14 +17,37 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
-
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self createUI];
+}
+    
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
+    
+- (void)createUI {
+    self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    UIButton *loginButton = [UIButton buttonWithType:UIButtonTypeSystem];
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [loginButton  addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton sizeToFit];
+    [self.view addSubview:loginButton];
+    loginButton.centerX = self.view.centerX;
+    loginButton.bottom = self.view.bottom - 100;
+}
 
-
+- (void)didClickLoginButton:(UIButton *)sender {
+    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:NO];
+}
+    
 @end

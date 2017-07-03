@@ -10,6 +10,8 @@
 #import "CommonUI.h"
 #import "HTUIHeader.h"
 
+#import "SKSwipeViewController.h"
+
 @implementation HTNavigationController
 
 - (void)viewDidLoad {
@@ -35,11 +37,13 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
 	[super pushViewController:viewController animated:animated];
 
-	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1) {
+	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
+        &&![viewController isKindOfClass:[SKSwipeViewController class]]
+        ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;
-		[button setImage:[UIImage imageNamed:@"btn_back"] forState:UIControlStateNormal];
-		[button setImage:[UIImage imageNamed:@"btn_back_highlight"] forState:UIControlStateHighlighted];
+		[button setImage:[UIImage imageNamed:@"btn_cluepage_back"] forState:UIControlStateNormal];
+		[button setImage:[UIImage imageNamed:@"btn_cluepage_back_highlight"] forState:UIControlStateHighlighted];
 		[button sizeToFit];
 		button.top += 28;
 		button.left += 13.5;

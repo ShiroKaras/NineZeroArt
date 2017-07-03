@@ -148,6 +148,7 @@
 		1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */; };
 		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
+		11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB31F09F5430098F678 /* NAProfileViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
 		11FFFCF71F05067000CEC7EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF61F05067000CEC7EB /* ViewController.m */; };
@@ -454,6 +455,8 @@
 		1169B38C1F063C0700CE552B /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTicketView.h; sourceTree = "<group>"; };
 		1169B38D1F063C0700CE552B /* SKTicketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTicketView.m; sourceTree = "<group>"; };
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
+		11F00DB21F09F5430098F678 /* NAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAProfileViewController.h; path = Profile/NAProfileViewController.h; sourceTree = "<group>"; };
+		11F00DB31F09F5430098F678 /* NAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAProfileViewController.m; path = Profile/NAProfileViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FFFCF01F05067000CEC7EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11FFFCF21F05067000CEC7EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1035,10 +1038,11 @@
 		1169B3311F06399F00CE552B /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				1169B38B1F063C0700CE552B /* Ticket */,
+				11F00DB11F09F4EE0098F678 /* Profile */,
+				1169B3321F06399F00CE552B /* Common */,
 				1169B3821F063BC200CE552B /* Danmaku */,
 				1169B3591F063A3400CE552B /* LBS_AR */,
-				1169B3321F06399F00CE552B /* Common */,
+				1169B38B1F063C0700CE552B /* Ticket */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1134,6 +1138,15 @@
 				1169B38D1F063C0700CE552B /* SKTicketView.m */,
 			);
 			path = Ticket;
+			sourceTree = "<group>";
+		};
+		11F00DB11F09F4EE0098F678 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				11F00DB21F09F5430098F678 /* NAProfileViewController.h */,
+				11F00DB31F09F5430098F678 /* NAProfileViewController.m */,
+			);
+			name = Profile;
 			sourceTree = "<group>";
 		};
 		11FFFCE31F05067000CEC7EB = {
@@ -1302,6 +1315,7 @@
 		11FFFCE41F05067000CEC7EB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NA;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = SinLemon;
 				TargetAttributes = {
@@ -1545,6 +1559,7 @@
 				1169B2AF1F05151100CE552B /* FXGCDTimer.m in Sources */,
 				1169B2AD1F05151100CE552B /* FXDanmakuItemData.m in Sources */,
 				1169B2921F05151100CE552B /* NSData+Encryption.m in Sources */,
+				11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */,
 				1169B3581F06399F00CE552B /* UIViewController+ImagePicker.m in Sources */,
 				1169B2F91F05154200CE552B /* HTStorageDefine.m in Sources */,
 				1169B3251F05F57600CE552B /* SKLoginService.m in Sources */,
@@ -1739,8 +1754,11 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1786,7 +1804,10 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = NO;
+				GCC_PREFIX_HEADER = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

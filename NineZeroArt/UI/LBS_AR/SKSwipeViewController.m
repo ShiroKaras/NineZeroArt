@@ -23,6 +23,8 @@
 #import "DemoDanmakuItemData.h"
 #import "DemoDanmakuItem.h"
 
+#import "NAProfileViewController.h"
+
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
 #define ScreenScale [UIScreen mainScreen].scale
@@ -79,27 +81,25 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+    self.view.backgroundColor = COMMON_BG_COLOR;
     
     [self createUI];
     
-    [self setupDanmaku];
+//    [self setupDanmaku];
     
-	if (!NO_NETWORK) {
-		[self loadData];
-	}
+//	if (!NO_NETWORK) {
+//		[self loadData];
+//	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    //隐藏状态栏
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self.scanningImageView removeFromSuperview];
-    //显示状态栏
-    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -121,6 +121,29 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     
+    //个人主页
+    UIButton *profileButton = [UIButton new];
+    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal"] forState:UIControlStateNormal];
+    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal_highlight"] forState:UIControlStateHighlighted];
+    [profileButton addTarget:self action:@selector(didClickProfileButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:profileButton];
+    profileButton.size = CGSizeMake(32, 32);
+    profileButton.top = 16;
+    profileButton.left = 16;
+    
+    UIButton *taskButton = [UIButton new];
+    [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list"] forState:UIControlStateNormal];
+    [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list_highlight"] forState:UIControlStateHighlighted];
+    [taskButton addTarget:self action:@selector(didClickTaskButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:taskButton];
+    taskButton.size = CGSizeMake(32, 32);
+    taskButton.top = 16;
+    taskButton.right = self.view.right - 16;
+    
+    [self createBottomView];
+}
+
+- (void)createBottomView {
     self.bottomView = [[UIView alloc] initWithFrame:CGRectMake(0, self.view.bottom-49, SCREEN_WIDTH, 49)];
     [self.view addSubview:self.bottomView];
     
@@ -144,14 +167,14 @@
     NSMutableParagraphStyle *style = [_commentTextField.defaultTextAttributes[NSParagraphStyleAttributeName] mutableCopy];
     style.minimumLineHeight = _commentTextField.font.lineHeight - (_commentTextField.font.lineHeight - [UIFont systemFontOfSize:14.0].lineHeight) / 2.0;
     _commentTextField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"我也来评论下..."
-                                                                          attributes:@{
-                                                                                       NSForegroundColorAttributeName:COMMON_TEXT_2_COLOR,
-                                                                                       NSFontAttributeName : [UIFont systemFontOfSize:12.0],
-                                                                                       NSParagraphStyleAttributeName : style
-                                                                                       }];
+                                                                              attributes:@{
+                                                                                           NSForegroundColorAttributeName:COMMON_TEXT_2_COLOR,
+                                                                                           NSFontAttributeName : [UIFont systemFontOfSize:12.0],
+                                                                                           NSParagraphStyleAttributeName : style
+                                                                                           }];
     [self.bottomView addSubview:_commentTextField];
-    self.commentTextField.hidden = YES;
-    self.danmakuSwitchButton.hidden = YES;
+    //    self.commentTextField.hidden = YES;
+    //    self.danmakuSwitchButton.hidden = YES;
 }
 
 - (void)danmakuSwitchButtonClick:(UIButton*)sender {
@@ -236,6 +259,17 @@
     [self.danmaku pause];
 }
 
+#pragma mark - Actions
+
+- (void)didClickProfileButton:(UIButton *)sender {
+    NAProfileViewController *controller = [[NAProfileViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
+- (void)didClickTaskButton:(UIButton *)sender {
+    
+}
+
 #pragma mark  FXDanmakuDelegate
 - (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
     
@@ -249,7 +283,7 @@
 	    if (success) {
 		    NSDictionary *data = package.data[0];
 		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
-			    [self.navigationController popViewControllerAnimated:YES];
+//			    [self.navigationController popViewControllerAnimated:YES];
 			    return;
 		    }
             
