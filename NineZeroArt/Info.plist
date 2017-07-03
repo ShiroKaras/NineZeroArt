@@ -42,5 +42,12 @@
 	<false/>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>九零Art想要访问您的相机</string>
 </dict>
 </plist>

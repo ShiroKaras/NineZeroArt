@@ -9,6 +9,8 @@
 #import "NAProfileViewController.h"
 #import "HTUIHeader.h"
 
+#import "SKProfileMyTicketsViewController.h"
+
 @interface NAProfileViewController ()
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
@@ -67,6 +69,7 @@
     NSArray *titleArray = @[@"我的礼券",@"清除缓存",@"关于"];
     for (int i = 0; i<3; i++) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, _usernameLabel.bottom+ROUND_HEIGHT_FLOAT(30+50*i), weakSelf.view.width, ROUND_HEIGHT_FLOAT(50))];
+        view.tag = 100+i;
         [self.view addSubview:view];
         UIView *underline = [[UIView alloc] initWithFrame:CGRectMake(16, ROUND_HEIGHT_FLOAT(49), view.width-32, 1)];
         underline.backgroundColor = COMMON_SELECTED_COLOR;
@@ -80,6 +83,9 @@
         [view addSubview:titleLabel];
         titleLabel.left = 16;
         titleLabel.centerY = view.height/2;
+        
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewDidTap:)];
+        [view addGestureRecognizer:tapGesture];
         
         if (i==0|i==2) {
             UIImageView *arrow = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_userpage_next"]];
@@ -101,6 +107,20 @@
 
 - (void)didClickQuitButton:(UIButton*)sender {
     
+}
+
+- (void)viewDidTap:(UITapGestureRecognizer *)gestureRecognizer {
+    UIView *v = (UIView *)[gestureRecognizer view];
+    switch (v.tag) {
+        case 100:{
+            SKProfileMyTicketsViewController *controller = [[SKProfileMyTicketsViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 @end

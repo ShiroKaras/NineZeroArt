@@ -24,7 +24,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStylePlain];
     self.tableView.bounces = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -33,32 +33,18 @@
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:NSStringFromClass([UITableViewCell class])];
     [self.view addSubview:self.tableView];
     
-    UIView *tableViewHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    tableViewHeaderView.backgroundColor = [UIColor clearColor];
-    self.tableView.tableHeaderView = tableViewHeaderView;
-    
     UIView *tableViewFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 16)];
     tableViewFooterView.backgroundColor = [UIColor clearColor];
     self.tableView.tableFooterView = tableViewFooterView;
     
-    UIImageView *backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_rank_shading"]];
-    backImageView.tag = 202;
-    backImageView.alpha = 0;
-    backImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 64);
-    backImageView.contentMode = UIViewContentModeScaleAspectFill;
-    [self.view addSubview:backImageView];
-    
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 64)];
-    headerView.tag = 200;
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, 49)];
     headerView.backgroundColor = [UIColor clearColor];
-    UILabel *titleLabel = [UILabel new];
-    titleLabel.text = @"我的礼券";
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = PINGFANG_FONT_OF_SIZE(17);
-    [titleLabel sizeToFit];
-    titleLabel.center = headerView.center;
-    [headerView addSubview:titleLabel];
     [self.view addSubview:headerView];
+    
+    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_giftpage_titletext"]];
+    [headerView addSubview:headerImageView];
+    headerImageView.centerX = headerView.centerX;
+    headerImageView.centerY = headerView.height/2;
     
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
@@ -68,8 +54,9 @@
         [_blankView setOffset:10];
         [converView addSubview:_blankView];
         _blankView.center = converView.center;
-    } else
+    } else {
         [self loadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -77,20 +64,21 @@
 }
 
 - (void)loadData {
-    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
-        if (tickets.count == 0) {
-            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
-            converView.backgroundColor = [UIColor clearColor];
-            [self.view addSubview:converView];
-            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
-            [self.view addSubview:blankView];
-            blankView.top = ROUND_HEIGHT_FLOAT(217);
-        } else {
-            self.ticketArray = tickets;
-            [self.tableView reloadData];
-        }
-    }];
+    NSArray<SKTicket *> *tickets;
+    if (tickets.count == 0) {
+        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
+        converView.backgroundColor = [UIColor clearColor];
+        [self.view addSubview:converView];
+        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+        [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+        [self.view addSubview:blankView];
+        blankView.top = ROUND_HEIGHT_FLOAT(217);
+    } else {
+        self.ticketArray = tickets;
+        [self.tableView reloadData];
+    }
+//    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
+//    }];
 }
 
 #pragma mark - UITableViewDelegate
@@ -137,47 +125,47 @@
 
 #pragma mark - UIScrollView Delegate
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y <= 64) {
-        [UIView animateWithDuration:0.3 animations:^{
-            [self.view viewWithTag:9001].alpha = 1;
-            [self.view viewWithTag:200].alpha = 1;
-            [self.view viewWithTag:202].alpha = 0;
-            [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
-            [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
-            [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
-        } completion:^(BOOL finished) {
-            
-        }];
-    } else {
-        if (lastOffsetY >= scrollView.contentOffset.y) {
-            [UIView animateWithDuration:0.3 animations:^{
-                //显示
-                [self.view viewWithTag:9001].alpha = 1;
-                [self.view viewWithTag:200].alpha = 1;
-                [self.view viewWithTag:202].alpha = 1;
-                [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
-                [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
-                [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
-            } completion:^(BOOL finished) {
-                
-            }];
-        } else {
-            [UIView animateWithDuration:0.3 animations:^{
-                //隐藏
-                [self.view viewWithTag:9001].alpha = 0;
-                [self.view viewWithTag:200].alpha = 0;
-                [self.view viewWithTag:202].alpha = 0;
-                [self.view viewWithTag:9001].bottom = 0;
-                [self.view viewWithTag:200].bottom = 0;
-                [self.view viewWithTag:202].bottom = 0;
-            } completion:^(BOOL finished) {
-                
-            }];
-        }
-    }
-    lastOffsetY = scrollView.contentOffset.y;
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    if (scrollView.contentOffset.y <= 64) {
+//        [UIView animateWithDuration:0.3 animations:^{
+//            [self.view viewWithTag:9001].alpha = 1;
+//            [self.view viewWithTag:200].alpha = 1;
+//            [self.view viewWithTag:202].alpha = 0;
+//            [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+//            [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+//            [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//    } else {
+//        if (lastOffsetY >= scrollView.contentOffset.y) {
+//            [UIView animateWithDuration:0.3 animations:^{
+//                //显示
+//                [self.view viewWithTag:9001].alpha = 1;
+//                [self.view viewWithTag:200].alpha = 1;
+//                [self.view viewWithTag:202].alpha = 1;
+//                [self.view viewWithTag:9001].bottom = [self.view viewWithTag:9001].height+12;
+//                [self.view viewWithTag:200].bottom = [self.view viewWithTag:200].height;
+//                [self.view viewWithTag:202].bottom = [self.view viewWithTag:202].height;
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        } else {
+//            [UIView animateWithDuration:0.3 animations:^{
+//                //隐藏
+//                [self.view viewWithTag:9001].alpha = 0;
+//                [self.view viewWithTag:200].alpha = 0;
+//                [self.view viewWithTag:202].alpha = 0;
+//                [self.view viewWithTag:9001].bottom = 0;
+//                [self.view viewWithTag:200].bottom = 0;
+//                [self.view viewWithTag:202].bottom = 0;
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//        }
+//    }
+//    lastOffsetY = scrollView.contentOffset.y;
+//}
 
 
 @end

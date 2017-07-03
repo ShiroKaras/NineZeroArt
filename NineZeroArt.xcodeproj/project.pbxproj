@@ -149,6 +149,9 @@
 		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
 		11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB31F09F5430098F678 /* NAProfileViewController.m */; };
+		11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */; };
+		11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */; };
+		11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
 		11FFFCF71F05067000CEC7EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF61F05067000CEC7EB /* ViewController.m */; };
@@ -457,6 +460,12 @@
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
 		11F00DB21F09F5430098F678 /* NAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAProfileViewController.h; path = Profile/NAProfileViewController.h; sourceTree = "<group>"; };
 		11F00DB31F09F5430098F678 /* NAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAProfileViewController.m; path = Profile/NAProfileViewController.m; sourceTree = "<group>"; };
+		11F00DB51F0A3A020098F678 /* SKProfileMyTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileMyTicketsViewController.h; sourceTree = "<group>"; };
+		11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKProfileMyTicketsViewController.m; sourceTree = "<group>"; };
+		11F00DB81F0A3A2D0098F678 /* SKDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKDescriptionView.h; sourceTree = "<group>"; };
+		11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDescriptionView.m; sourceTree = "<group>"; };
+		11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueListViewController.h; path = Clue/NAClueListViewController.h; sourceTree = "<group>"; };
+		11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueListViewController.m; path = Clue/NAClueListViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FFFCF01F05067000CEC7EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11FFFCF21F05067000CEC7EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1038,6 +1047,7 @@
 		1169B3311F06399F00CE552B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				11F00DBB1F0A447E0098F678 /* Clue */,
 				11F00DB11F09F4EE0098F678 /* Profile */,
 				1169B3321F06399F00CE552B /* Common */,
 				1169B3821F063BC200CE552B /* Danmaku */,
@@ -1134,8 +1144,12 @@
 		1169B38B1F063C0700CE552B /* Ticket */ = {
 			isa = PBXGroup;
 			children = (
+				11F00DB51F0A3A020098F678 /* SKProfileMyTicketsViewController.h */,
+				11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */,
 				1169B38C1F063C0700CE552B /* SKTicketView.h */,
 				1169B38D1F063C0700CE552B /* SKTicketView.m */,
+				11F00DB81F0A3A2D0098F678 /* SKDescriptionView.h */,
+				11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */,
 			);
 			path = Ticket;
 			sourceTree = "<group>";
@@ -1147,6 +1161,15 @@
 				11F00DB31F09F5430098F678 /* NAProfileViewController.m */,
 			);
 			name = Profile;
+			sourceTree = "<group>";
+		};
+		11F00DBB1F0A447E0098F678 /* Clue */ = {
+			isa = PBXGroup;
+			children = (
+				11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */,
+				11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */,
+			);
+			name = Clue;
 			sourceTree = "<group>";
 		};
 		11FFFCE31F05067000CEC7EB = {
@@ -1558,6 +1581,7 @@
 				1169B19E1F0514AE00CE552B /* CustomSecurityPolicy.m in Sources */,
 				1169B2AF1F05151100CE552B /* FXGCDTimer.m in Sources */,
 				1169B2AD1F05151100CE552B /* FXDanmakuItemData.m in Sources */,
+				11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */,
 				1169B2921F05151100CE552B /* NSData+Encryption.m in Sources */,
 				11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */,
 				1169B3581F06399F00CE552B /* UIViewController+ImagePicker.m in Sources */,
@@ -1597,6 +1621,7 @@
 				11FFFCFD1F05067000CEC7EB /* NineZeroArt.xcdatamodeld in Sources */,
 				1169B37E1F063A3400CE552B /* SKScanningResultView.m in Sources */,
 				1169B2B01F05151100CE552B /* FXReusableObjectQueue.m in Sources */,
+				11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */,
 				1169B2D01F05151100CE552B /* MJRefreshGifHeader.m in Sources */,
 				1169B1AC1F0514AE00CE552B /* SKImageHelper.m in Sources */,
 				1169B37D1F063A3400CE552B /* SKScanningPuzzleView.m in Sources */,
@@ -1626,6 +1651,7 @@
 				1169B19B1F0514AE00CE552B /* BaseConfiguration.m in Sources */,
 				1169B2D21F05151100CE552B /* MJRefreshStateHeader.m in Sources */,
 				1169B37F1F063A3400CE552B /* SKScanningRewardView.m in Sources */,
+				11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */,
 				1169B2A01F05151100CE552B /* ARRadar.m in Sources */,
 				1169B1A21F0514AE00CE552B /* HUD+Utility.m in Sources */,
 				1169B2EB1F05151100CE552B /* YYFrameImage.m in Sources */,
