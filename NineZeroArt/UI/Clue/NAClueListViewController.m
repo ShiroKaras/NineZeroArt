@@ -9,6 +9,9 @@
 #import "NAClueListViewController.h"
 #import "HTUIHeader.h"
 
+#import "NAClueDetailViewController.h"
+#import "NAProfileViewController.h"
+
 @interface NAClueListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray* clueArray;
@@ -48,6 +51,16 @@
     headerImageView.centerX = headerView.centerX;
     headerImageView.centerY = headerView.height/2;
     
+    //个人主页
+    UIButton *profileButton = [UIButton new];
+    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal"] forState:UIControlStateNormal];
+    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal_highlight"] forState:UIControlStateHighlighted];
+    [profileButton addTarget:self action:@selector(didClickProfileButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:profileButton];
+    profileButton.size = CGSizeMake(32, 32);
+    profileButton.centerY = headerView.centerY;
+    profileButton.left = 16;
+    
     if (NO_NETWORK) {
         UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
         converView.backgroundColor = COMMON_BG_COLOR;
@@ -68,6 +81,14 @@
 - (void)loadData {
     
 }
+
+#pragma mark - Actions
+
+- (void)didClickProfileButton:(UIButton *)sender {
+    NAProfileViewController *controller = [[NAProfileViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 #pragma mark - UITableViewDelegate
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -85,7 +106,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:NO];
 }
 
 #pragma mark - UITableViewDataSource

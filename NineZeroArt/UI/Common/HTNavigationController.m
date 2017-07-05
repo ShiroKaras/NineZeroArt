@@ -10,7 +10,7 @@
 #import "CommonUI.h"
 #import "HTUIHeader.h"
 
-#import "SKSwipeViewController.h"
+#import "NAClueListViewController.h"
 
 @implementation HTNavigationController
 
@@ -38,7 +38,7 @@
 	[super pushViewController:viewController animated:animated];
 
 	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
-        &&![viewController isKindOfClass:[SKSwipeViewController class]]
+        &&![viewController isKindOfClass:[NAClueListViewController class]]
         ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;

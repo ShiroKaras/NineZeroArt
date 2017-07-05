@@ -148,6 +148,7 @@
 		1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */; };
 		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
+		118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */; };
 		11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB31F09F5430098F678 /* NAProfileViewController.m */; };
 		11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */; };
 		11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */; };
@@ -461,6 +462,8 @@
 		1169B38C1F063C0700CE552B /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTicketView.h; sourceTree = "<group>"; };
 		1169B38D1F063C0700CE552B /* SKTicketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTicketView.m; sourceTree = "<group>"; };
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
+		118A3F211F0CF9A3009902D1 /* NAClueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueDetailViewController.h; path = Clue/NAClueDetailViewController.h; sourceTree = "<group>"; };
+		118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueDetailViewController.m; path = Clue/NAClueDetailViewController.m; sourceTree = "<group>"; };
 		11F00DB21F09F5430098F678 /* NAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAProfileViewController.h; path = Profile/NAProfileViewController.h; sourceTree = "<group>"; };
 		11F00DB31F09F5430098F678 /* NAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAProfileViewController.m; path = Profile/NAProfileViewController.m; sourceTree = "<group>"; };
 		11F00DB51F0A3A020098F678 /* SKProfileMyTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileMyTicketsViewController.h; sourceTree = "<group>"; };
@@ -1178,6 +1181,8 @@
 			children = (
 				11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */,
 				11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */,
+				118A3F211F0CF9A3009902D1 /* NAClueDetailViewController.h */,
+				118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */,
 			);
 			name = Clue;
 			sourceTree = "<group>";
@@ -1731,6 +1736,7 @@
 				1169B2CD1F05151100CE552B /* MJRefreshBackGifFooter.m in Sources */,
 				1169B2BE1F05151100CE552B /* MJPropertyKey.m in Sources */,
 				1169B1B01F0514AE00CE552B /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
+				118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */,
 				1169B1A51F0514AE00CE552B /* NSDate+Utility.m in Sources */,
 				11FFFCF11F05067000CEC7EB /* main.m in Sources */,
 				11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */,

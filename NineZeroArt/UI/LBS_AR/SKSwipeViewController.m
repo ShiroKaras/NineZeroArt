@@ -23,9 +23,6 @@
 #import "DemoDanmakuItemData.h"
 #import "DemoDanmakuItem.h"
 
-#import "NAProfileViewController.h"
-#import "NAClueListViewController.h"
-
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
 #define ScreenScale [UIScreen mainScreen].scale
@@ -86,11 +83,11 @@
     
     [self createUI];
     
-//    [self setupDanmaku];
+    [self setupDanmaku];
     
-//	if (!NO_NETWORK) {
-//		[self loadData];
-//	}
+	if (!NO_NETWORK) {
+		[self loadData];
+	}
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,26 +118,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    
-    //个人主页
-    UIButton *profileButton = [UIButton new];
-    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal"] forState:UIControlStateNormal];
-    [profileButton setImage:[UIImage imageNamed:@"btn_homepage_personal_highlight"] forState:UIControlStateHighlighted];
-    [profileButton addTarget:self action:@selector(didClickProfileButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:profileButton];
-    profileButton.size = CGSizeMake(32, 32);
-    profileButton.top = 16;
-    profileButton.left = 16;
-    
-    UIButton *taskButton = [UIButton new];
-    [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list"] forState:UIControlStateNormal];
-    [taskButton setImage:[UIImage imageNamed:@"btn_homepage_list_highlight"] forState:UIControlStateHighlighted];
-    [taskButton addTarget:self action:@selector(didClickClueButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:taskButton];
-    taskButton.size = CGSizeMake(32, 32);
-    taskButton.top = 16;
-    taskButton.right = self.view.right - 16;
-    
+
     [self createBottomView];
 }
 
@@ -260,18 +238,6 @@
     [self.danmaku pause];
 }
 
-#pragma mark - Actions
-
-- (void)didClickProfileButton:(UIButton *)sender {
-    NAProfileViewController *controller = [[NAProfileViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
-- (void)didClickClueButton:(UIButton *)sender {
-    NAClueListViewController *controller = [[NAClueListViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
-}
-
 #pragma mark  FXDanmakuDelegate
 - (void)danmaku:(FXDanmaku *)danmaku didClickItem:(FXDanmakuItem *)item withData:(DemoDanmakuItemData *)data {
     
@@ -302,13 +268,6 @@
                 self.danmaku.hidden = YES;
                 self.bottomView.hidden = YES;
             }
-//            //拼图扫一扫字段（暂时无用）
-//		    self.linkClarity = [data objectForKey:@"link_clarity"];
-//		    self.defaultPic = [data objectForKey:@"default_pic"];
-//            self.rewardAction = [[data objectForKey:@"reward_action"] mutableCopy];
-//		    self.rewardRecord = [SKReward mj_objectWithKeyValues:[data objectForKey:@"reward_record"]];
-            
-            
             
 		    __weak __typeof__(self) weakSelf = self;
 		    [self setupScanningFile:data

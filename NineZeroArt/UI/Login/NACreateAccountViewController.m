@@ -9,7 +9,7 @@
 #import "NACreateAccountViewController.h"
 #import "HTUIHeader.h"
 
-#import "SKSwipeViewController.h"
+#import "NAClueListViewController.h"
 
 @interface NACreateAccountViewController ()
 @property (nonatomic, strong) UIButton *avatarButton;
@@ -84,7 +84,6 @@
     [_nextButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
     [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _nextButton.frame = CGRectMake(0, self.view.height - 50, self.view.width, 50);
-    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0x0e0e0e alpha:0.3]] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_logins_login2"] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_logins_login2_highlight"] forState:UIControlStateHighlighted];
     _nextButton.adjustsImageWhenHighlighted = NO;
@@ -93,7 +92,7 @@
 
 - (void)nextButtonClick:(UIButton *)sender {
     _userInfo.user_name = _usernameTextField.text;
-    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+    NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
     [self.navigationController pushViewController:controller animated:NO];
 }
 
