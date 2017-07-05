@@ -125,7 +125,7 @@
 }
 
 + (NSString *)avatarName {
-	return [NSString stringWithFormat:@"avatar_%ld_%@", (time_t)[[NSDate date] timeIntervalSince1970], [[SKStorageManager sharedInstance] getUserID]];
+	return [NSString stringWithFormat:@"avatar_%ld_%u", (time_t)[[NSDate date] timeIntervalSince1970], arc4random()%1024];
 }
 
 - (NSDictionary *)dictionaryWithJsonString {

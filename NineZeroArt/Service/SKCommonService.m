@@ -93,8 +93,8 @@
 	[self commonBaseRequestWithParam:param
 				  callback:^(BOOL success, SKResponsePackage *response) {
 				      if (success) {
-					      callback(success, response.data);
 					      [[SKStorageManager sharedInstance] setQiniuPublicToken:response.data];
+                          callback(success, response.data);
 				      } else {
 					      callback(success, nil);
 				      }

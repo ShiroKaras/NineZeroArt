@@ -26,6 +26,7 @@
 #import "HTImageView.h"
 #import "UIImage+Extension.h"
 #import "UIViewController+HTTips.h"
+#import "UIViewController+ImagePicker.h"
 #import "easing.h"
 #import <AVFoundation/AVFoundation.h>
 #import <Foundation/Foundation.h>
