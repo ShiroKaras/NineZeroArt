@@ -152,6 +152,9 @@
 		11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */; };
 		11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */; };
 		11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */; };
+		11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC11F0B86180098F678 /* NALoginRootViewController.m */; };
+		11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC41F0B93A90098F678 /* NALoginViewController.m */; };
+		11F00DC81F0CD8EE0098F678 /* NACreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
 		11FFFCF71F05067000CEC7EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF61F05067000CEC7EB /* ViewController.m */; };
@@ -466,6 +469,12 @@
 		11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDescriptionView.m; sourceTree = "<group>"; };
 		11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueListViewController.h; path = Clue/NAClueListViewController.h; sourceTree = "<group>"; };
 		11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueListViewController.m; path = Clue/NAClueListViewController.m; sourceTree = "<group>"; };
+		11F00DC01F0B86180098F678 /* NALoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginRootViewController.h; path = Login/NALoginRootViewController.h; sourceTree = "<group>"; };
+		11F00DC11F0B86180098F678 /* NALoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginRootViewController.m; path = Login/NALoginRootViewController.m; sourceTree = "<group>"; };
+		11F00DC31F0B93A90098F678 /* NALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginViewController.h; path = Login/NALoginViewController.h; sourceTree = "<group>"; };
+		11F00DC41F0B93A90098F678 /* NALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginViewController.m; path = Login/NALoginViewController.m; sourceTree = "<group>"; };
+		11F00DC61F0CD8EE0098F678 /* NACreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NACreateAccountViewController.h; path = Login/NACreateAccountViewController.h; sourceTree = "<group>"; };
+		11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NACreateAccountViewController.m; path = Login/NACreateAccountViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FFFCF01F05067000CEC7EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11FFFCF21F05067000CEC7EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1047,6 +1056,7 @@
 		1169B3311F06399F00CE552B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				11F00DBF1F0B86010098F678 /* Login */,
 				11F00DBB1F0A447E0098F678 /* Clue */,
 				11F00DB11F09F4EE0098F678 /* Profile */,
 				1169B3321F06399F00CE552B /* Common */,
@@ -1172,6 +1182,19 @@
 			name = Clue;
 			sourceTree = "<group>";
 		};
+		11F00DBF1F0B86010098F678 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				11F00DC01F0B86180098F678 /* NALoginRootViewController.h */,
+				11F00DC11F0B86180098F678 /* NALoginRootViewController.m */,
+				11F00DC31F0B93A90098F678 /* NALoginViewController.h */,
+				11F00DC41F0B93A90098F678 /* NALoginViewController.m */,
+				11F00DC61F0CD8EE0098F678 /* NACreateAccountViewController.h */,
+				11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */,
+			);
+			name = Login;
+			sourceTree = "<group>";
+		};
 		11FFFCE31F05067000CEC7EB = {
 			isa = PBXGroup;
 			children = (
@@ -1280,6 +1303,8 @@
 				11FFFCEA1F05067000CEC7EB /* Resources */,
 				8AE18EFE1C5FBC82A506BBCF /* [CP] Embed Pods Frameworks */,
 				4DA7616AD57BBA14D7DE1821 /* [CP] Copy Pods Resources */,
+				11F00DC91F0CEE230098F678 /* Client Config */,
+				11F00DCA1F0CEE5B0098F678 /* Server Config */,
 			);
 			buildRules = (
 			);
@@ -1423,6 +1448,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		11F00DC91F0CEE230098F678 /* Client Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Client Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/client/clientconfig.sh";
+		};
+		11F00DCA1F0CEE5B0098F678 /* Server Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Server Config";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ". $SRCROOT/$TARGET_NAME/environment/server/serverconfig.sh";
+		};
 		13783F781EC14E250B17E4EE /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1575,6 +1628,7 @@
 				1169B2C61F05151100CE552B /* MJRefreshBackFooter.m in Sources */,
 				1169B37B1F063A3400CE552B /* SKPopupGetPuzzleView.m in Sources */,
 				1169B1B11F0514AE00CE552B /* UIViewController+HTTips.m in Sources */,
+				11F00DC81F0CD8EE0098F678 /* NACreateAccountViewController.m in Sources */,
 				1169B2C71F05151100CE552B /* MJRefreshComponent.m in Sources */,
 				1169B2A21F05151100CE552B /* LocationMath.m in Sources */,
 				1169B3501F06399F00CE552B /* HTLoginButton.m in Sources */,
@@ -1644,6 +1698,7 @@
 				1169B2D41F05151100CE552B /* MJRefreshConst.m in Sources */,
 				1169B1A91F0514AE00CE552B /* NSTimer+FXWeakTimer.m in Sources */,
 				1169B2CA1F05151100CE552B /* MJRefreshAutoGifFooter.m in Sources */,
+				11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */,
 				1169B19C1F0514AE00CE552B /* ClientConfiguration.m in Sources */,
 				1169B2C01F05151100CE552B /* NSObject+MJClass.m in Sources */,
 				1169B3881F063BC200CE552B /* DemoDanmakuItem.m in Sources */,
@@ -1678,6 +1733,7 @@
 				1169B1B01F0514AE00CE552B /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
 				1169B1A51F0514AE00CE552B /* NSDate+Utility.m in Sources */,
 				11FFFCF11F05067000CEC7EB /* main.m in Sources */,
+				11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */,
 				1169B2C81F05151100CE552B /* MJRefreshFooter.m in Sources */,
 				1169B2E71F05151100CE552B /* SharkfoodMuteSwitchDetector.m in Sources */,
 				1169B3511F06399F00CE552B /* HTNavigationController.m in Sources */,
