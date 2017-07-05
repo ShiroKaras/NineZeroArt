@@ -23,6 +23,7 @@
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [self registerQiniuService];
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     return YES;
 }
@@ -97,6 +98,14 @@
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
     }
+}
+
+#pragma mark - QiNiu
+
+- (void)registerQiniuService {
+    [[[SKServiceManager sharedInstance] commonService]
+     getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token){
+     }];
 }
 
 @end
