@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKLoginUser;
 
 @interface NACreateAccountViewController : UIViewController
-
+- (instancetype)initWithLoginUser:(SKLoginUser*)loginUser;
 @end

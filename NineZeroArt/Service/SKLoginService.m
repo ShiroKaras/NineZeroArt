@@ -66,15 +66,15 @@
 		}];
 }
 
+//注册
 - (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
 	user.user_password = [NSString confusedPasswordWithLoginUser:user];
 
 	NSDictionary *param = @{
 		@"method": @"register",
 		@"user_name": user.user_name,
-		@"user_password": user.user_password,
 		@"user_mobile": user.user_mobile,
-		@"vcode": user.code
+        @"user_avatar" : user.user_avatar
 	};
 	[self loginBaseRequestWithParam:param
 				 callback:^(BOOL success, SKResponsePackage *response) {
@@ -87,12 +87,13 @@
 				 }];
 }
 
+//登录
 - (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
 	user.user_password = [NSString confusedPasswordWithLoginUser:user];
 	NSDictionary *param = @{
 		@"method": @"login",
-		@"user_password": user.user_password,
 		@"user_mobile": user.user_mobile,
+        @"vcode" : user.code
 	};
 	[self loginBaseRequestWithParam:param
 				 callback:^(BOOL success, SKResponsePackage *response) {
@@ -106,6 +107,7 @@
 				 }];
 }
 
+//第三方登录
 - (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"third_login",
@@ -146,6 +148,7 @@
 				 }];
 }
 
+//发送验证码
 - (void)sendVerifyCodeWithMobile:(NSString *)mobile callback:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"sendCode",

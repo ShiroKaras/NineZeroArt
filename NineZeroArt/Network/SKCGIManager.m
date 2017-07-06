@@ -11,7 +11,7 @@
 @implementation SKCGIManager
 
 + (NSString *)loginBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Login/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+	return [NSString stringWithFormat:@"%@/ArtLogin/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)questionBaseCGIKey {

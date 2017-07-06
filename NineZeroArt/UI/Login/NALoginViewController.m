@@ -17,6 +17,8 @@
 @property (nonatomic, strong) UITextField *passwordTextField;
 @property (nonatomic, strong) UIButton *getVerifyCodeButton;
 @property (nonatomic, strong) UIButton *nextButton;
+
+@property (nonatomic, strong) SKLoginUser *loginUser;
 @end
 
 @implementation NALoginViewController{
@@ -25,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.loginUser = [SKLoginUser new];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -99,17 +101,34 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    NACreateAccountViewController *controller = [[NACreateAccountViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    self.loginUser.code = _passwordTextField.text;
+    [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser
+                                                       callback:^(BOOL success, SKResponsePackage *response) {
+                                                           if (response.result == 0) {
+                                                               NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
+                                                               [self.navigationController pushViewController:controller animated:NO];
+                                                           } else if (response.result == -2004) {
+                                                               [self showTipsWithText:@"请检查手机号或密码是否正确"];
+                                                           } else if (response.result == -2006) {
+                                                               NACreateAccountViewController *controller = [[NACreateAccountViewController alloc] initWithLoginUser:self.loginUser];
+                                                               [self.navigationController pushViewController:controller animated:YES];
+                                                           }
+                                                       }];
 }
 
 - (void)didClickGetVerifyCodeButton:(UIButton*)sender {
-//    [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
-//        
-//    }];
-    
-    _secondsToCountDown = 60;
-    [self scheduleTimerCountDown];
+    if ([_phoneTextField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"请填写手机号码"];
+    } else if (_phoneTextField.text.length < 11) {
+        [self showTipsWithText:@"请检查手机号码是否正确"];
+    } else {
+        self.loginUser.user_mobile = _phoneTextField.text;
+        [[[SKServiceManager sharedInstance] loginService] sendVerifyCodeWithMobile:self.loginUser.user_mobile callback:^(BOOL success, SKResponsePackage *response) {
+            
+        }];
+        _secondsToCountDown = 60;
+        [self scheduleTimerCountDown];
+    }
 }
 
 - (void)scheduleTimerCountDown {

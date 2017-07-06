@@ -16,15 +16,22 @@
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UITextField *usernameTextField;
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) SKLoginUser *loginUser;
 @end
 
-@implementation NACreateAccountViewController {
-    SKUserInfo *_userInfo;
+@implementation NACreateAccountViewController
+
+- (instancetype)initWithLoginUser:(SKLoginUser*)loginUser
+{
+    self = [super init];
+    if (self) {
+        self.loginUser = loginUser;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _userInfo = [SKUserInfo new];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -72,7 +79,6 @@
     [_usernameTextField setValue:COMMON_TEXT_2_COLOR forKeyPath:@"_placeholderLabel.textColor"];
     _usernameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 60)];
     _usernameTextField.leftViewMode = UITextFieldViewModeAlways;
-    _usernameTextField.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:_usernameTextField];
     
     UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(16, _usernameTextField.bottom, self.view.width-32, 1)];
@@ -91,9 +97,24 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    _userInfo.user_name = _usernameTextField.text;
-    NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:NO];
+    if (_usernameTextField.text.length == 0) {
+        [self showTipsWithText:@"用户名不得为空"];
+    }
+    self.loginUser.user_name = _usernameTextField.text;
+    
+    [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result == 0) {
+            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:NO];
+        }
+    }];
+}
+
+- (void)textFieldTextDidChange:(UITextField *)textField {
+    if (_usernameTextField.text.length>10) {
+        [self showTipsWithText:@"用户名不得超过10个字符"];
+        _usernameTextField.text = [_usernameTextField.text substringToIndex:10];
+    }
 }
 
 #pragma mark - Keyboard
@@ -124,7 +145,7 @@
         DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
         if (info.statusCode == 200) {
             [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            _userInfo.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
+            self.loginUser.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
             [_avatarButton setBackgroundImage:image forState:UIControlStateNormal];
 //            [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:0 callback:^(BOOL success, SKResponsePackage *response) {
 //                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
