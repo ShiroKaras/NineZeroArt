@@ -109,6 +109,14 @@
                 make.right.equalTo(view).offset(-20);
                 make.centerY.equalTo(view);
             }];
+            
+            UIButton *clearCacheButton = [UIButton new];
+            [clearCacheButton addTarget:self action:@selector(clearCache) forControlEvents:UIControlEventTouchUpInside];
+            [view addSubview:clearCacheButton];
+            [clearCacheButton mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.size.mas_equalTo(view);
+                make.center.equalTo(view);
+            }];
         }
     }
     
@@ -142,8 +150,67 @@
 
 #pragma mark - Actions
 
-- (void)didClickQuitButton:(UIButton*)sender {
+- (void)showPromptWithText:(NSString*)text {
+    [[self.view viewWithTag:9002] removeFromSuperview];
+    UIImageView *promptImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_lingzaiskillpage_prompt"]];
+    [promptImageView sizeToFit];
     
+    UIView *promptView = [UIView new];
+    promptView.tag = 9002;
+    promptView.size = promptImageView.size;
+    promptView.center = self.view.center;
+    promptView.alpha = 0;
+    [self.view addSubview:promptView];
+    
+    promptImageView.frame = CGRectMake(0, 0, promptView.width, promptView.height);
+    [promptView addSubview:promptImageView];
+    
+    UILabel *promptLabel = [UILabel new];
+    promptLabel.text = text;
+    promptLabel.textColor = [UIColor colorWithHex:0xD9D9D9];
+    promptLabel.font = [UIFont fontWithName:@"PingFangSC-Regular" size:13];
+    promptLabel.textAlignment = NSTextAlignmentCenter;
+    [promptLabel sizeToFit];
+    [promptView addSubview:promptLabel];
+    promptLabel.frame = CGRectMake(8.5, 11, promptView.width-17, 57);
+    
+    promptView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        promptView.alpha = 1;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveEaseIn animations:^{
+            promptView.alpha = 0;
+        } completion:^(BOOL finished) {
+            [promptView removeFromSuperview];
+        }];
+    }];
+}
+
+- (void)clearCache {
+    [[SDImageCache sharedImageCache] clearDisk];
+    [[SDImageCache sharedImageCache] clearMemory];//可有可无
+    NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+    [FileService clearCache:cacheFilePath];
+    [self listFileAtPath:cacheFilePath];
+    _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+    
+    [self showPromptWithText:@"已清理"];
+}
+
+- (void)didClickQuitButton:(UIButton*)sender {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"确认退出？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定",nil];
+    [alertView show];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+    if (buttonIndex == 0) {
+        
+    }else{
+        [[[SKServiceManager sharedInstance] loginService] quitLogin];
+        NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    }
 }
 
 - (void)viewDidTap:(UITapGestureRecognizer *)gestureRecognizer {
