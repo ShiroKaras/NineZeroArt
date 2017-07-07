@@ -35,7 +35,20 @@
 }
 
 - (void)createUI {
+    WS(weakSelf);
+    
     self.view.backgroundColor = COMMON_BG_COLOR;
+    
+    UIImageView *backImageView = [[UIImageView alloc] init];
+    backImageView.image = [UIImage imageNamed:@"img_logins_logo"];
+    backImageView.contentMode = UIViewContentModeScaleAspectFit;
+    [self.view addSubview:backImageView];
+    [backImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_equalTo((SCREEN_HEIGHT - 49 - 54) / 930 * 640);
+        make.height.mas_equalTo(SCREEN_HEIGHT - 49 - 54);
+        make.top.equalTo(weakSelf.view);
+        make.centerX.equalTo(weakSelf.view);
+    }];
     
     UILabel *bottomLabel = [UILabel new];
     bottomLabel.text = @"登录即代表你同意《隐私条款》";
