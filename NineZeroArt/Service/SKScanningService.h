@@ -15,6 +15,10 @@
 typedef void (^SKScanningCallback)(BOOL success, SKResponsePackage *package);
 typedef void (^SKScanningRewardCallback)(BOOL success, SKReward *reward);
 typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* danmakuList);
+typedef void (^SKScanningListCallback)(BOOL success, NSArray<SKScanning*>* scanningList);
+
+//获取线索列表
+- (void)getScanningListWithCallBack:(SKScanningListCallback)callback;
 
 - (void)getScanningWithCallBack:(SKResponseCallback)callback;
 

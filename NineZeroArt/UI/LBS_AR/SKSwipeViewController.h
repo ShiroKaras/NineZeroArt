@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @class SKSwipeViewController;
+@class SKScanning;
 
 @protocol SKScanningViewDelegate <NSObject>
 - (void)didClickBackButtonInScanningResultView:(SKSwipeViewController *)view;
@@ -19,5 +20,7 @@
 
 @property (nonatomic, strong) OpenGLView *glView;
 @property (nonatomic, weak) id<SKScanningViewDelegate> delegate;
+
+- (instancetype)initWithScanning:(SKScanning*)scanning;
 
 @end

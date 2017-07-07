@@ -64,21 +64,20 @@
 }
 
 - (void)loadData {
-    NSArray<SKTicket *> *tickets;
-    if (tickets.count == 0) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
-        converView.backgroundColor = [UIColor clearColor];
-        [self.view addSubview:converView];
-        HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-        [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
-        [self.view addSubview:blankView];
-        blankView.top = ROUND_HEIGHT_FLOAT(217);
-    } else {
-        self.ticketArray = tickets;
-        [self.tableView reloadData];
-    }
-//    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
-//    }];
+    [[[SKServiceManager sharedInstance] profileService] getUserTicketsCallbackCallback:^(BOOL suceese, NSArray<SKTicket *> *tickets) {
+        if (tickets.count == 0) {
+            UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
+            converView.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:converView];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
+            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+            [self.view addSubview:blankView];
+            blankView.top = ROUND_HEIGHT_FLOAT(217);
+        } else {
+            self.ticketArray = tickets;
+            [self.tableView reloadData];
+        }
+    }];
 }
 
 #pragma mark - UITableViewDelegate

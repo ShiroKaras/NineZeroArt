@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/LBS_AR/SKSwipeViewController.m"
-            timestampString = "520945373.70654"
+            filePath = "NineZeroArt/UI/Login/NACreateAccountViewController.m"
+            timestampString = "521033485.339838"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-nextButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/LBS_AR/SKSwipeViewController.m"
-            timestampString = "520945390.475664"
+            filePath = "NineZeroArt/AppDelegate.m"
+            timestampString = "521104836.444643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
-            landmarkName = "-loadData"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "-createWindowAndVisibleWithOptions:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NineZeroArt/AppDelegate.m"
+            timestampString = "521104841.779973"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
+            landmarkName = "-createWindowAndVisibleWithOptions:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,13 +57,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/Login/NACreateAccountViewController.m"
-            timestampString = "521033485.339838"
+            filePath = "NineZeroArt/UI/LBS_AR/SKSwipeViewController.m"
+            timestampString = "521110622.317172"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-nextButtonClick:"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
+            landmarkName = "-setupScanningFile:completionHandler:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

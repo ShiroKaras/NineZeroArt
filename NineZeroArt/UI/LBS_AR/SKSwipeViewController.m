@@ -42,13 +42,12 @@
 
 @property (nonatomic, strong) UIButton *hintGuideImageView;
 
+@property (nonatomic, strong) SKScanning *scanning;
 @property (nonatomic, strong) NSMutableArray *rewardAction;
 @property (nonatomic, strong) NSString *rewardID;
 @property (nonatomic, assign) SKScanType swipeType; // default is SKScanTypeImage
 @property (nonatomic, strong) NSMutableArray *isRecognizedTargetImage;
-@property (nonatomic, copy) NSString *hint;
 @property (nonatomic, copy) NSString *sid; // 活动id
-@property (nonatomic, copy) NSString *downloadKey;
 @property (nonatomic, strong) NSArray *linkURLs; // 普通扫一扫存储video url，拼图扫一扫返回目标图URL
 @property (nonatomic, strong) NSArray *linkClarity;
 @property (nonatomic, strong) NSString *defaultPic;
@@ -70,9 +69,10 @@
     BOOL danmakuIsGet;
 }
 
-- (instancetype)init {
+- (instancetype)initWithScanning:(SKScanning*)scanning {
 	if (self = [super init]) {
 		_swipeType = SKScanTypeImage;
+        self.scanning = scanning;
 	}
 	return self;
 }
@@ -247,58 +247,38 @@
 //Load data
 
 - (void)loadData {
-	[[[SKServiceManager sharedInstance] scanningService] getScanningWithCallBack:^(BOOL success, SKResponsePackage *package) {
-	    if (success) {
-		    NSDictionary *data = package.data[0];
-		    if (!data && ![data isKindOfClass:[NSDictionary class]]) {
-//			    [self.navigationController popViewControllerAnimated:YES];
-			    return;
-		    }
-            
-		    self.swipeType = SKScanTypeImage;
-		    self.downloadKey = [data objectForKey:@"file_url"];
-		    self.linkURLs = [data objectForKey:@"link_url"];
-		    self.rewardID = [data objectForKey:@"reward_id"];
-		    self.hint = [data objectForKey:@"hint"];
-		    self.sid = [data objectForKey:@"sid"];
-            self.lid = [data objectForKey:@"lid"];
-            self.bstatus = [[data objectForKey:@"bstatus"] boolValue];
-            self.isHadReward = [[data objectForKey:@"is_haved_ticket" ] boolValue];
-            if (_bstatus == NO) {
-                self.danmaku.hidden = YES;
-                self.bottomView.hidden = YES;
-            }
-            
-		    __weak __typeof__(self) weakSelf = self;
-		    [self setupScanningFile:data
-			    completionHandler:^{
-				__strong __typeof__(self) strongSelf = weakSelf;
-				switch (_swipeType) {
-					case SKScanTypeImage: {
-						strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
-						strongSelf.scanningImageView.delegate = strongSelf;
-						[strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
-
-						break;
-					}
-					case SKScanTypePuzzle: {
-						strongSelf.scanningPuzzleView = [[SKScanningPuzzleView alloc] initWithLinkClarity:strongSelf.linkClarity rewardAction:strongSelf.rewardAction defaultPic:strongSelf.defaultPic];
-						strongSelf.scanningPuzzleView.delegate = strongSelf;
-						[strongSelf.view insertSubview:strongSelf.scanningPuzzleView atIndex:1];
-						break;
-					}
-					default:
-						break;
-				}
-			    }];
-	    } else {
-		    [self.navigationController popViewControllerAnimated:YES];
-	    }
-	}];
+    self.swipeType = SKScanTypeImage;
+    self.linkURLs = self.scanning.link_url;
+    self.rewardID = self.scanning.reward_id;
+    self.sid = self.scanning.sid;
+    self.lid = self.scanning.lid;
+    self.bstatus = self.scanning.bstatus;
+    self.isHadReward = self.scanning.is_haved_ticket;
+    if (_bstatus == NO) {
+        self.danmaku.hidden = YES;
+        self.bottomView.hidden = YES;
+    }
+    
+    __weak __typeof__(self) weakSelf = self;
+    [self setupScanningFile:self.scanning
+          completionHandler:^{
+              __strong __typeof__(self) strongSelf = weakSelf;
+              switch (_swipeType) {
+                  case SKScanTypeImage: {
+                      strongSelf.scanningImageView = [[SKScanningImageView alloc] initWithFrame:self.view.frame];
+                      strongSelf.scanningImageView.delegate = strongSelf;
+                      [strongSelf.view insertSubview:strongSelf.scanningImageView atIndex:1];
+                      
+                      break;
+                  }
+                  default:
+                      break;
+              }
+          }];
 }
 
-- (void)setupScanningFile:(NSDictionary *)data completionHandler:(void (^)())completionHandler {
-	if (_hint && _hint.length > 0) {
+- (void)setupScanningFile:(SKScanning *)scanning completionHandler:(void (^)())completionHandler {
+	if (scanning.hint && scanning.hint.length > 0) {
 		[self setupHintButton];
 	}
 
@@ -308,11 +288,11 @@
 	}
 	self.isRecognizedTargetImage = array;
 
-	if (![NZPScanningFileDownloadManager isZipFileExistsWithFileName:_downloadKey]) {
+	if (![NZPScanningFileDownloadManager isZipFileExistsWithFileName:scanning.file_url]) {
 		// 文件不存在，需要下载
 		[self setupProgressView];
 
-		[NZPScanningFileDownloadManager downloadZip:_downloadKey
+		[NZPScanningFileDownloadManager downloadZip:scanning.file_url
 			progress:^(NSProgress *downloadProgress) {
 			    // 更新进度条
 			    dispatch_async(dispatch_get_main_queue(), ^{
@@ -339,7 +319,7 @@
 						if (succeeded) {
 							// 加载识别图
 							[self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
-							[self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+							[self.glView startWithFileName:scanning.file_url videoURLs:self.linkURLs];
 							completionHandler();
 						} else {
 							NSLog(@"zip解压失败:%@", error);
@@ -351,12 +331,12 @@
 			    }
 
 			}];
-	} else if (![NZPScanningFileDownloadManager isUnZipFileExistsWithFileName:_downloadKey]) {
+    } else if (![NZPScanningFileDownloadManager isUnZipFileExistsWithFileName:scanning.file_url]) {
 		// zip已下载但是解压文件不存在
-		NSString *unzipFilePath = [[_downloadKey lastPathComponent] stringByDeletingPathExtension];
+		NSString *unzipFilePath = [[scanning.file_url lastPathComponent] stringByDeletingPathExtension];
 		NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSCachesDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
 		unzipFilePath = [documentsDirectoryURL URLByAppendingPathComponent:unzipFilePath].relativePath;
-		NSString *zipFileAtPath = [documentsDirectoryURL URLByAppendingPathComponent:_downloadKey].relativePath;
+		NSString *zipFileAtPath = [documentsDirectoryURL URLByAppendingPathComponent:scanning.file_url].relativePath;
 
 		[SSZipArchive unzipFileAtPath:zipFileAtPath
 			toDestination:unzipFilePath
@@ -368,13 +348,13 @@
 			completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
 			    // 加载识别图
 			    [self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
-			    [self.glView startWithFileName:self.downloadKey videoURLs:self.linkURLs];
+			    [self.glView startWithFileName:scanning.file_url videoURLs:self.linkURLs];
 			    completionHandler();
 			}];
 	} else {
 		// 直接加载识别图
 		[self setupOpenGLViewWithTargetNumber:_linkURLs.count];
-		[self.glView startWithFileName:_downloadKey videoURLs:_linkURLs];
+		[self.glView startWithFileName:scanning.file_url videoURLs:_linkURLs];
 		completionHandler();
 	}
 }
@@ -479,12 +459,12 @@
 		hintLabel.textColor = [UIColor colorWithHex:0xFFFFFF];
 		hintLabel.font = PINGFANG_FONT_OF_SIZE(10.0);
 		hintLabel.lineSpacing = 2.0f;
-		hintLabel.text = _hint;
+		hintLabel.text = self.scanning.hint;
 		[_hintView addSubview:hintLabel];
 		[hintLabel sizeToFit];
-
+        
 		hintLabel.centerY = self.view.centerY;
-
+        
 		CALayer *hintImageLayer = [[CALayer alloc] init];
 		hintImageLayer.frame = CGRectMake((SCREEN_WIDTH - 253) / 2.f, hintLabel.top - 92.f - 20.f, 253, 92);
 		hintImageLayer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"img_scanning_rule"].CGImage);

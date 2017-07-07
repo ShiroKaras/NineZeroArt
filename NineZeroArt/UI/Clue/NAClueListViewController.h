@@ -16,5 +16,7 @@
 @interface NAClueCell : UITableViewCell
 @property (nonatomic, strong) UIImageView *backImageView;
 @property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *titleLabel_shadow;
 @property (nonatomic, strong) UILabel *placeLabel;
+@property (nonatomic, strong) UILabel *placeLabel_shadow;
 @end

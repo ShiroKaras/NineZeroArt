@@ -13,13 +13,23 @@
 
 @interface NAClueDetailViewController ()
 @property (nonatomic, strong) UIButton *nextButton;
+@property (nonatomic, strong) SKScanning *scanning;
 @end
 
 @implementation NAClueDetailViewController
 
+- (instancetype)initWithScanning:(SKScanning*)scanning {
+    self = [super init];
+    if (self) {
+        self.scanning = scanning;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,15 +44,18 @@
     [_nextButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
     [_nextButton addTarget:self action:@selector(nextButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     _nextButton.frame = CGRectMake(0, self.view.height - 50, self.view.width, 50);
-    [_nextButton setBackgroundImage:[UIImage imageWithColor:[UIColor colorWithHex:0x0e0e0e alpha:0.3]] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_cluedetailpage_experience"] forState:UIControlStateNormal];
     [_nextButton setImage:[UIImage imageNamed:@"btn_cluedetailpage_experience_highlight"] forState:UIControlStateHighlighted];
     _nextButton.adjustsImageWhenHighlighted = NO;
     [self.view addSubview:_nextButton];
 }
 
+- (void)loadData {
+    
+}
+
 - (void)nextButtonClick:(UIButton *)sender {
-    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] initWithScanning:self.scanning];
     [self.navigationController pushViewController:controller animated:NO];
 }
 

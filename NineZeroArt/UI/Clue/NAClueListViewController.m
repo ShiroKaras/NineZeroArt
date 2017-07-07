@@ -14,13 +14,14 @@
 
 @interface NAClueListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSArray* clueArray;
+@property (nonatomic, strong) NSArray<SKScanning*>* clueArray;
 @end
 
 @implementation NAClueListViewController
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
 }
@@ -61,17 +62,17 @@
     profileButton.centerY = headerView.centerY;
     profileButton.left = 16;
     
-    if (NO_NETWORK) {
-        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
-        converView.backgroundColor = COMMON_BG_COLOR;
-        [self.view addSubview:converView];
-        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
-        [_blankView setOffset:10];
-        [converView addSubview:_blankView];
-        _blankView.center = converView.center;
-    } else {
-        [self loadData];
-    }
+//    if (NO_NETWORK) {
+//        UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+//        converView.backgroundColor = COMMON_BG_COLOR;
+//        [self.view addSubview:converView];
+//        HTBlankView *_blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_net"] text:@"一点信号都没"];
+//        [_blankView setOffset:10];
+//        [converView addSubview:_blankView];
+//        _blankView.center = converView.center;
+//    } else {
+//    }
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -79,7 +80,10 @@
 }
 
 - (void)loadData {
-    
+    [[[SKServiceManager sharedInstance] scanningService] getScanningListWithCallBack:^(BOOL success, NSArray<SKScanning *> *scanningList) {
+        self.clueArray = scanningList;
+        [self.tableView reloadData];
+    }];
 }
 
 #pragma mark - Actions
@@ -96,8 +100,12 @@
     if (cell==nil) {
         cell = [[NAClueCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:NSStringFromClass([NAClueCell class])];
     }
-    cell.titleLabel.text = @"北京美年达周年庆";
-    cell.placeLabel.text = @"北京";
+    
+    [cell.backImageView sd_setImageWithURL:[NSURL URLWithString:self.clueArray[indexPath.row].list_pic]];
+    cell.titleLabel.text = self.clueArray[indexPath.row].activity_name;
+    cell.titleLabel_shadow.text = self.clueArray[indexPath.row].activity_name;
+    cell.placeLabel.text = self.clueArray[indexPath.row].activity_place;
+    cell.placeLabel_shadow.text = self.clueArray[indexPath.row].activity_place;
     return cell;
 }
 
@@ -106,15 +114,14 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:NO];
+    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row]];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 5;
-//    return self.clueArray.count;
+    return self.clueArray.count;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -137,7 +144,6 @@
         self.backgroundColor = COMMON_BG_COLOR;
         
         _backImageView = [UIImageView new];
-//        _backImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_labpage_loading.imageset"]];
         _backImageView.contentMode = UIViewContentModeScaleAspectFill;
         _backImageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_backImageView];
@@ -155,6 +161,17 @@
             make.left.equalTo(ROUND_WIDTH(6));
         }];
         
+        _titleLabel_shadow = [UILabel new];
+        _titleLabel_shadow.font = PINGFANG_ROUND_FONT_OF_SIZE(20);
+        _titleLabel_shadow.textColor = COMMON_TITLE_BG_COLOR;
+        [self.contentView addSubview:_titleLabel_shadow];
+        [_titleLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(icon.mas_right).offset(7);
+            make.right.equalTo(self.contentView.mas_right).offset(-6);
+            make.centerY.equalTo(icon).offset(1);;
+            make.height.equalTo(ROUND_WIDTH(26));
+        }];
+        
         _titleLabel = [UILabel new];
         _titleLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(20);
         _titleLabel.textColor = [UIColor whiteColor];
@@ -164,6 +181,17 @@
             make.right.equalTo(self.contentView.mas_right).offset(-6);
             make.centerY.equalTo(icon);
             make.height.equalTo(ROUND_WIDTH(26));
+        }];
+
+        _placeLabel_shadow = [UILabel new];
+        _placeLabel_shadow.font = PINGFANG_ROUND_FONT_OF_SIZE(16);
+        _placeLabel_shadow.textColor = COMMON_TITLE_BG_COLOR;
+        [self.contentView addSubview:_placeLabel_shadow];
+        [_placeLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(_titleLabel).offset(1);
+            make.right.equalTo(_titleLabel);
+            make.top.equalTo(_titleLabel.mas_bottom).offset(9);
+            make.height.equalTo(ROUND_WIDTH(22));
         }];
         
         _placeLabel = [UILabel new];

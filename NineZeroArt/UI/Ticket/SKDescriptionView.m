@@ -260,12 +260,6 @@
     [_imageView sd_setImageWithURL:[NSURL URLWithString:reward.pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
 }
 
-- (void)setBadge:(SKBadge *)badge {
-    [_webView loadHTMLString:[self htmlStringWithContent:badge.medal_description] baseURL:nil];
-    [_imageView sd_setImageWithURL:[NSURL URLWithString:badge.medal_pic] placeholderImage:[UIImage imageNamed:@"img_chapter_story_cover_default"]];
-}
-
-
 - (void)layoutSubviews {
     [super layoutSubviews];
     CGFloat width = 280;

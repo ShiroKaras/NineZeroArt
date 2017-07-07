@@ -8,15 +8,19 @@
 
 #import "NAProfileViewController.h"
 #import "HTUIHeader.h"
+#import "FileService.h"
 
 #import "SKProfileMyTicketsViewController.h"
 
 @interface NAProfileViewController ()
 @property (nonatomic, strong) UIImageView *avatarImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
+@property (nonatomic, strong) UILabel *cacheLabel;
 @end
 
-@implementation NAProfileViewController
+@implementation NAProfileViewController {
+    float         cacheSize;
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -29,6 +33,7 @@
     self.view.backgroundColor = COMMON_BG_COLOR;
     
     [self createUI];
+    [self loadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -92,6 +97,18 @@
             [view addSubview:arrow];
             arrow.right = view.right-11.5;
             arrow.centerY = view.height/2;
+        } else if (i==1) {
+            _cacheLabel = [UILabel new];
+            NSString *cacheFilePath = [NSHomeDirectory() stringByAppendingPathComponent:@"Library/Caches"];
+            [self listFileAtPath:cacheFilePath];
+            _cacheLabel.text = [NSString stringWithFormat:@"%.1fMB", cacheSize];
+            _cacheLabel.textColor = [UIColor whiteColor];
+            _cacheLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(12);
+            [view addSubview:_cacheLabel];
+            [_cacheLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.equalTo(view).offset(-20);
+                make.centerY.equalTo(view);
+            }];
         }
     }
     
@@ -101,6 +118,26 @@
     [quitButton setImage:[UIImage imageNamed:@"img_userpage_exit_highlight"] forState:UIControlStateHighlighted];
     [quitButton addTarget:self action:@selector(didClickQuitButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:quitButton];
+}
+
+- (void)loadData {
+    SKLoginUser *user = [[SKStorageManager sharedInstance] getLoginUser];
+    NSLog(@"%@",user.user_avatar);
+    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[[SKStorageManager sharedInstance] getLoginUser].user_avatar]];
+    _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
+}
+
+- (void)listFileAtPath:(NSString *)path {
+    cacheSize = 0;
+    NSArray *contentOfFolder = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
+    for (NSString *aPath in contentOfFolder) {
+        NSString * fullPath = [path stringByAppendingPathComponent:aPath];
+        cacheSize += [FileService fileSizeAtPath:fullPath];
+        BOOL isDir;
+        if ([[NSFileManager defaultManager] fileExistsAtPath:fullPath isDirectory:&isDir] && isDir) {
+            [self listFileAtPath:fullPath];
+        }
+    }
 }
 
 #pragma mark - Actions

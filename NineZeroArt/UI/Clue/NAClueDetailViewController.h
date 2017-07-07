@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+@class SKScanning;
 
 @interface NAClueDetailViewController : UIViewController
-
+- (instancetype)initWithScanning:(SKScanning*)scanning;
 @end

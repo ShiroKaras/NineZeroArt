@@ -14,26 +14,12 @@
 
 + (NSString *)loginBaseCGIKey;
 
-+ (NSString *)questionBaseCGIKey;
-
 + (NSString *)profileBaseCGIKey;
-
-+ (NSString *)propBaseCGIKey;
-
-+ (NSString *)mascotBaseCGIKey;
-
-+ (NSString *)answerBaseCGIKey;
 
 + (NSString *)commonBaseCGIKey;
 
 + (NSString *)shareBaseCGIKey;
 
 + (NSString *)scanningBaseCGIKey;
-
-+ (NSString *)secretaryBaseCGIKey;
-
-+ (NSString *)strongHoldBaseCGIKey;
-
-+ (NSString *)topicBaseCGIKey;
 
 @end

@@ -65,6 +65,20 @@
 		}];
 }
 
+- (void)getScanningListWithCallBack:(SKScanningListCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getScanningList"
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSMutableArray<SKScanning*>*clueList = [NSMutableArray array];
+        for (int i = 0; i < [response.data count]; i++) {
+            SKScanning *clueItem = [SKScanning mj_objectWithKeyValues:response.data[i]];
+            [clueList addObject:clueItem];
+        }
+        callback(success, clueList);
+    }];
+}
+
 - (void)getScanningWithCallBack:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"getScanning"

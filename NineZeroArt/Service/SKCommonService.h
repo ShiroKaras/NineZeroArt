@@ -13,8 +13,6 @@
 @class SKIndexInfo;
 
 typedef void (^SKGetTokenCallback) (BOOL success, NSString *token);
-typedef void (^SKIndexInfoCallback) (BOOL success, SKIndexInfo *indexInfo);
-typedef void (^SKIndexScanningCallback) (BOOL success, SKIndexScanning *indexScanningInfo);
 
 @interface SKCommonService : NSObject
 

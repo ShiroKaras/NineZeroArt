@@ -16,15 +16,17 @@
 @end
 
 @implementation AppDelegate
-    
-- (BOOL)application:(UIApplication *)application {
-    _active = true;
-    return YES;
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [self registerQiniuService];
+    _cityCode = @"010";
+    _active = true;
+    
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+    [self registerQiniuService];
+    
+    [NSThread sleepForTimeInterval:2];
+    [self createWindowAndVisibleWithOptions:launchOptions];
+    
     return YES;
 }
 
@@ -97,6 +99,45 @@
         // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
         NSLog(@"Unresolved error %@, %@", error, error.userInfo);
         abort();
+    }
+}
+
+- (void)createWindowAndVisibleWithOptions:(NSDictionary *)launchOptions {
+    NSString *userID = [[SKStorageManager sharedInstance] getUserID];
+    if (userID != nil) {
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _mainController = [[NAClueListViewController alloc] init];
+        HTNavigationController *navController =
+        [[HTNavigationController alloc] initWithRootViewController:_mainController];
+        self.window.rootViewController = navController;
+        [self.window makeKeyAndVisible];
+    } else {
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
+        HTNavigationController *navController =
+        [[HTNavigationController alloc] initWithRootViewController:rootController];
+        self.window.rootViewController = navController;
+        [self.window makeKeyAndVisible];
+        
+        //		if (![UD boolForKey:@"everLaunch"]) {
+        //			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
+        //			[self.window addSubview:self.launchViewController.view];
+        //			__weak AppDelegate *weakSelf = self;
+        //			self.launchViewController.didSelectedEnter = ^() {
+        //			    [UIView animateWithDuration:0.3
+        //				    animations:^{
+        //					weakSelf.launchViewController.view.alpha = 0;
+        //				    }
+        //				    completion:^(BOOL finished) {
+        //					weakSelf.launchViewController = nil;
+        //					//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        //				    }];
+        //			};
+        //		} else {
+        //			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
+        //		}
+        
+        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
     }
 }
 
