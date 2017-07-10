@@ -53,6 +53,8 @@
     }];
     
     _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+    _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(64);
+    _avatarImageView.layer.masksToBounds = YES;
     [self.view addSubview:_avatarImageView];
     [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.size.mas_equalTo(CGSizeMake(ROUND_WIDTH_FLOAT(64), ROUND_WIDTH_FLOAT(64)));
@@ -129,10 +131,10 @@
 }
 
 - (void)loadData {
-    SKLoginUser *user = [[SKStorageManager sharedInstance] getLoginUser];
-    NSLog(@"%@",user.user_avatar);
-    [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:[[SKStorageManager sharedInstance] getLoginUser].user_avatar]];
-    _usernameLabel.text = [[SKStorageManager sharedInstance] getLoginUser].user_name;
+    [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:response.user_avatar]];
+        _usernameLabel.text = response.user_name;
+    }];
 }
 
 - (void)listFileAtPath:(NSString *)path {

@@ -20,13 +20,7 @@ typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification
 @interface SKProfileService : NSObject
 
 //获取个人信息
-- (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback;
-
-//推送开关
-- (void)updateNotificationSwitch:(BOOL)isOn callback:(SKResponseCallback)callback;
-
-//修改个人信息    0头像 1昵称
-- (void)updateUserInfoWith:(SKUserInfo*)userInfo withType:(int)type callback:(SKResponseCallback)callback;
+- (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback;
 
 //重新获取用户信息
 - (void)updateUserInfoFromServer;

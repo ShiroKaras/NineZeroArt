@@ -70,26 +70,10 @@
 		}];
 }
 
-//获取个人信息
-- (void)getUserInfoDetailCallback:(SKProfileInfoCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"getUserAllInfo"
-	};
-	[self profileBaseRequestWithParam:param
-				   callback:^(BOOL success, SKResponsePackage *response) {
-				       if (success) {
-					       SKProfileInfo *profileInfo = [SKProfileInfo mj_objectWithKeyValues:[response mj_keyValues][@"data"]];
-					       [SKStorageManager sharedInstance].profileInfo = profileInfo;
-					       callback(success, profileInfo);
-				       } else
-					       callback(success, nil);
-				   }];
-}
-
 //获取基本信息
 - (void)getUserBaseInfoCallback:(SKUserInfoCallback)callback {
 	NSDictionary *param = @{
-		@"method": @"getBaseInfo"
+		@"method": @"getUserInfo"
 	};
 	[self profileBaseRequestWithParam:param
 				   callback:^(BOOL success, SKResponsePackage *response) {
