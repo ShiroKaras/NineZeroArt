@@ -6,15 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "NineZeroArt/UI/LBS_AR/SKSwipeViewController.m"
-            timestampString = "521110622.317172"
+            timestampString = "521380429.273626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "321"
-            endingLineNumber = "321"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
             landmarkName = "-setupScanningFile:completionHandler:"
             landmarkType = "7">
          </BreakpointContent>
@@ -89,13 +89,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/Login/NALoginRootViewController.m"
-            timestampString = "521374266.508699"
+            filePath = "NineZeroArt/UI/Login/NACreateAccountViewController.m"
+            timestampString = "521374995.386535"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "-loginWithUser:"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "-nextButtonClick:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -105,13 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/Login/NACreateAccountViewController.m"
-            timestampString = "521374995.386535"
+            filePath = "NineZeroArt/UI/LBS_AR/SKScanningRewardViewController.m"
+            timestampString = "521382960.323575"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
-            landmarkName = "-nextButtonClick:"
+            startingLineNumber = "125"
+            endingLineNumber = "125"
+            landmarkName = "-createBaseRewardViewWithReward:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NineZeroArt/UI/LBS_AR/SKScanningRewardViewController.m"
+            timestampString = "521383026.741227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "-createBaseRewardViewWithReward:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

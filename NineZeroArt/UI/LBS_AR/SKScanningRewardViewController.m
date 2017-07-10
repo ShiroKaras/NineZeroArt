@@ -29,6 +29,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 @property (nonatomic, strong) UIView *dimmingView;
 @property (nonatomic, strong) SKReward *reward;
 @property (nonatomic, strong) UIView *rewardInfoView;
+@property (nonatomic, strong) UIView *alphaView;
 @end
 
 @implementation SKScanningRewardViewController {
@@ -121,14 +122,14 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 #pragma mark - Reward
 
 - (void)createBaseRewardViewWithReward:(SKReward *)reward {
-	UIView *alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
-	alphaView.backgroundColor = [UIColor blackColor];
-	alphaView.alpha = 0;
-	[self.view addSubview:alphaView];
+	_alphaView = [[UIView alloc] initWithFrame:self.view.bounds];
+	_alphaView.backgroundColor = [UIColor blackColor];
+	_alphaView.alpha = 0;
+	[self.view addSubview:_alphaView];
 
 	[UIView animateWithDuration:0.3
 			 animations:^{
-			     alphaView.alpha = 0.8;
+			     _alphaView.alpha = 0.8;
 			 }];
 
 	__weak __typeof__(self) weakSelf = self;
@@ -164,7 +165,7 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 	bottomLabel.textColor = [UIColor colorWithHex:0xa2a2a2];
 	bottomLabel.font = PINGFANG_FONT_OF_SIZE(12);
 	[bottomLabel sizeToFit];
-	[self.view addSubview:bottomLabel];
+	[_alphaView addSubview:bottomLabel];
 	[bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
 	    make.centerX.equalTo(weakSelf.view);
 	    make.bottom.equalTo(weakSelf.view).offset(-16);
@@ -329,6 +330,8 @@ typedef NS_OPTIONS(NSUInteger, NZRewardType) {
 	_dimmingView = nil;
 
 	if (!_reward.piece) {
+        [_alphaView removeFromSuperview];
+        _alphaView = nil;
 		if ([_delegate respondsToSelector:@selector(didClickBackButtonInScanningCaptureController:)]) {
 			[_delegate didClickBackButtonInScanningCaptureController:self];
 		} else {
