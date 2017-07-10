@@ -63,16 +63,10 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	if ([self.title isEqualToString:@"金币"]) {
-		[MobClick beginLogPageView:@"goldcoinpage"];
-	}
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	if ([self.title isEqualToString:@"金币"]) {
-		[MobClick endLogPageView:@"goldcoinpage"];
-	}
 }
 
 - (void)viewWillLayoutSubviews {

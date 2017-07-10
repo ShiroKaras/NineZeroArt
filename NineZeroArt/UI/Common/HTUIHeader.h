@@ -39,6 +39,4 @@
 #import <YLGIFImage/YLImageView.h>
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
 
-#import "UMMobClick/MobClick.h"
-
 #endif /* HTUIHeader_h */

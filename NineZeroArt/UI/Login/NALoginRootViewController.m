@@ -12,6 +12,9 @@
 #import "NAClueListViewController.h"
 #import "NALoginViewController.h"
 
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
 @interface NALoginRootViewController ()
 
 @end
@@ -80,18 +83,59 @@
 - (void)didClickLoginButton:(UIButton*)sender {
     switch (sender.tag) {
         case 100: {
-            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:NO];
+            [ShareSDK getUserInfo:SSDKPlatformTypeWechat
+                   onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+                       if (state == SSDKResponseStateSuccess) {
+                           DLog(@"uid=%@", user.uid);
+                           DLog(@"%@", user.credential);
+                           DLog(@"token=%@", user.credential.token);
+                           DLog(@"nickname=%@", user.nickname);
+                           
+                           [self loginWithUser:user];
+                       }
+                       
+                       else {
+                           DLog(@"%@", error);
+                       }
+                       
+                   }];
             break;
         }
         case 101: {
-            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:NO];
+            [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+                   onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+                       if (state == SSDKResponseStateSuccess) {
+                           DLog(@"uid=%@", user.uid);
+                           DLog(@"credential=%@", user.credential);
+                           DLog(@"token=%@", user.credential.token);
+                           DLog(@"nickname=%@", user.nickname);
+                           
+                           [self loginWithUser:user];
+                       }
+                       
+                       else {
+                           DLog(@"%@", error);
+                       }
+                       
+                   }];
             break;
         }
         case 102: {
-            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:NO];
+            [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
+                   onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
+                       if (state == SSDKResponseStateSuccess) {
+                           DLog(@"uid=%@", user.uid);
+                           DLog(@"%@", user.credential);
+                           DLog(@"token=%@", user.credential.token);
+                           DLog(@"nickname=%@", user.nickname);
+                           DLog(@"icon=%@", user.icon);
+                           
+                           [self loginWithUser:user];
+                       } else {
+                           DLog(@"%@", error);
+                       }
+                       
+                   }];
             break;
         }
         case 103: {
@@ -102,6 +146,35 @@
         default:
             break;
     }
+}
+
+- (void)loginWithUser:(SSDKUser *)user {
+    SKLoginUser *loginUser = [SKLoginUser new];
+    loginUser.user_area_id = AppDelegateInstance.cityCode;
+    loginUser.third_id = user.uid;
+    loginUser.user_name = user.nickname;
+    loginUser.user_avatar = user.icon;
+    [HTProgressHUD show];
+    
+    [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:loginUser
+                                                                    callback:^(BOOL success, SKResponsePackage *response) {
+                                                                        [HTProgressHUD dismiss];
+                                                                        DLog(@"%@", response);
+                                                                        if (success) {
+                                                                            if (response.result == 0) {
+                                                                                NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
+                                                                                AppDelegateInstance.mainController = controller;
+                                                                                HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
+                                                                                AppDelegateInstance.window.rootViewController = navController;
+                                                                                [AppDelegateInstance.window makeKeyAndVisible];
+                                                                                [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+                                                                            } else {
+                                                                                DLog(@"%ld", (long)response.result);
+                                                                            }
+                                                                        } else {
+                                                                            [self showTipsWithText:@"网络连接错误"];
+                                                                        }
+                                                                    }];
 }
 
 @end

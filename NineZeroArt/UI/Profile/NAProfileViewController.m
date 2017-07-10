@@ -11,6 +11,7 @@
 #import "FileService.h"
 
 #import "SKProfileMyTicketsViewController.h"
+#import "NAAboutViewController.h"
 
 @interface NAProfileViewController ()
 @property (nonatomic, strong) UIImageView *avatarImageView;
@@ -53,7 +54,7 @@
     }];
     
     _avatarImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_profile_photo_default"]];
-    _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(64);
+    _avatarImageView.layer.cornerRadius = ROUND_WIDTH_FLOAT(64)/2;
     _avatarImageView.layer.masksToBounds = YES;
     [self.view addSubview:_avatarImageView];
     [_avatarImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -123,7 +124,8 @@
     }
     
     UIButton *quitButton = [[UIButton alloc] initWithFrame:CGRectMake(0, _usernameLabel.bottom+ROUND_HEIGHT_FLOAT(30+50*3+50), self.view.width, ROUND_HEIGHT_FLOAT(50))];
-    [quitButton setBackgroundColor:COMMON_TITLE_BG_COLOR];
+    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_TITLE_BG_COLOR] forState:UIControlStateNormal];
+    [quitButton setBackgroundImage:[UIImage imageWithColor:COMMON_GREEN_COLOR] forState:UIControlStateHighlighted];
     [quitButton setImage:[UIImage imageNamed:@"img_userpage_exit"] forState:UIControlStateNormal];
     [quitButton setImage:[UIImage imageNamed:@"img_userpage_exit_highlight"] forState:UIControlStateHighlighted];
     [quitButton addTarget:self action:@selector(didClickQuitButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -223,7 +225,11 @@
             [self.navigationController pushViewController:controller animated:YES];
             break;
         }
-            
+        case 102: {
+            NAAboutViewController *controller = [[NAAboutViewController alloc] init];
+            [self.navigationController pushViewController:controller animated:YES];
+            break;
+        }
         default:
             break;
     }

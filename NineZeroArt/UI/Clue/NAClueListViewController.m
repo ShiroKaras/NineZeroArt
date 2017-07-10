@@ -34,6 +34,7 @@
     self.tableView.bounces = NO;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
     [self.tableView registerClass:[NAClueCell class] forCellReuseIdentifier:NSStringFromClass([NAClueCell class])];
