@@ -47,7 +47,7 @@
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
     
-    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_cluepage_titletext"]];
+    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_logo"]];
     [headerView addSubview:headerImageView];
     headerImageView.centerX = headerView.centerX;
     headerImageView.centerY = headerView.height/2;
