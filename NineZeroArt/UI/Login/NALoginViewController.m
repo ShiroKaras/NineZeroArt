@@ -59,6 +59,7 @@
     _phoneTextField.leftViewMode = UITextFieldViewModeAlways;
     _phoneTextField.keyboardType = UIKeyboardTypePhonePad;
     [self.view addSubview:_phoneTextField];
+    [_phoneTextField becomeFirstResponder];
     
     UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(16, _phoneTextField.bottom, self.view.width-32, 1)];
     line1.backgroundColor = COMMON_SEPARATOR_COLOR;
@@ -109,9 +110,9 @@
                                                                NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
                                                                [self.navigationController pushViewController:controller animated:NO];
                                                            } else if (response.result == -2004) {
-                                                               [self showTipsWithText:@"请检查手机号或密码是否正确"];
+                                                               [self showTipsWithText:@"请检查手机号或密码是否正确" offset:20];
                                                            } else if (response.result == -1003) {
-                                                               [self showTipsWithText:@"验证码错误"];
+                                                               [self showTipsWithText:@"验证码错误" offset:20];
                                                            } else if (response.result == -2006) {
                                                                NACreateAccountViewController *controller = [[NACreateAccountViewController alloc] initWithLoginUser:self.loginUser];
                                                                [self.navigationController pushViewController:controller animated:YES];

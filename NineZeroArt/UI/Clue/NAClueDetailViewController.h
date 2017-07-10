@@ -10,5 +10,5 @@
 @class SKScanning;
 
 @interface NAClueDetailViewController : UIViewController
-- (instancetype)initWithScanning:(SKScanning*)scanning;
+- (instancetype)initWithScanning:(SKScanning*)scanning urlString:(NSString*)urlString;
 @end

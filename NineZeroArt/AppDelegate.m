@@ -37,6 +37,7 @@
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [self registerQiniuService];
+    [self registerShareSDK];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];

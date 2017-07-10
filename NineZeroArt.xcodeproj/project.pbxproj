@@ -149,6 +149,8 @@
 		1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */; };
 		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
+		1176D2BB1F13881A0036862A /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */; };
+		1176D2BC1F13881A0036862A /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */; };
 		118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */; };
 		11AF98791F13466800C1B378 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98571F13466800C1B378 /* ShareSDK.framework */; };
 		11AF987A1F13466800C1B378 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF985A1F13466800C1B378 /* ShareSDKExtension.framework */; };
@@ -485,6 +487,9 @@
 		1169B38C1F063C0700CE552B /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTicketView.h; sourceTree = "<group>"; };
 		1169B38D1F063C0700CE552B /* SKTicketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTicketView.m; sourceTree = "<group>"; };
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
+		1176D2B81F13881A0036862A /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKUserAgreementViewController.h; path = Login/SKUserAgreementViewController.h; sourceTree = "<group>"; };
+		1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKUserAgreementViewController.m; path = Login/SKUserAgreementViewController.m; sourceTree = "<group>"; };
+		1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKUserAgreementViewController.xib; path = Login/SKUserAgreementViewController.xib; sourceTree = "<group>"; };
 		118A3F211F0CF9A3009902D1 /* NAClueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueDetailViewController.h; path = Clue/NAClueDetailViewController.h; sourceTree = "<group>"; };
 		118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueDetailViewController.m; path = Clue/NAClueDetailViewController.m; sourceTree = "<group>"; };
 		11AF98571F13466800C1B378 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
@@ -1344,6 +1349,9 @@
 				11F00DC41F0B93A90098F678 /* NALoginViewController.m */,
 				11F00DC61F0CD8EE0098F678 /* NACreateAccountViewController.h */,
 				11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */,
+				1176D2B81F13881A0036862A /* SKUserAgreementViewController.h */,
+				1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */,
+				1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1581,6 +1589,7 @@
 				1169B29D1F05151100CE552B /* ar_overlay@2x.png in Resources */,
 				1169B1A61F0514AE00CE552B /* NSDateTimeAgo.bundle in Resources */,
 				11AF98801F13466800C1B378 /* WeiboSDK.bundle in Resources */,
+				1176D2BC1F13881A0036862A /* SKUserAgreementViewController.xib in Resources */,
 				1169B2BA1F05151100CE552B /* Info.plist in Resources */,
 				11FFFCFF1F05067000CEC7EB /* Assets.xcassets in Resources */,
 				1169B2D31F05151100CE552B /* MJRefresh.bundle in Resources */,
@@ -1842,6 +1851,7 @@
 				11FFFCFD1F05067000CEC7EB /* NineZeroArt.xcdatamodeld in Sources */,
 				1169B37E1F063A3400CE552B /* SKScanningResultView.m in Sources */,
 				1169B2B01F05151100CE552B /* FXReusableObjectQueue.m in Sources */,
+				1176D2BB1F13881A0036862A /* SKUserAgreementViewController.m in Sources */,
 				11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */,
 				1169B2D01F05151100CE552B /* MJRefreshGifHeader.m in Sources */,
 				1169B1AC1F0514AE00CE552B /* SKImageHelper.m in Sources */,
@@ -2151,7 +2161,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				QQ_URL_SCHEMES_SUFFIX = 41f0745e;
 				VALID_ARCHS = "arm64 armv7 armv7s";
+				WEIBO_URL_SCHEMES_SUFFIX = 3217782787;
+				WEIXIN_URL_SCHEMES_SUFFIX = 4dcf5f61c47df87c;
 			};
 			name = Debug;
 		};
@@ -2235,7 +2248,10 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				QQ_URL_SCHEMES_SUFFIX = 41f0745e;
 				VALID_ARCHS = "arm64 armv7 armv7s";
+				WEIBO_URL_SCHEMES_SUFFIX = 3217782787;
+				WEIXIN_URL_SCHEMES_SUFFIX = 4dcf5f61c47df87c;
 			};
 			name = Release;
 		};

@@ -69,8 +69,8 @@
             UIView *converView = [[UIView alloc] initWithFrame:CGRectMake(0, 64, self.view.width, self.view.height-64)];
             converView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:converView];
-            HTBlankView *blankView = [[HTBlankView alloc] initWithType:HTBlankViewTypeNoContent];
-            [blankView setImage:[UIImage imageNamed:@"img_blank_grey_big"] andOffset:17];
+            HTBlankView *blankView = [[HTBlankView alloc] initWithImage:[UIImage imageNamed:@"img_blankpage_gift"] text:@"参加官方活动，凭券获得神秘礼物"];
+            [blankView setOffset:10];
             [self.view addSubview:blankView];
             blankView.top = ROUND_HEIGHT_FLOAT(217);
         } else {

@@ -68,14 +68,15 @@
 
 //注册
 - (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
-	user.user_password = [NSString confusedPasswordWithLoginUser:user];
-
-	NSDictionary *param = @{
-		@"method": @"register",
-		@"user_name": user.user_name,
-		@"user_mobile": user.user_mobile,
-        @"user_avatar" : user.user_avatar
-	};
+    NSDictionary *param = @{
+                            @"method": @"register",
+                            @"user_name": user.user_name,
+                            @"user_mobile": user.user_mobile,
+                            };
+    if (user.user_avatar) {
+        [param setValue:user.user_avatar forKey:@"user_avatar"];
+    }
+    
 	[self loginBaseRequestWithParam:param
 				 callback:^(BOOL success, SKResponsePackage *response) {
 				     NSDictionary *dataDict = response.data;

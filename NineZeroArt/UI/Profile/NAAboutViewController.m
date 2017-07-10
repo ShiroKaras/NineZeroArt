@@ -67,7 +67,11 @@
     
     NSString *email = @"mkt@90app.tv";
     if ([MFMailComposeViewController canSendMail]) { // 用户已设置邮件账户
-    } else { return; }
+        
+    } else {
+        [self showTipsWithText:@"请发送邮件至mkt@90app.tv" offset:20];
+        return;
+    }
     
     if ([MFMessageComposeViewController canSendText] == YES) {
         _mailComposer = [[MFMailComposeViewController alloc]init];

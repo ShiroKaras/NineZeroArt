@@ -80,6 +80,7 @@
     _usernameTextField.leftView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 16, 60)];
     _usernameTextField.leftViewMode = UITextFieldViewModeAlways;
     [self.view addSubview:_usernameTextField];
+    [_usernameTextField becomeFirstResponder];
     
     UIView *line1 = [[UIView alloc] initWithFrame:CGRectMake(16, _usernameTextField.bottom, self.view.width-32, 1)];
     line1.backgroundColor = COMMON_SEPARATOR_COLOR;
@@ -101,7 +102,6 @@
         [self showTipsWithText:@"用户名不得为空"];
     }
     self.loginUser.user_name = _usernameTextField.text;
-    
     [[[SKServiceManager sharedInstance] loginService] registerWith:self.loginUser callback:^(BOOL success, SKResponsePackage *response) {
         if (response.result == 0) {
             NAClueListViewController *controller =  [[NAClueListViewController alloc] init];

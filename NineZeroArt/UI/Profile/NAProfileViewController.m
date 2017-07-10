@@ -134,7 +134,7 @@
 
 - (void)loadData {
     [[[SKServiceManager sharedInstance] profileService] getUserBaseInfoCallback:^(BOOL success, SKUserInfo *response) {
-        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:response.user_avatar]];
+        [_avatarImageView sd_setImageWithURL:[NSURL URLWithString:response.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
         _usernameLabel.text = response.user_name;
     }];
 }

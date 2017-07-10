@@ -11,6 +11,7 @@
 
 #import "NAClueListViewController.h"
 #import "NALoginViewController.h"
+#import "SKUserAgreementViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
@@ -62,6 +63,12 @@
     bottomLabel.bottom = self.view.bottom - ROUND_HEIGHT_FLOAT(10);
     bottomLabel.centerX = self.view.centerX;
     
+    UIButton *agreementButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, bottomLabel.height)];
+    [agreementButton addTarget:self action:@selector(didClickAgreementButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:agreementButton];
+    agreementButton.right = bottomLabel.right;
+    agreementButton.centerY = bottomLabel.centerY;
+    
     NSArray *loginArray = @[@"wechat", @"qq", @"weibo", @"phone"];
     float padding = (self.view.width-ROUND_WIDTH_FLOAT(30)*2-ROUND_WIDTH_FLOAT(38)*4)/3;
     for (int i=0; i<4; i++) {
@@ -78,6 +85,11 @@
     [self.view addSubview:loginTextImageView];
     loginTextImageView.centerX = self.view.centerX;
     loginTextImageView.bottom = bottomLabel.top - ROUND_HEIGHT_FLOAT(110);
+}
+
+- (void)didClickAgreementButton:(UIButton *)sender {
+    SKUserAgreementViewController *controller = [[SKUserAgreementViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 - (void)didClickLoginButton:(UIButton*)sender {
