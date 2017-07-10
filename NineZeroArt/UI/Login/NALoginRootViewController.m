@@ -9,7 +9,7 @@
 #import "NALoginRootViewController.h"
 #import "HTUIHeader.h"
 
-#import "SKSwipeViewController.h"
+#import "NAClueListViewController.h"
 #import "NALoginViewController.h"
 
 @interface NALoginRootViewController ()
@@ -80,17 +80,17 @@
 - (void)didClickLoginButton:(UIButton*)sender {
     switch (sender.tag) {
         case 100: {
-            SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:NO];
             break;
         }
         case 101: {
-            SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:NO];
             break;
         }
         case 102: {
-            SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
+            NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
             [self.navigationController pushViewController:controller animated:NO];
             break;
         }

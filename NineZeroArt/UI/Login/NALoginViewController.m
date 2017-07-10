@@ -101,6 +101,7 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
+    self.loginUser.user_mobile = _phoneTextField.text;
     self.loginUser.code = _passwordTextField.text;
     [[[SKServiceManager sharedInstance] loginService] loginWith:self.loginUser
                                                        callback:^(BOOL success, SKResponsePackage *response) {
@@ -109,9 +110,13 @@
                                                                [self.navigationController pushViewController:controller animated:NO];
                                                            } else if (response.result == -2004) {
                                                                [self showTipsWithText:@"请检查手机号或密码是否正确"];
+                                                           } else if (response.result == -1003) {
+                                                               [self showTipsWithText:@"验证码错误"];
                                                            } else if (response.result == -2006) {
                                                                NACreateAccountViewController *controller = [[NACreateAccountViewController alloc] initWithLoginUser:self.loginUser];
                                                                [self.navigationController pushViewController:controller animated:YES];
+                                                           } else {
+                                                               
                                                            }
                                                        }];
 }
