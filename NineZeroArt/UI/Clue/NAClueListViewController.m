@@ -48,7 +48,7 @@
     headerView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:headerView];
     
-    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_logo"]];
+    UIImageView *headerImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_clue_logo"]];
     [headerView addSubview:headerImageView];
     headerImageView.centerX = headerView.centerX;
     headerImageView.centerY = headerView.height/2;
@@ -191,7 +191,7 @@
         [_placeLabel_shadow mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_titleLabel).offset(1);
             make.right.equalTo(_titleLabel);
-            make.top.equalTo(_titleLabel.mas_bottom).offset(9);
+            make.top.equalTo(_titleLabel.mas_bottom).offset(11);
             make.height.equalTo(ROUND_WIDTH(22));
         }];
         
