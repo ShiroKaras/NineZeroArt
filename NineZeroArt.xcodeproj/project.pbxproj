@@ -149,6 +149,7 @@
 		1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */; };
 		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
+		1169D3111F14D8C1006360AC /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 1169D3101F14D8C1006360AC /* 90appbundle.cer */; };
 		1176D2BB1F13881A0036862A /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */; };
 		1176D2BC1F13881A0036862A /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */; };
 		118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */; };
@@ -487,6 +488,7 @@
 		1169B38C1F063C0700CE552B /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTicketView.h; sourceTree = "<group>"; };
 		1169B38D1F063C0700CE552B /* SKTicketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTicketView.m; sourceTree = "<group>"; };
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
+		1169D3101F14D8C1006360AC /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 90appbundle.cer; sourceTree = "<group>"; };
 		1176D2B81F13881A0036862A /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKUserAgreementViewController.h; path = Login/SKUserAgreementViewController.h; sourceTree = "<group>"; };
 		1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKUserAgreementViewController.m; path = Login/SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKUserAgreementViewController.xib; path = Login/SKUserAgreementViewController.xib; sourceTree = "<group>"; };
@@ -1390,6 +1392,7 @@
 				11FFFD001F05067000CEC7EB /* LaunchScreen.storyboard */,
 				11FFFD031F05067000CEC7EB /* Info.plist */,
 				11FFFCFB1F05067000CEC7EB /* NineZeroArt.xcdatamodeld */,
+				1169D3101F14D8C1006360AC /* 90appbundle.cer */,
 				11FFFCEF1F05067000CEC7EB /* Supporting Files */,
 				1169B32D1F05F81600CE552B /* environment */,
 				1169B3161F05F57600CE552B /* Service */,
@@ -1583,6 +1586,7 @@
 				11FFFD021F05067000CEC7EB /* LaunchScreen.storyboard in Resources */,
 				1169B3891F063BC200CE552B /* DemoDanmakuItem.xib in Resources */,
 				1169B2A11F05151100CE552B /* ARRadar.xib in Resources */,
+				1169D3111F14D8C1006360AC /* 90appbundle.cer in Resources */,
 				1169B2B61F05151100CE552B /* LICENSE in Resources */,
 				11AF98841F13466800C1B378 /* ShareSDK.bundle in Resources */,
 				1169B29B1F05151100CE552B /* ar_icon.png in Resources */,
