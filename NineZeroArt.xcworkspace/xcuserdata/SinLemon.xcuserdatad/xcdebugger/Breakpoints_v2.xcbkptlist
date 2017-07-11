@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/Clue/NAClueListViewController.m"
-            timestampString = "521458320.006018"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
-            landmarkName = "-loadData"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NineZeroArt/UI/Login/NACreateAccountViewController.m"
             timestampString = "521374995.386535"
             startingColumnNumber = "9223372036854775807"
@@ -112,22 +96,6 @@
             startingLineNumber = "171"
             endingLineNumber = "171"
             landmarkName = "-loginWithUser:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/Service/SKLoginService.m"
-            timestampString = "521458559.159255"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
-            landmarkName = "-loginWithThirdPlatform:callback:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

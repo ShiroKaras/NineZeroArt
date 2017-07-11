@@ -64,7 +64,7 @@
     }];
     
     _usernameLabel = [UILabel new];
-    _usernameLabel.text = @"我是一个零仔";
+    _usernameLabel.text = @"      ";
     _usernameLabel.textColor = [UIColor whiteColor];
     _usernameLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(14);
     [self.view addSubview:_usernameLabel];

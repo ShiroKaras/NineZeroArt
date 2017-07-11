@@ -97,7 +97,11 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	[self.glView stop];
+    [self.glView pause];
+}
+
+- (void)dealloc {
+    [self.glView stop];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -613,7 +617,8 @@
 #pragma mark - SKScanningRewardDelegate
 - (void)didClickBackButtonInScanningCaptureController:(SKScanningRewardViewController *)controller {
     [controller dismissViewControllerAnimated:NO completion:^{
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.glView restart];
+//        [self.navigationController popViewControllerAnimated:YES];
     }];
 }
 
