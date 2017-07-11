@@ -22,6 +22,7 @@
 #import "NSObject+FXAlertView.h"
 #import "DemoDanmakuItemData.h"
 #import "DemoDanmakuItem.h"
+#import "NAClueDetailViewController.h"
 
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
@@ -44,17 +45,11 @@
 
 @property (nonatomic, strong) SKScanning *scanning;
 @property (nonatomic, strong) NSMutableArray *rewardAction;
-@property (nonatomic, strong) NSString *rewardID;
 @property (nonatomic, assign) SKScanType swipeType; // default is SKScanTypeImage
 @property (nonatomic, strong) NSMutableArray *isRecognizedTargetImage;
-@property (nonatomic, copy) NSString *sid; // 活动id
-@property (nonatomic, strong) NSArray *linkURLs; // 普通扫一扫存储video url，拼图扫一扫返回目标图URL
 @property (nonatomic, strong) NSArray *linkClarity;
 @property (nonatomic, strong) NSString *defaultPic;
 @property (nonatomic, strong) SKReward *rewardRecord;
-@property (nonatomic, strong) NSArray *lid; //目标图对应id
-@property (nonatomic, assign) BOOL bstatus; //弹幕是否开启
-@property (nonatomic, assign) BOOL isHadReward; //是否已获取奖励
 
 @property (nonatomic, strong) FXDanmaku *danmaku;
 @property (nonatomic, strong) UIView *bottomView;
@@ -202,7 +197,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [_commentTextField resignFirstResponder];    //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收
-    [[[SKServiceManager sharedInstance] scanningService] sendScanningComment:_commentTextField.text imageID:self.lid[currentImageOrder] callback:^(BOOL success, SKResponsePackage *response) {
+    [[[SKServiceManager sharedInstance] scanningService] sendScanningComment:_commentTextField.text imageID:self.scanning.lid[currentImageOrder] callback:^(BOOL success, SKResponsePackage *response) {
         DemoDanmakuItemData *data = [DemoDanmakuItemData data];
         data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
         data.desc = _commentTextField.text;
@@ -258,13 +253,7 @@
 
 - (void)loadData {
     self.swipeType = SKScanTypeImage;
-    self.linkURLs = self.scanning.link_url;
-    self.rewardID = self.scanning.reward_id;
-    self.sid = self.scanning.sid;
-    self.lid = self.scanning.lid;
-    self.bstatus = self.scanning.bstatus;
-    self.isHadReward = self.scanning.is_haved_ticket;
-    if (_bstatus == NO) {
+    if (self.scanning.bstatus == NO) {
         self.danmaku.hidden = YES;
         self.bottomView.hidden = YES;
     }
@@ -328,8 +317,8 @@
 						});
 						if (succeeded) {
 							// 加载识别图
-							[self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
-							[self.glView startWithFileName:scanning.file_url videoURLs:self.linkURLs];
+							[self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
+							[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
 							completionHandler();
 						} else {
 							NSLog(@"zip解压失败:%@", error);
@@ -357,14 +346,14 @@
 			}
 			completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
 			    // 加载识别图
-			    [self setupOpenGLViewWithTargetNumber:self.linkURLs.count];
-			    [self.glView startWithFileName:scanning.file_url videoURLs:self.linkURLs];
+			    [self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
+			    [self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
 			    completionHandler();
 			}];
 	} else {
 		// 直接加载识别图
-		[self setupOpenGLViewWithTargetNumber:_linkURLs.count];
-		[self.glView startWithFileName:scanning.file_url videoURLs:_linkURLs];
+		[self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
+		[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
 		completionHandler();
 	}
 }
@@ -521,9 +510,17 @@
 
 - (void)scanningImageView:(SKScanningImageView *)imageView didTapGiftButton:(id)giftButton {
 	[imageView removeGiftView];
-	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
+	SKScanningRewardViewController *controller = [[SKScanningRewardViewController alloc] initWithRewardID:self.scanning.reward_id sId:self.scanning.sid scanType:_swipeType];
 	controller.delegate = self;
 	[self presentViewController:controller animated:NO completion:nil];
+    
+    NAClueDetailViewController* oneVC =nil;
+    for(UIViewController* VC in self.navigationController.viewControllers){
+        if([VC isKindOfClass:[NAClueDetailViewController class]]){
+            oneVC =(NAClueDetailViewController*) VC;
+            oneVC.scanning.is_haved_ticket = YES;
+        }
+    }
 }
 
 #pragma mark - OpenGLViewDelegate
@@ -534,7 +531,7 @@
         //扫到目标图
         [self.scanningImageView.scanningGridLine setHidden:YES];
 		if (_swipeType == SKScanTypeImage) {
-            if (_rewardID && ![_rewardID isEqualToString:@"0"] && !_isHadReward) {
+            if (self.scanning.reward_id && ![self.scanning.reward_id isEqualToString:@"0"] && !self.scanning.is_haved_ticket) {
                 _trackedTargetId = targetId;
                 [_scanningImageView setUpGiftView];
                 [_scanningImageView pushGift];
@@ -543,7 +540,7 @@
             self.danmakuSwitchButton.hidden = NO;
             if (!danmakuIsGet) {
                 danmakuIsGet = YES;
-                [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.lid[currentImageOrder] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
+                [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.scanning.lid[currentImageOrder] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
                     [self.danmaku start];
                     for (SKDanmakuItem *danmaku in danmakuList) {
                         DemoDanmakuItemData *data = [DemoDanmakuItemData data];
@@ -586,7 +583,7 @@
 #pragma mark - SKScanningPuzzleViewDelegate
 - (void)scanningPuzzleView:(SKScanningPuzzleView *)view didTapExchangeButton:(UIButton *)button {
 	// 兑换
-	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:self.rewardID sId:_sid scanType:_swipeType];
+	_scanningRewardViewController = [[SKScanningRewardViewController alloc] initWithRewardID:self.scanning.reward_id sId:self.scanning.sid scanType:_swipeType];
 	_scanningRewardViewController.delegate = self;
 	[self.view addSubview:_scanningRewardViewController.view];
 }
@@ -595,12 +592,12 @@
 	// 点开宝箱
 	[_scanningPuzzleView hideBoxView];
 
-	[[[SKServiceManager sharedInstance] scanningService] getScanningPuzzleWithMontageId:[_linkURLs objectAtIndex:_trackedTargetId]
-											sId:_sid
+	[[[SKServiceManager sharedInstance] scanningService] getScanningPuzzleWithMontageId:[self.scanning.link_url objectAtIndex:_trackedTargetId]
+											sId:self.scanning.sid
 										   callback:^(BOOL success, SKResponsePackage *response) {
 										       NSLog(@"%@", response);
 										       if (success && response.result == 0) {
-											       SKPopupGetPuzzleView *puzzleView = [[SKPopupGetPuzzleView alloc] initWithPuzzleImageURL:[_linkURLs objectAtIndex:_trackedTargetId]];
+											       SKPopupGetPuzzleView *puzzleView = [[SKPopupGetPuzzleView alloc] initWithPuzzleImageURL:[self.scanning.link_url objectAtIndex:_trackedTargetId]];
 											       puzzleView.delegate = self;
 											       [self.view addSubview:puzzleView];
 

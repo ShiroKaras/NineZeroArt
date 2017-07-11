@@ -13,7 +13,6 @@
 
 @interface NAClueDetailViewController () <UIWebViewDelegate>
 @property (nonatomic, strong) UIButton *nextButton;
-@property (nonatomic, strong) SKScanning *scanning;
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, copy) NSString *urlString;
 @end
@@ -81,8 +80,14 @@
 }
 
 - (void)nextButtonClick:(UIButton *)sender {
-    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] initWithScanning:self.scanning];
-    [self.navigationController pushViewController:controller animated:NO];
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+        HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
+        [alertView show];
+    } else {
+        SKSwipeViewController *controller =  [[SKSwipeViewController alloc] initWithScanning:self.scanning];
+        [self.navigationController pushViewController:controller animated:NO];
+    }
 }
 
 - (void)viewWillLayoutSubviews {

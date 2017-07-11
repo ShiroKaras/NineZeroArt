@@ -9,22 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "NineZeroArt/UI/LBS_AR/SKSwipeViewController.m"
-            timestampString = "521384424.177876"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
-            landmarkName = "-setupScanningFile:completionHandler:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "NineZeroArt/UI/Clue/NAClueListViewController.m"
             timestampString = "521360184.293375"
             startingColumnNumber = "9223372036854775807"
@@ -128,6 +112,22 @@
             startingLineNumber = "175"
             endingLineNumber = "175"
             landmarkName = "-createBaseRewardViewWithReward:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "NineZeroArt/UI/Login/NALoginRootViewController.m"
+            timestampString = "521434707.080116"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "164"
+            endingLineNumber = "164"
+            landmarkName = "-loginWithUser:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
