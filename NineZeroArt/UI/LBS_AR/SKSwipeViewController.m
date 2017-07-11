@@ -113,7 +113,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-
+    
     [self createBottomView];
 }
 
@@ -197,13 +197,50 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [_commentTextField resignFirstResponder];    //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收
+
+//    DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+//    data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
+//    data.desc = _commentTextField.text;
+//    data.backColor = COMMON_GREEN_COLOR;
+//    [self.danmaku addData:data];
+    if ([_commentTextField.text isEqualToString:@""]) {
+        [self showTipsWithText:@"评论不能为空~"];
+    }
+    
     [[[SKServiceManager sharedInstance] scanningService] sendScanningComment:_commentTextField.text imageID:self.scanning.lid[currentImageOrder] callback:^(BOOL success, SKResponsePackage *response) {
-        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
-        data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
-        data.desc = _commentTextField.text;
-        data.backColor = COMMON_GREEN_COLOR;
-        [self.danmaku addData:data];
+        
+        UIView *item = [[UIView alloc] initWithFrame:CGRectMake(0, 186*0.6+30, 96, 30)];
+        item.layer.cornerRadius = 15;
+        item.backgroundColor = COMMON_GREEN_COLOR;
+        [self.view addSubview:item];
+        
+        UIImageView *avatarImageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 20, 20)];
+        [item addSubview:avatarImageView];
+        avatarImageView.layer.cornerRadius = 10;
+        avatarImageView.layer.masksToBounds = YES;
+        [avatarImageView sd_setImageWithURL:[NSURL URLWithString:[SKStorageManager sharedInstance].getLoginUser.user_avatar] placeholderImage:[UIImage imageNamed:@"img_profile_photo_default"]];
+        
+        UILabel *contentLabel = [UILabel new];
+        contentLabel.textColor = [UIColor whiteColor];
+        contentLabel.text =  _commentTextField.text;
+        contentLabel.font = PINGFANG_FONT_OF_SIZE(12);
+        [contentLabel sizeToFit];
+        [item addSubview:contentLabel];
+        contentLabel.left = avatarImageView.right+8;
+        contentLabel.centerY = item.height/2;
+        
+        item.width = contentLabel.width+16+20+5;
+        item.left = self.view.right;
+        
+        [self.view addSubview:item];
+        [UIView animateWithDuration:5 delay:0 options:UIViewAnimationOptionCurveLinear animations:^{
+            item.right = 0;
+        } completion:^(BOOL finished) {
+            [item removeFromSuperview];
+        }];
+        
         _commentTextField.text = @"";
+        
     }];
     return YES;
 }
