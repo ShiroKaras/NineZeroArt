@@ -27,7 +27,7 @@
 			<string>com.zacyang.NineZeroArt$(BUNDLE_ID_SUFFIX)</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>529DArt$(BUNDLE_ID_SUFFIX)</string>
+				<string>NineZeroArt$(BUNDLE_ID_SUFFIX)</string>
 			</array>
 		</dict>
 		<dict>

@@ -119,7 +119,6 @@
 		1169B3271F05F57600CE552B /* SKScanningService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B31F1F05F57600CE552B /* SKScanningService.m */; };
 		1169B3281F05F57600CE552B /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3211F05F57600CE552B /* SKServiceManager.m */; };
 		1169B32C1F05F7C000CE552B /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B32B1F05F7C000CE552B /* ServerConfiguration.m */; };
-		1169B32E1F05F81600CE552B /* environment in Resources */ = {isa = PBXBuildFile; fileRef = 1169B32D1F05F81600CE552B /* environment */; };
 		1169B34D1F06399F00CE552B /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3341F06399F00CE552B /* HTAlertView.m */; };
 		1169B34E1F06399F00CE552B /* HTBlankView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3361F06399F00CE552B /* HTBlankView.m */; };
 		1169B34F1F06399F00CE552B /* HTCommonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3381F06399F00CE552B /* HTCommonViewController.m */; };
@@ -1602,7 +1601,6 @@
 				11AF98821F13466800C1B378 /* read_me.txt in Resources */,
 				11FFFCFA1F05067000CEC7EB /* Main.storyboard in Resources */,
 				1169B29C1F05151100CE552B /* ar_overlay.png in Resources */,
-				1169B32E1F05F81600CE552B /* environment in Resources */,
 				1169B29A1F05151100CE552B /* ARObject.xib in Resources */,
 				1169B29E1F05151100CE552B /* Radar.png in Resources */,
 				11AF987B1F13466800C1B378 /* ShareSDKUI.bundle in Resources */,
@@ -2033,7 +2031,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -2078,7 +2076,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
