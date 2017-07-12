@@ -75,7 +75,7 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
-    
+    currentImageOrder = -1;
     [self createUI];
     
     [self setupDanmaku];
@@ -568,9 +568,9 @@
 
 - (void)isRecognizedTarget:(BOOL)flag targetId:(int)targetId {
 	if (flag && targetId >= 0) {
-        currentImageOrder = targetId;
         //扫到目标图
         [self.scanningImageView.scanningGridLine setHidden:YES];
+        self.danmaku.hidden = NO;
 		if (_swipeType == SKScanTypeImage) {
             if (self.scanning.reward_id && ![self.scanning.reward_id isEqualToString:@"0"] && !self.scanning.is_haved_ticket) {
                 _trackedTargetId = targetId;
@@ -579,28 +579,33 @@
             }
             self.commentTextField.hidden = NO;
             self.danmakuSwitchButton.hidden = NO;
-            if (!danmakuIsGet) {
-                danmakuIsGet = YES;
-                [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.scanning.lid[currentImageOrder] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
-                    [self.danmaku start];
-                    for (SKDanmakuItem *danmaku in danmakuList) {
-                        DemoDanmakuItemData *data = [DemoDanmakuItemData data];
-                        data.avatarName = danmaku.user_avatar;
-                        data.desc = danmaku.contents;
-                        data.user_id = danmaku.user_id;
-                        if ([danmaku.user_id isEqualToString:[[SKStorageManager sharedInstance] getUserID]]) {
-                            data.backColor = COMMON_GREEN_COLOR;
-                        } else {
-                            data.backColor = COMMON_TITLE_BG_COLOR;
-                        }
-                        [self.danmaku addData:data];
-                    }
-                    
-                    if (!self.danmaku.isRunning) {
+            if (targetId!=currentImageOrder) {
+                if (!danmakuIsGet) {
+                    danmakuIsGet = YES;
+                    [self.danmaku emptyData];
+                    [self.danmaku cleanScreen];
+                    [self.danmaku stop];
+                    [[[SKServiceManager sharedInstance] scanningService] getScanningBarrageWithImageID:self.scanning.lid[targetId] callback:^(BOOL success, NSArray<SKDanmakuItem *> *danmakuList) {
                         [self.danmaku start];
-                    }
-                    
-                }];
+                        for (SKDanmakuItem *danmaku in danmakuList) {
+                            DemoDanmakuItemData *data = [DemoDanmakuItemData data];
+                            data.avatarName = danmaku.user_avatar;
+                            data.desc = danmaku.contents;
+                            data.user_id = danmaku.user_id;
+                            if ([danmaku.user_id isEqualToString:[[SKStorageManager sharedInstance] getUserID]]) {
+                                data.backColor = COMMON_GREEN_COLOR;
+                            } else {
+                                data.backColor = COMMON_TITLE_BG_COLOR;
+                            }
+                            [self.danmaku addData:data];
+                        }
+                        
+                        if (!self.danmaku.isRunning) {
+                            [self.danmaku start];
+                        }
+                    }];
+                }
+                currentImageOrder = targetId;
             }
 		}
 	} else {
@@ -608,6 +613,7 @@
         danmakuIsGet = NO;
         [self.scanningImageView showScanningGridLine];
 		if (_swipeType == SKScanTypeImage) {
+            self.danmaku.hidden = YES;
             self.commentTextField.hidden = YES;
             self.danmakuSwitchButton.hidden = YES;
 		}
