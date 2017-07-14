@@ -12,8 +12,6 @@
 
 - (NSString *)appStoreId;
 
-- (NSString *)JPUSHServiceAppKey;
-
 - (NSString *)AMapServicesAPIKey;
 
 - (NSString *)ShareSDKAppKey;
@@ -33,8 +31,6 @@
 - (NSString *)SSDKPlatformTypeQQAppKey;
 
 - (NSString *)UMAnalyticsConfigAppKey;
-
-- (NSString *)JPUSHServiceChannel;
 
 - (NSString *)TalkingDataSession;
 

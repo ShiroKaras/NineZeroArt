@@ -35,10 +35,6 @@
 	return [self stringValueWithKey:@"AppStoreID"];
 }
 
-- (NSString *)JPUSHServiceAppKey {
-	return [self stringValueWithKey:@"JPUSHServiceAppKey"];
-}
-
 - (NSString *)AMapServicesAPIKey {
 	return [self stringValueWithKey:@"AMapServicesAPIKey"];
 }
@@ -77,10 +73,6 @@
 
 - (NSString *)UMAnalyticsConfigAppKey {
 	return [self stringValueWithKey:@"UMAnalyticsConfigAppKey"];
-}
-
-- (NSString *)JPUSHServiceChannel {
-	return [self stringValueWithKey:@"JPUSHServiceChannel"];
 }
 
 - (NSString *)TalkingDataSession {
