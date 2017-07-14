@@ -9,7 +9,6 @@ target 'NineZeroArt' do
   pod 'SDWebImage', '~> 3.7.3'
   pod 'YTKKeyValueStore'
   pod 'Qiniu', "~> 7.0"
-  pod 'JPush', '~> 2.1.0'
   pod 'MBProgressHUD+BWMExtension', '~> 1.0.0'
   pod 'Masonry'
   pod 'UIImage+animatedGif', '~> 0.1.0'
