@@ -67,7 +67,6 @@
 		1169B2B21F05151100CE552B /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B1FE1F05151100CE552B /* UIImage+ImageEffects.m */; };
 		1169B2B31F05151100CE552B /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B2021F05151100CE552B /* INTULocationManager.m */; };
 		1169B2B41F05151100CE552B /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B2041F05151100CE552B /* INTULocationRequest.m */; };
-		1169B2B51F05151100CE552B /* JSPatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B2071F05151100CE552B /* JSPatch.framework */; };
 		1169B2B61F05151100CE552B /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1169B2091F05151100CE552B /* LICENSE */; };
 		1169B2B71F05151100CE552B /* LTInfiniteScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B20C1F05151100CE552B /* LTInfiniteScrollView.m */; };
 		1169B2B81F05151100CE552B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 1169B20D1F05151100CE552B /* README.md */; };
@@ -327,7 +326,6 @@
 		1169B2031F05151100CE552B /* INTULocationRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequest.h; sourceTree = "<group>"; };
 		1169B2041F05151100CE552B /* INTULocationRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = INTULocationRequest.m; sourceTree = "<group>"; };
 		1169B2051F05151100CE552B /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = INTULocationRequestDefines.h; sourceTree = "<group>"; };
-		1169B2071F05151100CE552B /* JSPatch.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = JSPatch.framework; sourceTree = "<group>"; };
 		1169B2091F05151100CE552B /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1169B20B1F05151100CE552B /* LTInfiniteScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LTInfiniteScrollView.h; sourceTree = "<group>"; };
 		1169B20C1F05151100CE552B /* LTInfiniteScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LTInfiniteScrollView.m; sourceTree = "<group>"; };
@@ -589,7 +587,6 @@
 				11AF98831F13466800C1B378 /* MOBFoundation.framework in Frameworks */,
 				11AF98851F13466800C1B378 /* ShareSDKConnector.framework in Frameworks */,
 				11AF98811F13466800C1B378 /* libWeChatSDK.a in Frameworks */,
-				1169B2B51F05151100CE552B /* JSPatch.framework in Frameworks */,
 				11AF987F1F13466800C1B378 /* libWeiboSDK.a in Frameworks */,
 				11AF987A1F13466800C1B378 /* ShareSDKExtension.framework in Frameworks */,
 				A701BE25B50EAB1534BC221C /* libPods-NineZeroArt.a in Frameworks */,
@@ -706,7 +703,6 @@
 				1169B1E91F05151100CE552B /* FXDanmaku */,
 				1169B1FC1F05151100CE552B /* ImageEffects */,
 				1169B1FF1F05151100CE552B /* INTULocationManager */,
-				1169B2061F05151100CE552B /* JSPatch */,
 				1169B2081F05151100CE552B /* LTInfiniteScrollView */,
 				1169B20E1F05151100CE552B /* MEImage+GIF */,
 				1169B2111F05151100CE552B /* MJExtension */,
@@ -879,14 +875,6 @@
 				1169B2051F05151100CE552B /* INTULocationRequestDefines.h */,
 			);
 			path = INTULocationManager;
-			sourceTree = "<group>";
-		};
-		1169B2061F05151100CE552B /* JSPatch */ = {
-			isa = PBXGroup;
-			children = (
-				1169B2071F05151100CE552B /* JSPatch.framework */,
-			);
-			path = JSPatch;
 			sourceTree = "<group>";
 		};
 		1169B2081F05151100CE552B /* LTInfiniteScrollView */ = {
