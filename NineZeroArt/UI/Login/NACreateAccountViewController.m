@@ -131,35 +131,45 @@
 
 #pragma mark - Image picker
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
-    [picker dismissViewControllerAnimated:YES completion:nil];
-    UIImage *image = info[UIImagePickerControllerEditedImage];
-    NSData *imageData = UIImageJPEGRepresentation(image, 0.5);
-    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
-    [imageData writeToFile:imagePath atomically:YES];
-    
-    [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
-    NSString *avatarKey = [NSString avatarName];
-    
-    [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:avatarKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-        DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
-        if (info.statusCode == 200) {
-            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            self.loginUser.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
-            [_avatarButton setBackgroundImage:image forState:UIControlStateNormal];
-//            [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:0 callback:^(BOOL success, SKResponsePackage *response) {
-//                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-//                if (success) {
-//                    [_avatarButton setBackgroundImage:image forState:UIControlStateNormal];
-//                } else {
-//                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
-//                }
-//            }];
-        } else {
-            [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
-            [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
-        }
-    } option:nil];
+    [picker dismissViewControllerAnimated:YES completion:^{
+        UIImage *originalImage = info[UIImagePickerControllerEditedImage];
+        
+        UIGraphicsBeginImageContext(originalImage.size);
+        [originalImage drawInRect:CGRectMake(0, 0, originalImage.size.width, originalImage.size.height)];
+        UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSData *imageData = UIImageJPEGRepresentation(newImage, 0.5);
+
+        NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *imagePath = [path stringByAppendingPathComponent:@"avatar"];
+        [imageData writeToFile:imagePath atomically:YES];
+        
+        [MBProgressHUD bwm_showHUDAddedTo:KEY_WINDOW title:@"处理中" animated:YES];
+        NSString *avatarKey = [NSString avatarName];
+        
+        [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:avatarKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+            if (info.statusCode == 200) {
+                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+                self.loginUser.user_avatar = [NSString qiniuDownloadURLWithFileName:key];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_avatarButton setBackgroundImage:newImage forState:UIControlStateNormal];
+                });
+                //            [[[SKServiceManager sharedInstance] profileService] updateUserInfoWith:_userInfo withType:0 callback:^(BOOL success, SKResponsePackage *response) {
+                //                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+                //                if (success) {
+                //                    [_avatarButton setBackgroundImage:image forState:UIControlStateNormal];
+                //                } else {
+                //                    [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
+                //                }
+                //            }];
+            } else {
+                [MBProgressHUD hideHUDForView:KEY_WINDOW animated:YES];
+                [MBProgressHUD bwm_showTitle:@"上传头像失败" toView:KEY_WINDOW hideAfter:1.0];
+            }
+        } option:nil];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {

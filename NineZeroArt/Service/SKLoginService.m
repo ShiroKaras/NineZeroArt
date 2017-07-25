@@ -68,13 +68,20 @@
 
 //注册
 - (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
-    NSDictionary *param = @{
-                            @"method": @"register",
-                            @"user_name": user.user_name,
-                            @"user_mobile": user.user_mobile,
-                            };
+    NSDictionary *param;
     if (user.user_avatar) {
-        [param setValue:user.user_avatar forKey:@"user_avatar"];
+        param = @{
+                  @"method": @"register",
+                  @"user_name": user.user_name,
+                  @"user_mobile": user.user_mobile,
+                  @"user_avatar": user.user_avatar
+                  };
+    } else {
+        param = @{
+                  @"method": @"register",
+                  @"user_name": user.user_name,
+                  @"user_mobile": user.user_mobile,
+                  };
     }
     
 	[self loginBaseRequestWithParam:param
