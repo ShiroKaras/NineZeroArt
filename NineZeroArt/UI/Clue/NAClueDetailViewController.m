@@ -15,6 +15,16 @@
 @property (nonatomic, strong) UIButton *nextButton;
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, copy) NSString *urlString;
+
+//捕获设备，通常是前置摄像头，后置摄像头，麦克风（音频输入）
+@property (nonatomic, strong) AVCaptureDevice *device;
+//AVCaptureDeviceInput 代表输入设备，他使用AVCaptureDevice 来初始化
+@property (nonatomic, strong) AVCaptureDeviceInput *input;
+//输出图片
+@property (nonatomic ,strong) AVCaptureStillImageOutput *imageOutput;
+//session：由他把输入输出结合在一起，并开始启动捕获设备（摄像头）
+@property (nonatomic, strong) AVCaptureSession *session;
+
 @end
 
 @implementation NAClueDetailViewController
@@ -79,9 +89,27 @@
     
 }
 
+- (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position{
+    NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
+    for ( AVCaptureDevice *device in devices )
+        if ( device.position == position ){
+            return device;
+        }
+    return nil;
+}
+
 - (void)nextButtonClick:(UIButton *)sender {
     AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
-    if (authStatus == AVAuthorizationStatusRestricted || authStatus == AVAuthorizationStatusDenied) {
+    if (authStatus == AVAuthorizationStatusNotDetermined) {
+        self.device = [self cameraWithPosition:AVCaptureDevicePositionBack];
+        self.input = [[AVCaptureDeviceInput alloc] initWithDevice:self.device error:nil];
+        self.imageOutput = [[AVCaptureStillImageOutput alloc] init];
+        self.session = [[AVCaptureSession alloc] init];
+        
+        SKSwipeViewController *controller =  [[SKSwipeViewController alloc] initWithScanning:self.scanning];
+        [self.navigationController pushViewController:controller animated:NO];
+    } else if (authStatus == AVAuthorizationStatusRestricted ||
+               authStatus == AVAuthorizationStatusDenied) {
         HTAlertView *alertView = [[HTAlertView alloc] initWithType:HTAlertViewTypeCamera];
         [alertView show];
     } else {
