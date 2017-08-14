@@ -12,6 +12,9 @@
 #import "HTUIHeader.h"
 #import "ClientConfiguration.h"
 
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 //腾讯开放平台（对应QQ和QQ空间）SDK头文件
@@ -26,7 +29,7 @@
 //新浪微博SDK需要在项目Build Settings中的Other Linker Flags添加"-ObjC"
 
 @interface AppDelegate ()
-
+@property (nonatomic, strong) AMapLocationManager *locationManager;
 @end
 
 @implementation AppDelegate
@@ -38,6 +41,7 @@
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     [self registerQiniuService];
     [self registerShareSDK];
+    [self registerAMap];
     
     [NSThread sleepForTimeInterval:2];
     [self createWindowAndVisibleWithOptions:launchOptions];
@@ -154,6 +158,12 @@
         
         [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
     }
+}
+
+#pragma mark - Location
+
+- (void)registerAMap {
+    [AMapServices sharedServices].apiKey = [[ClientConfiguration sharedInstance] AMapServicesAPIKey];
 }
 
 #pragma mark - QiNiu

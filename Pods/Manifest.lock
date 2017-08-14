@@ -14,6 +14,13 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AMap3DMap (5.0.0):
+    - AMapFoundation (~> 1.3)
+  - AMapFoundation (1.4.0)
+  - AMapLocation (2.3.1):
+    - AMapFoundation (~> 1.3)
+  - AMapSearch (5.0.0):
+    - AMapFoundation (~> 1.2)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
@@ -37,6 +44,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0)
+  - AMap3DMap
+  - AMapLocation
+  - AMapSearch
   - Masonry
   - MBProgressHUD+BWMExtension (~> 1.0.0)
   - Qiniu (~> 7.0)
@@ -49,6 +59,10 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap3DMap: 4d0a53d0e57c7c758560225dfdaf593b306bd468
+  AMapFoundation: 458974f46a39df8407fd818ab83d2630d494c726
+  AMapLocation: 6016f0e09c127461c9c8e36945f34c0f037ad962
+  AMapSearch: cf7fd100d533995822d92c22586abfaf7cdf6eef
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   HappyDNS: 06a9fed2796663fd87626dbf02552933265bf059
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -62,6 +76,6 @@ SPEC CHECKSUMS:
   YLGIFImage: c0ae132fe80e5282b2762a97d14e23ba71a748ae
   YTKKeyValueStore: 4d002941540dd5108fa23009b71e0f2f937f7a0f
 
-PODFILE CHECKSUM: c8e392a7ad285a68be9e429b3adebcfacc57fc1e
+PODFILE CHECKSUM: 60c4525ac70ccf6bdda9ffb66b23a7b8c6c1fe53
 
 COCOAPODS: 1.1.1
