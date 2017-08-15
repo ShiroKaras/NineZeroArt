@@ -115,7 +115,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"https://admin.90app.tv/Home/ArtActivity/art_activity_detail/sid/%@.html", self.clueArray[indexPath.row].sid]];
+//    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"https://admin.90app.tv/Home/ArtActivity/art_activity_detail/sid/%@.html", self.clueArray[indexPath.row].sid]];
+    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"http://112.74.133.183:9092/Home/ArtActivity/art_activity_detail/sid/%@.html", self.clueArray[indexPath.row].sid]];
     [self.navigationController pushViewController:controller animated:YES];
 }
 

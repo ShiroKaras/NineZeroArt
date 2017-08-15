@@ -127,6 +127,7 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
     } else {
+        [[SKStorageManager sharedInstance] updateUserID:@"-1"];
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
         HTNavigationController *navController =
