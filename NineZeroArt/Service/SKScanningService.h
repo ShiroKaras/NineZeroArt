@@ -12,13 +12,15 @@
 
 @interface SKScanningService : NSObject
 
-typedef void (^SKScanningCallback)(BOOL success, SKResponsePackage *package);
 typedef void (^SKScanningRewardCallback)(BOOL success, SKReward *reward);
-typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* danmakuList);
+typedef void (^SKScanningCallback)(BOOL success, SKScanning *scanning);
 typedef void (^SKScanningListCallback)(BOOL success, NSArray<SKScanning*>* scanningList);
+typedef void (^SKDanmakuListCallback)(BOOL success, NSArray<SKDanmakuItem*>* danmakuList);
 
 //获取线索列表
 - (void)getScanningListWithCallBack:(SKScanningListCallback)callback;
+
+- (void)getScanningDetailWithSid:(NSString*)sid callBack:(SKScanningCallback)callback;
 
 - (void)getScanningWithCallBack:(SKResponseCallback)callback;
 

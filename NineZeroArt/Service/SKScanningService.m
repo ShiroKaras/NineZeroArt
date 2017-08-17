@@ -67,7 +67,7 @@
 
 - (void)getScanningListWithCallBack:(SKScanningListCallback)callback {
     NSDictionary *param = @{
-                            @"method": @"getScanningList"
+                            @"method": @"visitorGetScanningList"
                             };
     [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSMutableArray<SKScanning*>*clueList = [NSMutableArray array];
@@ -76,6 +76,17 @@
             [clueList addObject:clueItem];
         }
         callback(success, clueList);
+    }];
+}
+
+- (void)getScanningDetailWithSid:(NSString*)sid callBack:(SKScanningCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"getScanningDetail",
+                            @"s_id" : sid
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        SKScanning *clueItem = [SKScanning mj_objectWithKeyValues:response.data];
+        callback(success, clueItem);
     }];
 }
 

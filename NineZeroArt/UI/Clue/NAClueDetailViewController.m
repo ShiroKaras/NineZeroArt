@@ -86,7 +86,10 @@
 }
 
 - (void)loadData {
-    
+    [[[SKServiceManager sharedInstance] scanningService] getScanningDetailWithSid:self.scanning.sid callBack:^(BOOL success, SKScanning *scanning) {
+        self.scanning = scanning;
+        NSLog(@"%@", scanning.file_url);
+    }];
 }
 
 - (AVCaptureDevice *)cameraWithPosition:(AVCaptureDevicePosition)position{
