@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		111039F91F13566600837F45 /* NAAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 111039F81F13566600837F45 /* NAAboutViewController.m */; };
 		111039FB1F13593800837F45 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 111039FA1F13593800837F45 /* MessageUI.framework */; };
 		1169B19B1F0514AE00CE552B /* BaseConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B16B1F0514AE00CE552B /* BaseConfiguration.m */; };
 		1169B19C1F0514AE00CE552B /* ClientConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B16D1F0514AE00CE552B /* ClientConfiguration.m */; };
@@ -130,27 +129,10 @@
 		1169B3561F06399F00CE552B /* SKHelperView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3481F06399F00CE552B /* SKHelperView.m */; };
 		1169B3571F06399F00CE552B /* SKShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B34A1F06399F00CE552B /* SKShareView.m */; };
 		1169B3581F06399F00CE552B /* UIViewController+ImagePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B34C1F06399F00CE552B /* UIViewController+ImagePicker.m */; };
-		1169B3751F063A3400CE552B /* ar.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1169B35B1F063A3400CE552B /* ar.cc */; };
-		1169B3761F063A3400CE552B /* OpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1169B35E1F063A3400CE552B /* OpenGLView.mm */; };
-		1169B3771F063A3400CE552B /* renderer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 1169B35F1F063A3400CE552B /* renderer.cc */; };
-		1169B3791F063A3400CE552B /* SKARRewardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3641F063A3400CE552B /* SKARRewardController.m */; };
-		1169B37A1F063A3400CE552B /* SKDownloadProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3661F063A3400CE552B /* SKDownloadProgressView.m */; };
-		1169B37B1F063A3400CE552B /* SKPopupGetPuzzleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3681F063A3400CE552B /* SKPopupGetPuzzleView.m */; };
-		1169B37C1F063A3400CE552B /* SKScanningImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B36A1F063A3400CE552B /* SKScanningImageView.m */; };
-		1169B37D1F063A3400CE552B /* SKScanningPuzzleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B36C1F063A3400CE552B /* SKScanningPuzzleView.m */; };
-		1169B37E1F063A3400CE552B /* SKScanningResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B36E1F063A3400CE552B /* SKScanningResultView.m */; };
-		1169B37F1F063A3400CE552B /* SKScanningRewardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3701F063A3400CE552B /* SKScanningRewardView.m */; };
-		1169B3801F063A3400CE552B /* SKScanningRewardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3721F063A3400CE552B /* SKScanningRewardViewController.m */; };
-		1169B3811F063A3400CE552B /* SKSwipeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3741F063A3400CE552B /* SKSwipeViewController.m */; };
-		1169B3881F063BC200CE552B /* DemoDanmakuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3841F063BC200CE552B /* DemoDanmakuItem.m */; };
-		1169B3891F063BC200CE552B /* DemoDanmakuItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1169B3851F063BC200CE552B /* DemoDanmakuItem.xib */; };
-		1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */; };
-		1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B38D1F063C0700CE552B /* SKTicketView.m */; };
 		1169B3901F063CC700CE552B /* easyar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1169B38F1F063CC700CE552B /* easyar.framework */; };
 		1169D3111F14D8C1006360AC /* 90appbundle.cer in Resources */ = {isa = PBXBuildFile; fileRef = 1169D3101F14D8C1006360AC /* 90appbundle.cer */; };
 		1176D2BB1F13881A0036862A /* SKUserAgreementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */; };
 		1176D2BC1F13881A0036862A /* SKUserAgreementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */; };
-		118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */; };
 		11AF98791F13466800C1B378 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98571F13466800C1B378 /* ShareSDK.framework */; };
 		11AF987A1F13466800C1B378 /* ShareSDKExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF985A1F13466800C1B378 /* ShareSDKExtension.framework */; };
 		11AF987B1F13466800C1B378 /* ShareSDKUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 11AF985B1F13466800C1B378 /* ShareSDKUI.bundle */; };
@@ -171,9 +153,6 @@
 		11AF988F1F134D3500C1B378 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF988E1F134D3500C1B378 /* libicucore.tbd */; };
 		11AF98911F134D4100C1B378 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98901F134D4100C1B378 /* JavaScriptCore.framework */; };
 		11AF98931F134D4A00C1B378 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98921F134D4A00C1B378 /* ImageIO.framework */; };
-		11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB31F09F5430098F678 /* NAProfileViewController.m */; };
-		11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */; };
-		11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */; };
 		11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */; };
 		11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC11F0B86180098F678 /* NALoginRootViewController.m */; };
 		11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC41F0B93A90098F678 /* NALoginViewController.m */; };
@@ -210,8 +189,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		111039F71F13566600837F45 /* NAAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAAboutViewController.h; path = Profile/NAAboutViewController.h; sourceTree = "<group>"; };
-		111039F81F13566600837F45 /* NAAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAAboutViewController.m; path = Profile/NAAboutViewController.m; sourceTree = "<group>"; };
 		111039FA1F13593800837F45 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		1169B16A1F0514AE00CE552B /* BaseConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseConfiguration.h; sourceTree = "<group>"; };
 		1169B16B1F0514AE00CE552B /* BaseConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseConfiguration.m; sourceTree = "<group>"; };
@@ -455,44 +432,11 @@
 		1169B34A1F06399F00CE552B /* SKShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKShareView.m; sourceTree = "<group>"; };
 		1169B34B1F06399F00CE552B /* UIViewController+ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+ImagePicker.h"; sourceTree = "<group>"; };
 		1169B34C1F06399F00CE552B /* UIViewController+ImagePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+ImagePicker.m"; sourceTree = "<group>"; };
-		1169B35B1F063A3400CE552B /* ar.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ar.cc; sourceTree = "<group>"; };
-		1169B35C1F063A3400CE552B /* ar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ar.hpp; sourceTree = "<group>"; };
-		1169B35D1F063A3400CE552B /* OpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenGLView.h; sourceTree = "<group>"; };
-		1169B35E1F063A3400CE552B /* OpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenGLView.mm; sourceTree = "<group>"; };
-		1169B35F1F063A3400CE552B /* renderer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = renderer.cc; sourceTree = "<group>"; };
-		1169B3601F063A3400CE552B /* renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = renderer.hpp; sourceTree = "<group>"; };
-		1169B3631F063A3400CE552B /* SKARRewardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKARRewardController.h; sourceTree = "<group>"; };
-		1169B3641F063A3400CE552B /* SKARRewardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKARRewardController.m; sourceTree = "<group>"; };
-		1169B3651F063A3400CE552B /* SKDownloadProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKDownloadProgressView.h; sourceTree = "<group>"; };
-		1169B3661F063A3400CE552B /* SKDownloadProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDownloadProgressView.m; sourceTree = "<group>"; };
-		1169B3671F063A3400CE552B /* SKPopupGetPuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPopupGetPuzzleView.h; sourceTree = "<group>"; };
-		1169B3681F063A3400CE552B /* SKPopupGetPuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPopupGetPuzzleView.m; sourceTree = "<group>"; };
-		1169B3691F063A3400CE552B /* SKScanningImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningImageView.h; sourceTree = "<group>"; };
-		1169B36A1F063A3400CE552B /* SKScanningImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningImageView.m; sourceTree = "<group>"; };
-		1169B36B1F063A3400CE552B /* SKScanningPuzzleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningPuzzleView.h; sourceTree = "<group>"; };
-		1169B36C1F063A3400CE552B /* SKScanningPuzzleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningPuzzleView.m; sourceTree = "<group>"; };
-		1169B36D1F063A3400CE552B /* SKScanningResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningResultView.h; sourceTree = "<group>"; };
-		1169B36E1F063A3400CE552B /* SKScanningResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningResultView.m; sourceTree = "<group>"; };
-		1169B36F1F063A3400CE552B /* SKScanningRewardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningRewardView.h; sourceTree = "<group>"; };
-		1169B3701F063A3400CE552B /* SKScanningRewardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningRewardView.m; sourceTree = "<group>"; };
-		1169B3711F063A3400CE552B /* SKScanningRewardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningRewardViewController.h; sourceTree = "<group>"; };
-		1169B3721F063A3400CE552B /* SKScanningRewardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningRewardViewController.m; sourceTree = "<group>"; };
-		1169B3731F063A3400CE552B /* SKSwipeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSwipeViewController.h; sourceTree = "<group>"; };
-		1169B3741F063A3400CE552B /* SKSwipeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSwipeViewController.m; sourceTree = "<group>"; };
-		1169B3831F063BC200CE552B /* DemoDanmakuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDanmakuItem.h; sourceTree = "<group>"; };
-		1169B3841F063BC200CE552B /* DemoDanmakuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDanmakuItem.m; sourceTree = "<group>"; };
-		1169B3851F063BC200CE552B /* DemoDanmakuItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DemoDanmakuItem.xib; sourceTree = "<group>"; };
-		1169B3861F063BC200CE552B /* DemoDanmakuItemData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoDanmakuItemData.h; sourceTree = "<group>"; };
-		1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoDanmakuItemData.m; sourceTree = "<group>"; };
-		1169B38C1F063C0700CE552B /* SKTicketView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKTicketView.h; sourceTree = "<group>"; };
-		1169B38D1F063C0700CE552B /* SKTicketView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKTicketView.m; sourceTree = "<group>"; };
 		1169B38F1F063CC700CE552B /* easyar.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = easyar.framework; sourceTree = "<group>"; };
 		1169D3101F14D8C1006360AC /* 90appbundle.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = 90appbundle.cer; sourceTree = "<group>"; };
 		1176D2B81F13881A0036862A /* SKUserAgreementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SKUserAgreementViewController.h; path = Login/SKUserAgreementViewController.h; sourceTree = "<group>"; };
 		1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SKUserAgreementViewController.m; path = Login/SKUserAgreementViewController.m; sourceTree = "<group>"; };
 		1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SKUserAgreementViewController.xib; path = Login/SKUserAgreementViewController.xib; sourceTree = "<group>"; };
-		118A3F211F0CF9A3009902D1 /* NAClueDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueDetailViewController.h; path = Clue/NAClueDetailViewController.h; sourceTree = "<group>"; };
-		118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueDetailViewController.m; path = Clue/NAClueDetailViewController.m; sourceTree = "<group>"; };
 		11AF98571F13466800C1B378 /* ShareSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDK.framework; sourceTree = "<group>"; };
 		11AF985A1F13466800C1B378 /* ShareSDKExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKExtension.framework; sourceTree = "<group>"; };
 		11AF985B1F13466800C1B378 /* ShareSDKUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKUI.bundle; sourceTree = "<group>"; };
@@ -527,12 +471,6 @@
 		11AF988E1F134D3500C1B378 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		11AF98901F134D4100C1B378 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		11AF98921F134D4A00C1B378 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		11F00DB21F09F5430098F678 /* NAProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAProfileViewController.h; path = Profile/NAProfileViewController.h; sourceTree = "<group>"; };
-		11F00DB31F09F5430098F678 /* NAProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAProfileViewController.m; path = Profile/NAProfileViewController.m; sourceTree = "<group>"; };
-		11F00DB51F0A3A020098F678 /* SKProfileMyTicketsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileMyTicketsViewController.h; sourceTree = "<group>"; };
-		11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKProfileMyTicketsViewController.m; sourceTree = "<group>"; };
-		11F00DB81F0A3A2D0098F678 /* SKDescriptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKDescriptionView.h; sourceTree = "<group>"; };
-		11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKDescriptionView.m; sourceTree = "<group>"; };
 		11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueListViewController.h; path = Clue/NAClueListViewController.h; sourceTree = "<group>"; };
 		11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueListViewController.m; path = Clue/NAClueListViewController.m; sourceTree = "<group>"; };
 		11F00DC01F0B86180098F678 /* NALoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginRootViewController.h; path = Login/NALoginRootViewController.h; sourceTree = "<group>"; };
@@ -1117,11 +1055,7 @@
 			children = (
 				11F00DBF1F0B86010098F678 /* Login */,
 				11F00DBB1F0A447E0098F678 /* Clue */,
-				11F00DB11F09F4EE0098F678 /* Profile */,
 				1169B3321F06399F00CE552B /* Common */,
-				1169B3821F063BC200CE552B /* Danmaku */,
-				1169B3591F063A3400CE552B /* LBS_AR */,
-				1169B38B1F063C0700CE552B /* Ticket */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1157,70 +1091,6 @@
 				1169B34C1F06399F00CE552B /* UIViewController+ImagePicker.m */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		1169B3591F063A3400CE552B /* LBS_AR */ = {
-			isa = PBXGroup;
-			children = (
-				1169B35A1F063A3400CE552B /* EasyAR */,
-				1169B3631F063A3400CE552B /* SKARRewardController.h */,
-				1169B3641F063A3400CE552B /* SKARRewardController.m */,
-				1169B3651F063A3400CE552B /* SKDownloadProgressView.h */,
-				1169B3661F063A3400CE552B /* SKDownloadProgressView.m */,
-				1169B3671F063A3400CE552B /* SKPopupGetPuzzleView.h */,
-				1169B3681F063A3400CE552B /* SKPopupGetPuzzleView.m */,
-				1169B3691F063A3400CE552B /* SKScanningImageView.h */,
-				1169B36A1F063A3400CE552B /* SKScanningImageView.m */,
-				1169B36B1F063A3400CE552B /* SKScanningPuzzleView.h */,
-				1169B36C1F063A3400CE552B /* SKScanningPuzzleView.m */,
-				1169B36D1F063A3400CE552B /* SKScanningResultView.h */,
-				1169B36E1F063A3400CE552B /* SKScanningResultView.m */,
-				1169B36F1F063A3400CE552B /* SKScanningRewardView.h */,
-				1169B3701F063A3400CE552B /* SKScanningRewardView.m */,
-				1169B3711F063A3400CE552B /* SKScanningRewardViewController.h */,
-				1169B3721F063A3400CE552B /* SKScanningRewardViewController.m */,
-				1169B3731F063A3400CE552B /* SKSwipeViewController.h */,
-				1169B3741F063A3400CE552B /* SKSwipeViewController.m */,
-			);
-			path = LBS_AR;
-			sourceTree = "<group>";
-		};
-		1169B35A1F063A3400CE552B /* EasyAR */ = {
-			isa = PBXGroup;
-			children = (
-				1169B35B1F063A3400CE552B /* ar.cc */,
-				1169B35C1F063A3400CE552B /* ar.hpp */,
-				1169B35D1F063A3400CE552B /* OpenGLView.h */,
-				1169B35E1F063A3400CE552B /* OpenGLView.mm */,
-				1169B35F1F063A3400CE552B /* renderer.cc */,
-				1169B3601F063A3400CE552B /* renderer.hpp */,
-			);
-			path = EasyAR;
-			sourceTree = "<group>";
-		};
-		1169B3821F063BC200CE552B /* Danmaku */ = {
-			isa = PBXGroup;
-			children = (
-				1169B3831F063BC200CE552B /* DemoDanmakuItem.h */,
-				1169B3841F063BC200CE552B /* DemoDanmakuItem.m */,
-				1169B3851F063BC200CE552B /* DemoDanmakuItem.xib */,
-				1169B3861F063BC200CE552B /* DemoDanmakuItemData.h */,
-				1169B3871F063BC200CE552B /* DemoDanmakuItemData.m */,
-			);
-			path = Danmaku;
-			sourceTree = "<group>";
-		};
-		1169B38B1F063C0700CE552B /* Ticket */ = {
-			isa = PBXGroup;
-			children = (
-				11F00DB51F0A3A020098F678 /* SKProfileMyTicketsViewController.h */,
-				11F00DB61F0A3A020098F678 /* SKProfileMyTicketsViewController.m */,
-				1169B38C1F063C0700CE552B /* SKTicketView.h */,
-				1169B38D1F063C0700CE552B /* SKTicketView.m */,
-				11F00DB81F0A3A2D0098F678 /* SKDescriptionView.h */,
-				11F00DB91F0A3A2D0098F678 /* SKDescriptionView.m */,
-			);
-			path = Ticket;
 			sourceTree = "<group>";
 		};
 		11AF98561F13466800C1B378 /* ShareSDK */ = {
@@ -1313,24 +1183,11 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
-		11F00DB11F09F4EE0098F678 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-				11F00DB21F09F5430098F678 /* NAProfileViewController.h */,
-				11F00DB31F09F5430098F678 /* NAProfileViewController.m */,
-				111039F71F13566600837F45 /* NAAboutViewController.h */,
-				111039F81F13566600837F45 /* NAAboutViewController.m */,
-			);
-			name = Profile;
-			sourceTree = "<group>";
-		};
 		11F00DBB1F0A447E0098F678 /* Clue */ = {
 			isa = PBXGroup;
 			children = (
 				11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */,
 				11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */,
-				118A3F211F0CF9A3009902D1 /* NAClueDetailViewController.h */,
-				118A3F221F0CF9A3009902D1 /* NAClueDetailViewController.m */,
 			);
 			name = Clue;
 			sourceTree = "<group>";
@@ -1579,7 +1436,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				11FFFD021F05067000CEC7EB /* LaunchScreen.storyboard in Resources */,
-				1169B3891F063BC200CE552B /* DemoDanmakuItem.xib in Resources */,
 				1169B2A11F05151100CE552B /* ARRadar.xib in Resources */,
 				1169D3111F14D8C1006360AC /* 90appbundle.cer in Resources */,
 				1169B2B61F05151100CE552B /* LICENSE in Resources */,
@@ -1793,14 +1649,12 @@
 			files = (
 				1169B2B21F05151100CE552B /* UIImage+ImageEffects.m in Sources */,
 				1169B1A71F0514AE00CE552B /* NSObject+FXAlertView.m in Sources */,
-				111039F91F13566600837F45 /* NAAboutViewController.m in Sources */,
 				1169B2D71F05151100CE552B /* UIView+MJExtension.m in Sources */,
 				11FFFCF71F05067000CEC7EB /* ViewController.m in Sources */,
 				1169B2B31F05151100CE552B /* INTULocationManager.m in Sources */,
 				1169B3531F06399F00CE552B /* HTUIHelper.m in Sources */,
 				1169B2FA1F05154200CE552B /* SKStorageManager.m in Sources */,
 				1169B2C61F05151100CE552B /* MJRefreshBackFooter.m in Sources */,
-				1169B37B1F063A3400CE552B /* SKPopupGetPuzzleView.m in Sources */,
 				1169B1B11F0514AE00CE552B /* UIViewController+HTTips.m in Sources */,
 				11F00DC81F0CD8EE0098F678 /* NACreateAccountViewController.m in Sources */,
 				1169B2C71F05151100CE552B /* MJRefreshComponent.m in Sources */,
@@ -1811,7 +1665,6 @@
 				1169B2AD1F05151100CE552B /* FXDanmakuItemData.m in Sources */,
 				11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */,
 				1169B2921F05151100CE552B /* NSData+Encryption.m in Sources */,
-				11F00DB41F09F5430098F678 /* NAProfileViewController.m in Sources */,
 				1169B3581F06399F00CE552B /* UIViewController+ImagePicker.m in Sources */,
 				1169B2F91F05154200CE552B /* HTStorageDefine.m in Sources */,
 				1169B3251F05F57600CE552B /* SKLoginService.m in Sources */,
@@ -1828,7 +1681,6 @@
 				1169B3261F05F57600CE552B /* SKProfileService.m in Sources */,
 				1169B19D1F0514AE00CE552B /* CommonUI.m in Sources */,
 				1169B2A31F05151100CE552B /* PRARManager.m in Sources */,
-				1169B3761F063A3400CE552B /* OpenGLView.mm in Sources */,
 				1169B2CF1F05151100CE552B /* MJRefreshBackStateFooter.m in Sources */,
 				1169B2A41F05151100CE552B /* easing.c in Sources */,
 				1169B2B91F05151100CE552B /* MEImage+GIF.m in Sources */,
@@ -1837,7 +1689,6 @@
 				1169B2D11F05151100CE552B /* MJRefreshNormalHeader.m in Sources */,
 				1169B3271F05F57600CE552B /* SKScanningService.m in Sources */,
 				1169B19F1F0514AE00CE552B /* NSString+DES.m in Sources */,
-				1169B3811F063A3400CE552B /* SKSwipeViewController.m in Sources */,
 				1169B2A61F05151100CE552B /* FLAnimatedImage.m in Sources */,
 				1169B3281F05F57600CE552B /* SKServiceManager.m in Sources */,
 				1169B1A41F0514AE00CE552B /* NSDate+TimeAgo.m in Sources */,
@@ -1847,15 +1698,11 @@
 				1169B2981F05151100CE552B /* ARController.m in Sources */,
 				1169B2C51F05151100CE552B /* MJRefreshAutoFooter.m in Sources */,
 				11FFFCFD1F05067000CEC7EB /* NineZeroArt.xcdatamodeld in Sources */,
-				1169B37E1F063A3400CE552B /* SKScanningResultView.m in Sources */,
 				1169B2B01F05151100CE552B /* FXReusableObjectQueue.m in Sources */,
 				1176D2BB1F13881A0036862A /* SKUserAgreementViewController.m in Sources */,
-				11F00DBA1F0A3A2D0098F678 /* SKDescriptionView.m in Sources */,
 				1169B2D01F05151100CE552B /* MJRefreshGifHeader.m in Sources */,
 				1169B1AC1F0514AE00CE552B /* SKImageHelper.m in Sources */,
-				1169B37D1F063A3400CE552B /* SKScanningPuzzleView.m in Sources */,
 				1169B2B11F05151100CE552B /* FXSingleRowItemsManager.m in Sources */,
-				1169B37A1F063A3400CE552B /* SKDownloadProgressView.m in Sources */,
 				1169B2BC1F05151100CE552B /* MJFoundation.m in Sources */,
 				1169B2D61F05151100CE552B /* UIScrollView+MJRefresh.m in Sources */,
 				1169B1AE1F0514AE00CE552B /* UIImage+Extension.m in Sources */,
@@ -1867,7 +1714,6 @@
 				1169B2C31F05151100CE552B /* NSObject+MJProperty.m in Sources */,
 				1169B34D1F06399F00CE552B /* HTAlertView.m in Sources */,
 				1169B2961F05151100CE552B /* NSData+CommonCrypto.m in Sources */,
-				1169B38E1F063C0700CE552B /* SKTicketView.m in Sources */,
 				1169B3151F05F55B00CE552B /* SKCGIManager.m in Sources */,
 				11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */,
 				1169B2D41F05151100CE552B /* MJRefreshConst.m in Sources */,
@@ -1876,12 +1722,9 @@
 				11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */,
 				1169B19C1F0514AE00CE552B /* ClientConfiguration.m in Sources */,
 				1169B2C01F05151100CE552B /* NSObject+MJClass.m in Sources */,
-				1169B3881F063BC200CE552B /* DemoDanmakuItem.m in Sources */,
 				1169B2931F05151100CE552B /* NSString+AES256.m in Sources */,
 				1169B19B1F0514AE00CE552B /* BaseConfiguration.m in Sources */,
 				1169B2D21F05151100CE552B /* MJRefreshStateHeader.m in Sources */,
-				1169B37F1F063A3400CE552B /* SKScanningRewardView.m in Sources */,
-				11F00DB71F0A3A020098F678 /* SKProfileMyTicketsViewController.m in Sources */,
 				1169B2A01F05151100CE552B /* ARRadar.m in Sources */,
 				1169B1A21F0514AE00CE552B /* HUD+Utility.m in Sources */,
 				1169B2EB1F05151100CE552B /* YYFrameImage.m in Sources */,
@@ -1898,35 +1741,28 @@
 				1169B1A81F0514AE00CE552B /* NSString+Utility.m in Sources */,
 				1169B1A01F0514AE00CE552B /* FileService.m in Sources */,
 				1169B2C21F05151100CE552B /* NSObject+MJKeyValue.m in Sources */,
-				1169B3751F063A3400CE552B /* ar.cc in Sources */,
 				1169B2AA1F05151100CE552B /* FXDanmaku.m in Sources */,
 				1169B2B41F05151100CE552B /* INTULocationRequest.m in Sources */,
-				1169B3801F063A3400CE552B /* SKScanningRewardViewController.m in Sources */,
 				1169B2ED1F05151100CE552B /* YYImageCoder.m in Sources */,
 				1169B2CD1F05151100CE552B /* MJRefreshBackGifFooter.m in Sources */,
 				1169B2BE1F05151100CE552B /* MJPropertyKey.m in Sources */,
 				1169B1B01F0514AE00CE552B /* UILabel+ChangeLineSpaceAndWordSpace.m in Sources */,
-				118A3F231F0CF9A3009902D1 /* NAClueDetailViewController.m in Sources */,
 				1169B1A51F0514AE00CE552B /* NSDate+Utility.m in Sources */,
 				11FFFCF11F05067000CEC7EB /* main.m in Sources */,
 				11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */,
 				1169B2C81F05151100CE552B /* MJRefreshFooter.m in Sources */,
 				1169B2E71F05151100CE552B /* SharkfoodMuteSwitchDetector.m in Sources */,
 				1169B3511F06399F00CE552B /* HTNavigationController.m in Sources */,
-				1169B37C1F063A3400CE552B /* SKScanningImageView.m in Sources */,
 				1169B2D51F05151100CE552B /* UIScrollView+MJExtension.m in Sources */,
 				1169B2CC1F05151100CE552B /* MJRefreshAutoStateFooter.m in Sources */,
 				1169B2B81F05151100CE552B /* README.md in Sources */,
-				1169B3771F063A3400CE552B /* renderer.cc in Sources */,
 				1169B2941F05151100CE552B /* AESCrypt.m in Sources */,
 				1169B2CB1F05151100CE552B /* MJRefreshAutoNormalFooter.m in Sources */,
 				1169B2BD1F05151100CE552B /* MJProperty.m in Sources */,
 				1169B2EE1F05151100CE552B /* YYSpriteSheetImage.m in Sources */,
 				1169B2A51F05151100CE552B /* YXEasing.m in Sources */,
-				1169B3791F063A3400CE552B /* SKARRewardController.m in Sources */,
 				1169B2C11F05151100CE552B /* NSObject+MJCoding.m in Sources */,
 				1169B2AE1F05151100CE552B /* FXGCDOperationQueue.m in Sources */,
-				1169B38A1F063BC200CE552B /* DemoDanmakuItemData.m in Sources */,
 				1169B2991F05151100CE552B /* ARObject.m in Sources */,
 				1169B34F1F06399F00CE552B /* HTCommonViewController.m in Sources */,
 			);
@@ -2157,7 +1993,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				QQ_URL_SCHEMES_SUFFIX = 41f0745e;
 				TENCENT_URL_SCHEMES_SUFFIX = 1106277470;
@@ -2245,7 +2081,7 @@
 					"-framework",
 					"\"UIKit\"",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroArt;
+				PRODUCT_BUNDLE_IDENTIFIER = com.zacyang.NineZeroCamera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				QQ_URL_SCHEMES_SUFFIX = 41f0745e;
 				TENCENT_URL_SCHEMES_SUFFIX = 1106277470;

@@ -9,8 +9,6 @@
 #import "ViewController.h"
 #import "HTUIHeader.h"
 
-#import "SKSwipeViewController.h"
-
 @interface ViewController ()
 
 @end
@@ -46,8 +44,7 @@
 }
 
 - (void)didClickLoginButton:(UIButton *)sender {
-    SKSwipeViewController *controller =  [[SKSwipeViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:NO];
+
 }
     
 @end
