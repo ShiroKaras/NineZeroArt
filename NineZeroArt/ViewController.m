@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  NineZeroArt
+//  NineZeroCamera
 //
 //  Created by SinLemon on 2017/6/29.
 //  Copyright © 2017年 SinLemon. All rights reserved.

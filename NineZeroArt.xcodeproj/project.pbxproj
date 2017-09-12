@@ -1054,7 +1054,7 @@
 			isa = PBXGroup;
 			children = (
 				11F00DBF1F0B86010098F678 /* Login */,
-				11F00DBB1F0A447E0098F678 /* Clue */,
+				11F00DBB1F0A447E0098F678 /* Main */,
 				1169B3321F06399F00CE552B /* Common */,
 			);
 			path = UI;
@@ -1183,13 +1183,13 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
-		11F00DBB1F0A447E0098F678 /* Clue */ = {
+		11F00DBB1F0A447E0098F678 /* Main */ = {
 			isa = PBXGroup;
 			children = (
 				11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */,
 				11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */,
 			);
-			name = Clue;
+			name = Main;
 			sourceTree = "<group>";
 		};
 		11F00DBF1F0B86010098F678 /* Login */ = {

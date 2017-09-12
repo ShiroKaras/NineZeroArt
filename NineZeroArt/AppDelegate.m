@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  NineZeroArt
+//  NineZeroCamera
 //
 //  Created by SinLemon on 2017/6/29.
 //  Copyright © 2017年 SinLemon. All rights reserved.
@@ -80,7 +80,7 @@
     // The persistent container for the application. This implementation creates and returns a container, having loaded the store for the application to it.
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"NineZeroArt"];
+            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"NineZeroCamera"];
             [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
                 if (error != nil) {
                     // Replace this implementation with code to handle the error appropriately.

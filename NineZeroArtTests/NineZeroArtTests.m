@@ -1,6 +1,6 @@
 //
-//  NineZeroArtTests.m
-//  NineZeroArtTests
+//  NineZeroCameraTests.m
+//  NineZeroCameraTests
 //
 //  Created by SinLemon on 2017/6/29.
 //  Copyright © 2017年 SinLemon. All rights reserved.
