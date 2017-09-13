@@ -51,29 +51,61 @@
 @end
 
 @implementation NCMainCameraViewController{
-    
     BOOL isUsingFrontFacingCamera;
+    BOOL isUsingFlashLight;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)];
-    self.backView.backgroundColor = COMMON_GREEN_COLOR;
-    [self initAVCaptureSession];
     [self.view addSubview:_backView];
+    
+    UIImageView *cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_background"]];
+    [self.view addSubview:cameraImageView];
+    
+    UIImageView *flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
+    [self.view addSubview:flashButtonImageView];
+    flashButtonImageView.left = 49+100+66.5;
+    flashButtonImageView.top = 80.5;
+    
+    UIButton *flashButton = [UIButton new];
+    [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:flashButton];
+    flashButton.size = CGSizeMake(93.5, 25);
+    flashButton.left = flashButtonImageView.left;
+    flashButtonImageView.top = flashButtonImageView.top;
+    
+    [self initAVCaptureSession];
     [self setUpGesture];
     isUsingFrontFacingCamera = NO;
     
     self.effectiveScale = self.beginGestureScale = 1.0f;
     
     UIButton *takePhotoButton = [UIButton new];
-    takePhotoButton.backgroundColor = [UIColor redColor];
+    [takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter"] forState:UIControlStateNormal];
+    [takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
     [takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:takePhotoButton];
-    takePhotoButton.size = CGSizeMake(50, 50);
-    takePhotoButton.left = 50;
-    takePhotoButton.top = 280;
+    takePhotoButton.size = CGSizeMake(58, 58);
+    takePhotoButton.left = self.view.height-81-58;
+    takePhotoButton.top = 54;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(someMethod)
+                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)someMethod {
+    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
+        SEL selector = NSSelectorFromString(@"setOrientation:");
+        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
+        [invocation setSelector:selector];
+        [invocation setTarget:[UIDevice currentDevice]];
+        int val = UIInterfaceOrientationLandscapeRight;//横屏
+        [invocation setArgument:&val atIndex:2];
+        [invocation invoke];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -98,6 +130,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     if (self.session) {
         [self.session stopRunning];
     }
@@ -137,7 +170,7 @@
     //初始化预览图层
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
-    self.previewLayer.frame = CGRectMake(0, 0, SCREEN_HEIGHT/2, SCREEN_WIDTH/2);
+    self.previewLayer.frame = CGRectMake(49, 10.5, 100/SCREEN_WIDTH*SCREEN_HEIGHT, 100);
     self.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
     
     self.backView.layer.masksToBounds = YES;
@@ -236,6 +269,11 @@
             
         }];
         
+        NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+        UIImage * image = [UIImage imageWithData:imageData];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[image applyDarkEffect]];
+        imageView.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
+        [self.view addSubview:imageView];
     }];
     
 }
@@ -252,12 +290,14 @@
         
         if (device.flashMode == AVCaptureFlashModeOff) {
             device.flashMode = AVCaptureFlashModeOn;
+            isUsingFlashLight = YES;
             [sender setTitle:@"flashOn"];
         } else if (device.flashMode == AVCaptureFlashModeOn) {
             device.flashMode = AVCaptureFlashModeAuto;
             [sender setTitle:@"flashAuto"];
         } else if (device.flashMode == AVCaptureFlashModeAuto) {
             device.flashMode = AVCaptureFlashModeOff;
+            isUsingFlashLight = NO;
             [sender setTitle:@"flashOff"];
         }
         

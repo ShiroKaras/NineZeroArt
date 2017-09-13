@@ -38,5 +38,6 @@
 #import <YLGIFImage/YLGIFImage.h>
 #import <YLGIFImage/YLImageView.h>
 #import "UILabel+ChangeLineSpaceAndWordSpace.h"
+#import "UIImage+ImageEffects.h"
 
 #endif /* HTUIHeader_h */
