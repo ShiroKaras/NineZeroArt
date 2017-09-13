@@ -121,7 +121,7 @@
     NSString *userID = [[SKStorageManager sharedInstance] getUserID];
     if (userID != nil) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        _mainController = [[NAClueListViewController alloc] init];
+        _mainController = [[NCMainCameraViewController alloc] init];
         HTNavigationController *navController =
         [[HTNavigationController alloc] initWithRootViewController:_mainController];
         self.window.rootViewController = navController;

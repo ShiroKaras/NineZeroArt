@@ -10,7 +10,7 @@
 #import "CommonUI.h"
 #import "HTUIHeader.h"
 
-#import "NAClueListViewController.h"
+#import "NCMainCameraViewController.h"
 
 @implementation HTNavigationController
 
@@ -38,7 +38,7 @@
 	[super pushViewController:viewController animated:animated];
 
 	if (viewController.navigationItem.leftBarButtonItem == nil && [self.viewControllers count] > 1
-        &&![viewController isKindOfClass:[NAClueListViewController class]]
+        &&![viewController isKindOfClass:[NCMainCameraViewController class]]
         ) {
 		UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
 		button.tag = 9001;
@@ -55,6 +55,14 @@
 
 - (void)back {
 	[self popViewControllerAnimated:YES];
+}
+
+-(BOOL)shouldAutorotate{
+    return self.topViewController.shouldAutorotate;
+}
+//支持的方向
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
+    return self.topViewController.supportedInterfaceOrientations;
 }
 
 @end

@@ -153,10 +153,10 @@
 		11AF988F1F134D3500C1B378 /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF988E1F134D3500C1B378 /* libicucore.tbd */; };
 		11AF98911F134D4100C1B378 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98901F134D4100C1B378 /* JavaScriptCore.framework */; };
 		11AF98931F134D4A00C1B378 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98921F134D4A00C1B378 /* ImageIO.framework */; };
-		11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */; };
+		11B245D11F67CC940063EDEB /* NCMainCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B245D01F67CC940063EDEB /* NCMainCameraViewController.m */; };
+		11B245D41F690E160063EDEB /* 369.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11B245D21F690E160063EDEB /* 369.mp3 */; };
+		11B245D51F690E160063EDEB /* flash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11B245D31F690E160063EDEB /* flash.mp3 */; };
 		11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC11F0B86180098F678 /* NALoginRootViewController.m */; };
-		11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC41F0B93A90098F678 /* NALoginViewController.m */; };
-		11F00DC81F0CD8EE0098F678 /* NACreateAccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
 		11FFFCF71F05067000CEC7EB /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF61F05067000CEC7EB /* ViewController.m */; };
@@ -471,14 +471,12 @@
 		11AF988E1F134D3500C1B378 /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		11AF98901F134D4100C1B378 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		11AF98921F134D4A00C1B378 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
-		11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NAClueListViewController.h; path = Clue/NAClueListViewController.h; sourceTree = "<group>"; };
-		11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NAClueListViewController.m; path = Clue/NAClueListViewController.m; sourceTree = "<group>"; };
+		11B245CF1F67CC940063EDEB /* NCMainCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NCMainCameraViewController.h; path = Main/NCMainCameraViewController.h; sourceTree = "<group>"; };
+		11B245D01F67CC940063EDEB /* NCMainCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NCMainCameraViewController.m; path = Main/NCMainCameraViewController.m; sourceTree = "<group>"; };
+		11B245D21F690E160063EDEB /* 369.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 369.mp3; sourceTree = "<group>"; };
+		11B245D31F690E160063EDEB /* flash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flash.mp3; sourceTree = "<group>"; };
 		11F00DC01F0B86180098F678 /* NALoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginRootViewController.h; path = Login/NALoginRootViewController.h; sourceTree = "<group>"; };
 		11F00DC11F0B86180098F678 /* NALoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginRootViewController.m; path = Login/NALoginRootViewController.m; sourceTree = "<group>"; };
-		11F00DC31F0B93A90098F678 /* NALoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginViewController.h; path = Login/NALoginViewController.h; sourceTree = "<group>"; };
-		11F00DC41F0B93A90098F678 /* NALoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginViewController.m; path = Login/NALoginViewController.m; sourceTree = "<group>"; };
-		11F00DC61F0CD8EE0098F678 /* NACreateAccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NACreateAccountViewController.h; path = Login/NACreateAccountViewController.h; sourceTree = "<group>"; };
-		11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NACreateAccountViewController.m; path = Login/NACreateAccountViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11FFFCF01F05067000CEC7EB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		11FFFCF21F05067000CEC7EB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1186,8 +1184,8 @@
 		11F00DBB1F0A447E0098F678 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				11F00DBC1F0A44D20098F678 /* NAClueListViewController.h */,
-				11F00DBD1F0A44D20098F678 /* NAClueListViewController.m */,
+				11B245CF1F67CC940063EDEB /* NCMainCameraViewController.h */,
+				11B245D01F67CC940063EDEB /* NCMainCameraViewController.m */,
 			);
 			name = Main;
 			sourceTree = "<group>";
@@ -1197,10 +1195,6 @@
 			children = (
 				11F00DC01F0B86180098F678 /* NALoginRootViewController.h */,
 				11F00DC11F0B86180098F678 /* NALoginRootViewController.m */,
-				11F00DC31F0B93A90098F678 /* NALoginViewController.h */,
-				11F00DC41F0B93A90098F678 /* NALoginViewController.m */,
-				11F00DC61F0CD8EE0098F678 /* NACreateAccountViewController.h */,
-				11F00DC71F0CD8EE0098F678 /* NACreateAccountViewController.m */,
 				1176D2B81F13881A0036862A /* SKUserAgreementViewController.h */,
 				1176D2B91F13881A0036862A /* SKUserAgreementViewController.m */,
 				1176D2BA1F13881A0036862A /* SKUserAgreementViewController.xib */,
@@ -1233,6 +1227,8 @@
 		11FFFCEE1F05067000CEC7EB /* NineZeroArt */ = {
 			isa = PBXGroup;
 			children = (
+				11B245D21F690E160063EDEB /* 369.mp3 */,
+				11B245D31F690E160063EDEB /* flash.mp3 */,
 				11FFFCF21F05067000CEC7EB /* AppDelegate.h */,
 				11FFFCF31F05067000CEC7EB /* AppDelegate.m */,
 				11FFFCF51F05067000CEC7EB /* ViewController.h */,
@@ -1387,7 +1383,7 @@
 		11FFFCE41F05067000CEC7EB /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				CLASSPREFIX = NA;
+				CLASSPREFIX = NC;
 				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = SinLemon;
 				TargetAttributes = {
@@ -1449,7 +1445,9 @@
 				11FFFCFF1F05067000CEC7EB /* Assets.xcassets in Resources */,
 				1169B2D31F05151100CE552B /* MJRefresh.bundle in Resources */,
 				11AF987E1F13466800C1B378 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				11B245D51F690E160063EDEB /* flash.mp3 in Resources */,
 				1169B2A81F05151100CE552B /* LICENSE in Resources */,
+				11B245D41F690E160063EDEB /* 369.mp3 in Resources */,
 				11AF98821F13466800C1B378 /* read_me.txt in Resources */,
 				11FFFCFA1F05067000CEC7EB /* Main.storyboard in Resources */,
 				1169B29C1F05151100CE552B /* ar_overlay.png in Resources */,
@@ -1656,14 +1654,12 @@
 				1169B2FA1F05154200CE552B /* SKStorageManager.m in Sources */,
 				1169B2C61F05151100CE552B /* MJRefreshBackFooter.m in Sources */,
 				1169B1B11F0514AE00CE552B /* UIViewController+HTTips.m in Sources */,
-				11F00DC81F0CD8EE0098F678 /* NACreateAccountViewController.m in Sources */,
 				1169B2C71F05151100CE552B /* MJRefreshComponent.m in Sources */,
 				1169B2A21F05151100CE552B /* LocationMath.m in Sources */,
 				1169B3501F06399F00CE552B /* HTLoginButton.m in Sources */,
 				1169B19E1F0514AE00CE552B /* CustomSecurityPolicy.m in Sources */,
 				1169B2AF1F05151100CE552B /* FXGCDTimer.m in Sources */,
 				1169B2AD1F05151100CE552B /* FXDanmakuItemData.m in Sources */,
-				11F00DBE1F0A44D20098F678 /* NAClueListViewController.m in Sources */,
 				1169B2921F05151100CE552B /* NSData+Encryption.m in Sources */,
 				1169B3581F06399F00CE552B /* UIViewController+ImagePicker.m in Sources */,
 				1169B2F91F05154200CE552B /* HTStorageDefine.m in Sources */,
@@ -1719,7 +1715,6 @@
 				1169B2D41F05151100CE552B /* MJRefreshConst.m in Sources */,
 				1169B1A91F0514AE00CE552B /* NSTimer+FXWeakTimer.m in Sources */,
 				1169B2CA1F05151100CE552B /* MJRefreshAutoGifFooter.m in Sources */,
-				11F00DC51F0B93A90098F678 /* NALoginViewController.m in Sources */,
 				1169B19C1F0514AE00CE552B /* ClientConfiguration.m in Sources */,
 				1169B2C01F05151100CE552B /* NSObject+MJClass.m in Sources */,
 				1169B2931F05151100CE552B /* NSString+AES256.m in Sources */,
@@ -1735,6 +1730,7 @@
 				1169B1A11F0514AE00CE552B /* HTImageView.m in Sources */,
 				1169B3561F06399F00CE552B /* SKHelperView.m in Sources */,
 				1169B2A91F05151100CE552B /* README.md in Sources */,
+				11B245D11F67CC940063EDEB /* NCMainCameraViewController.m in Sources */,
 				1169B3541F06399F00CE552B /* HTWebController.m in Sources */,
 				1169B3571F06399F00CE552B /* SKShareView.m in Sources */,
 				1169B3241F05F57600CE552B /* SKCommonService.m in Sources */,

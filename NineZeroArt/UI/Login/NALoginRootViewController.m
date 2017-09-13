@@ -9,8 +9,7 @@
 #import "NALoginRootViewController.h"
 #import "HTUIHeader.h"
 
-#import "NAClueListViewController.h"
-#import "NALoginViewController.h"
+#import "NCMainCameraViewController.h"
 #import "SKUserAgreementViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
@@ -63,29 +62,42 @@
     bottomLabel.bottom = self.view.bottom - ROUND_HEIGHT_FLOAT(10);
     bottomLabel.centerX = self.view.centerX;
     
-    UIButton *agreementButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, bottomLabel.height)];
-    [agreementButton addTarget:self action:@selector(didClickAgreementButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:agreementButton];
-    agreementButton.right = bottomLabel.right;
-    agreementButton.centerY = bottomLabel.centerY;
+//    UIButton *agreementButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, bottomLabel.height)];
+//    [agreementButton addTarget:self action:@selector(didClickAgreementButton:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.view addSubview:agreementButton];
+//    agreementButton.right = bottomLabel.right;
+//    agreementButton.centerY = bottomLabel.centerY;
     
-    NSArray *loginArray = @[@"wechat", @"qq", @"weibo", @"phone"];
-    float padding = (self.view.width-ROUND_WIDTH_FLOAT(30)*2-ROUND_WIDTH_FLOAT(38)*4)/3;
-    for (int i=0; i<4; i++) {
-        UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(30)+i*(ROUND_WIDTH_FLOAT(38)+padding), bottomLabel.top-ROUND_HEIGHT_FLOAT(20)-ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(60))];
-        [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_logins_%@", loginArray[i]]] forState:UIControlStateNormal];
-        [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_logins_%@_highlight", loginArray[i]]] forState:UIControlStateHighlighted];
-        [loginButton addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:loginButton];
-        
-        loginButton.tag = 100+i;
-    }
+//    NSArray *loginArray = @[@"wechat", @"qq", @"weibo", @"phone"];
+//    float padding = (self.view.width-ROUND_WIDTH_FLOAT(30)*2-ROUND_WIDTH_FLOAT(38)*4)/3;
+//    for (int i=0; i<4; i++) {
+//        UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(ROUND_WIDTH_FLOAT(30)+i*(ROUND_WIDTH_FLOAT(38)+padding), bottomLabel.top-ROUND_HEIGHT_FLOAT(20)-ROUND_WIDTH_FLOAT(60), ROUND_WIDTH_FLOAT(38), ROUND_WIDTH_FLOAT(60))];
+//        [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_logins_%@", loginArray[i]]] forState:UIControlStateNormal];
+//        [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_logins_%@_highlight", loginArray[i]]] forState:UIControlStateHighlighted];
+//        [loginButton addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:loginButton];
+//        
+//        loginButton.tag = 100+i;
+//    }
+    
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, self.view.bottom-50, self.view.width, 50)];
+    loginButton.backgroundColor = COMMON_GREEN_COLOR;
+    [loginButton addTarget:self action:@selector(didClickLoginButton2:) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton setTintColor:[UIColor whiteColor]];
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
+    [self.view addSubview:loginButton];
     
     UIImageView *loginTextImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_logins_text"]];
     [self.view addSubview:loginTextImageView];
     loginTextImageView.centerX = self.view.centerX;
     loginTextImageView.bottom = bottomLabel.top - ROUND_HEIGHT_FLOAT(110);
 }
+
+- (void)didClickLoginButton2:(UIButton*)sender {
+    NCMainCameraViewController *controller = [[NCMainCameraViewController alloc] init];
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 
 - (void)didClickAgreementButton:(UIButton *)sender {
     SKUserAgreementViewController *controller = [[SKUserAgreementViewController alloc] init];
@@ -113,48 +125,6 @@
                    }];
             break;
         }
-        case 101: {
-            [ShareSDK getUserInfo:SSDKPlatformTypeQQ
-                   onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
-                       if (state == SSDKResponseStateSuccess) {
-                           DLog(@"uid=%@", user.uid);
-                           DLog(@"credential=%@", user.credential);
-                           DLog(@"token=%@", user.credential.token);
-                           DLog(@"nickname=%@", user.nickname);
-                           
-                           [self loginWithUser:user];
-                       }
-                       
-                       else {
-                           DLog(@"%@", error);
-                       }
-                       
-                   }];
-            break;
-        }
-        case 102: {
-            [ShareSDK getUserInfo:SSDKPlatformTypeSinaWeibo
-                   onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
-                       if (state == SSDKResponseStateSuccess) {
-                           DLog(@"uid=%@", user.uid);
-                           DLog(@"%@", user.credential);
-                           DLog(@"token=%@", user.credential.token);
-                           DLog(@"nickname=%@", user.nickname);
-                           DLog(@"icon=%@", user.icon);
-                           
-                           [self loginWithUser:user];
-                       } else {
-                           DLog(@"%@", error);
-                       }
-                       
-                   }];
-            break;
-        }
-        case 103: {
-            NALoginViewController *controller =  [[NALoginViewController alloc] init];
-            [self.navigationController pushViewController:controller animated:NO];
-            break;
-        }
         default:
             break;
     }
@@ -174,7 +144,7 @@
                                                                         DLog(@"%@", response);
                                                                         if (success) {
                                                                             if (response.result == 0) {
-                                                                                NAClueListViewController *controller =  [[NAClueListViewController alloc] init];
+                                                                                NCMainCameraViewController *controller =  [[NCMainCameraViewController alloc] init];
                                                                                 AppDelegateInstance.mainController = controller;
                                                                                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                                                                                 AppDelegateInstance.window.rootViewController = navController;
