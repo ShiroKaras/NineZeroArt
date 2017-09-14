@@ -43,16 +43,19 @@
 /**
  *  记录开始的缩放比例
  */
-@property(nonatomic,assign)CGFloat beginGestureScale;
+@property (nonatomic, assign)CGFloat beginGestureScale;
 /**
  *  最后的缩放比例
  */
-@property(nonatomic,assign)CGFloat effectiveScale;
+@property (nonatomic, assign) CGFloat effectiveScale;
+
+@property (nonatomic, strong) UIImageView *flashButtonImageView;
 @end
 
 @implementation NCMainCameraViewController{
     BOOL isUsingFrontFacingCamera;
     BOOL isUsingFlashLight;
+    AVCaptureDevice *device;
 }
 
 - (void)viewDidLoad {
@@ -64,17 +67,18 @@
     UIImageView *cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_background"]];
     [self.view addSubview:cameraImageView];
     
-    UIImageView *flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
-    [self.view addSubview:flashButtonImageView];
-    flashButtonImageView.left = 49+100+66.5;
-    flashButtonImageView.top = 80.5;
+    self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
+    [self.view addSubview:self.flashButtonImageView];
+    self.flashButtonImageView.left = 49+100+66.5;
+    self.flashButtonImageView.top = 80.5;
     
     UIButton *flashButton = [UIButton new];
     [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:flashButton];
     flashButton.size = CGSizeMake(93.5, 25);
-    flashButton.left = flashButtonImageView.left;
-    flashButtonImageView.top = flashButtonImageView.top;
+    flashButton.left = self.flashButtonImageView.left;
+    flashButton.top = self.flashButtonImageView.top;
+    isUsingFlashLight = NO;
     
     [self initAVCaptureSession];
     [self setUpGesture];
@@ -143,12 +147,12 @@
     
     NSError *error;
     
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     //更改这个设置的时候必须先锁定设备，修改完后再解锁，否则崩溃
     [device lockForConfiguration:nil];
     //设置闪光灯为自动
-    [device setFlashMode:AVCaptureFlashModeAuto];
+    [device setFlashMode:AVCaptureFlashModeOn];
     [device unlockForConfiguration];
     
     self.videoInput = [[AVCaptureDeviceInput alloc] initWithDevice:device error:&error];
@@ -278,33 +282,33 @@
     
 }
 
-- (void)flashButtonClick:(UIBarButtonItem *)sender {
-    NSLog(@"flashButtonClick");
-    
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    //修改前必须先锁定
+//开关手电筒
+-(void)turnOnLed:(bool)update
+{
     [device lockForConfiguration:nil];
-    //必须判定是否有闪光灯，否则如果没有闪光灯会崩溃
-    if ([device hasFlash]) {
-        
-        if (device.flashMode == AVCaptureFlashModeOff) {
-            device.flashMode = AVCaptureFlashModeOn;
-            isUsingFlashLight = YES;
-            [sender setTitle:@"flashOn"];
-        } else if (device.flashMode == AVCaptureFlashModeOn) {
-            device.flashMode = AVCaptureFlashModeAuto;
-            [sender setTitle:@"flashAuto"];
-        } else if (device.flashMode == AVCaptureFlashModeAuto) {
-            device.flashMode = AVCaptureFlashModeOff;
-            isUsingFlashLight = NO;
-            [sender setTitle:@"flashOff"];
-        }
-        
-    } else {
-        NSLog(@"设备不支持闪光灯");
+    if (update) {
+        [device setTorchMode:AVCaptureTorchModeOn];
+        device.flashMode = AVCaptureFlashModeOn;
+        [UIView animateWithDuration:0.2 animations:^{
+            self.flashButtonImageView.left += 45;
+        }];
+    }
+    else {
+        [UIView animateWithDuration:0.2 animations:^{
+            self.flashButtonImageView.left -= 45;
+        }];
+        [device setTorchMode: AVCaptureTorchModeOff];
+        device.flashMode = AVCaptureFlashModeOff;
     }
     [device unlockForConfiguration];
+}
+
+- (void)flashButtonClick:(UIBarButtonItem *)sender {
+    NSLog(@"flashButtonClick");
+    isUsingFlashLight = !isUsingFlashLight;
+    
+    [self turnOnLed:isUsingFlashLight];
+    
 }
 
 //缩放手势 用于调整焦距
