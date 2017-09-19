@@ -278,24 +278,26 @@
     
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
         
-//        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-//        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-//                                                                    imageDataSampleBuffer,
-//                                                                    kCMAttachmentMode_ShouldPropagate);
-//        
-//        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-//        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
-//            //无权限
-//            return ;
-//        }
-//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-//        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-//            
-//        }];
+        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+                                                                    imageDataSampleBuffer,
+                                                                    kCMAttachmentMode_ShouldPropagate);
+        
+        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+            //无权限
+            return ;
+        }
         
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         UIImage *cropImage = [[UIImage imageWithData:imageData] cropImageWithBounds:CGRectMake(0, 0, 1080, 1080)];
         UIImage * image = [FWApplyFilter applyNashvilleFilter:cropImage];
+        
+        NSData *jdata = UIImagePNGRepresentation(image);
+        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+        [library writeImageDataToSavedPhotosAlbum:jdata metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+            
+        }];
         
         self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
         [self.view addSubview:self.photoView];

@@ -17,6 +17,8 @@
 
 #import "FWApplyFilter.h"
 
+#import <AssetsLibrary/AssetsLibrary.h>
+
 @interface NALoginRootViewController ()
 @property (strong, nonatomic) UIView *backView;
 @end
@@ -42,6 +44,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
+    
+    ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+    if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+        //无权限
+        return ;
+    }
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    [library writeImageDataToSavedPhotosAlbum:nil metadata:(__bridge id)nil completionBlock:^(NSURL *assetURL, NSError *error) {
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
