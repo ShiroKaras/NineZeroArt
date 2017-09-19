@@ -55,6 +55,7 @@
 @property (nonatomic, strong) UIImageView *flashButtonImageView;
 @property (nonatomic, strong) UIImageView *cameraImageView;
 @property (nonatomic, strong) UIButton *takePhotoButton;
+@property (nonatomic, strong) NCPhotoView *photoView;
 @end
 
 @implementation NCMainCameraViewController{
@@ -146,14 +147,13 @@
     return;
 }
 
-- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
-    NSLog(@"取消摇动");
-    return;
-}
-
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
     if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束
-        NSLog(@"摇动结束");
+        if (self.photoView==nil) {
+            return;
+        } else {
+            [self.photoView showPhoto];
+        }
     }
     return;
 }
@@ -295,8 +295,8 @@
         UIImage *cropImage = [[UIImage imageWithData:imageData] cropImageWithBounds:CGRectMake(0, 0, 1080, 1080)];
         UIImage * image = [FWApplyFilter applyNashvilleFilter:cropImage];
         
-        NCPhotoView *photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
-        [self.view addSubview:photoView];
+        self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
+        [self.view addSubview:self.photoView];
         [self.view bringSubviewToFront:self.backView];
         
         self.takePhotoButton.alpha = 0;

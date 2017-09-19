@@ -11,5 +11,5 @@
 @interface NCPhotoView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage*)image;
-
+- (void)showPhoto;
 @end

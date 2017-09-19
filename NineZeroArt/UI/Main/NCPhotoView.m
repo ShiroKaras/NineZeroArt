@@ -13,6 +13,9 @@
 
 @interface NCPhotoView ()
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImage *photoPaperImage;
+@property (nonatomic, strong) UIView *photoPaperView;
+@property (nonatomic, strong) UIImageView *cropImageView;
 @end
 
 @implementation NCPhotoView
@@ -32,34 +35,34 @@
     blurImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self addSubview:blurImageView];
     
-    UIImage *photoPaperImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_printingpage_frame_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]];
+    self.photoPaperImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_printingpage_frame_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]];
     
-    UIView *photoPaperView = [UIView new];
-    photoPaperView.size = photoPaperImage.size;
-    photoPaperView.centerX = self.centerX;
-    photoPaperView.bottom = 0;
-    [self addSubview:photoPaperView];
+    self.photoPaperView = [UIView new];
+    self.photoPaperView.size = self.photoPaperImage.size;
+    self.photoPaperView.centerX = self.centerX;
+    self.photoPaperView.bottom = 0;
+    [self addSubview:self.photoPaperView];
     
     UIView *grayView = [UIView new];
     grayView.backgroundColor = [UIColor colorWithHex:0xd8d8d8];
     grayView.size = CGSizeMake(335, 335);
     grayView.top = 20.5;
-    grayView.centerX = photoPaperView.width/2;
-    [photoPaperView addSubview:grayView];
+    grayView.centerX = self.photoPaperView.width/2;
+    [self.photoPaperView addSubview:grayView];
     
     //剪裁
     float iw = self.image.size.width;
     float ih = self.image.size.height;
     UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([self.image CGImage], CGRectMake(0,0, MIN(iw, ih), MIN(iw, ih))) scale:1 orientation:UIImageOrientationLeft];
-    UIImageView *cropImageView = [[UIImageView alloc] initWithImage:resizeImage];
-    cropImageView.size = CGSizeMake(335, 335);
-    cropImageView.top = 20.5;
-    cropImageView.centerX = photoPaperView.width/2;
-    [photoPaperView addSubview:cropImageView];
+    self.cropImageView = [[UIImageView alloc] initWithImage:resizeImage];
+    self.cropImageView.size = CGSizeMake(335, 335);
+    self.cropImageView.top = 20.5;
+    self.cropImageView.centerX = self.photoPaperView.width/2;
+    [self.photoPaperView addSubview:self.cropImageView];
     
     //相纸
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:photoPaperImage];
-    [photoPaperView addSubview:imageView];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:self.photoPaperImage];
+    [self.photoPaperView addSubview:imageView];
     imageView.top = 0;
     imageView.left = 0;
     
@@ -99,15 +102,19 @@
     }
     
     //显示动画
-    cropImageView.alpha = 0;
+    self.cropImageView.alpha = 0;
     [UIView animateWithDuration:1.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
-        photoPaperView.bottom = self.bottom-126.5;
+        self.photoPaperView.bottom = self.bottom-126.5;
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:2 delay:1.5 options:UIViewAnimationOptionCurveLinear animations:^{
-            cropImageView.alpha = 1;
-        } completion:^(BOOL finished) {
-            
-        }];
+        
+    }];
+}
+
+- (void)showPhoto {
+    [UIView animateWithDuration:2 delay:1.5 options:UIViewAnimationOptionCurveLinear animations:^{
+        self.cropImageView.alpha = 1;
+    } completion:^(BOOL finished) {
+        
     }];
 }
 
