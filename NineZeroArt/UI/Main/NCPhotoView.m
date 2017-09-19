@@ -66,28 +66,10 @@
     imageView.top = 0;
     imageView.left = 0;
     
-    UILabel *textLabel = [UILabel new];
-    textLabel.text = @"分享到";
-    textLabel.textColor = [UIColor whiteColor];
-    textLabel.font = PINGFANG_ROUND_FONT_OF_SIZE(18);
-    [textLabel sizeToFit];
-    [self addSubview:textLabel];
-    textLabel.bottom = self.bottom - 96;
-    textLabel.centerX = self.centerX;
-    
-    UIView *line1 = [UIView new];
-    line1.backgroundColor = [UIColor whiteColor];
-    [self addSubview:line1];
-    line1.size = CGSizeMake(ROUND_WIDTH_FLOAT(127), 1);
-    line1.left = ROUND_WIDTH_FLOAT(22);
-    line1.centerY = textLabel.centerY;
-    
-    UIView *line2 = [UIView new];
-    line2.backgroundColor = [UIColor whiteColor];
-    [self addSubview:line2];
-    line2.size = CGSizeMake(ROUND_WIDTH_FLOAT(127), 1);
-    line2.centerY = textLabel.centerY;
-    line2.right = self.right-ROUND_WIDTH_FLOAT(22);
+    UIImageView *shareTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_share"]];
+    [self addSubview:shareTitleImageView];
+    shareTitleImageView.centerX = self.centerX;
+    shareTitleImageView.bottom = self.bottom -ROUND_HEIGHT_FLOAT(96);
     
     NSArray *loginArray = @[@"wechat", @"moments", @"weibo", @"qq"];
     float padding = ROUND_WIDTH_FLOAT((SCREEN_WIDTH-30-63*4)/3);
