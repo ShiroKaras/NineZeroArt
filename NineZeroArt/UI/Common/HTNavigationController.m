@@ -65,4 +65,8 @@
     return self.topViewController.supportedInterfaceOrientations;
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
 @end

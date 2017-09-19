@@ -43,7 +43,7 @@
 
 //复杂滤镜
 
-+ (UIImage *)applyAmatorkaFilter:(UIImage *)image;
+//+ (UIImage *)applyAmatorkaFilter:(UIImage *)image;
 
 + (UIImage *)applyMissetikateFilter:(UIImage *)image;
 

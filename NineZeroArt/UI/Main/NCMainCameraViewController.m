@@ -11,8 +11,11 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-
 #import <AudioToolbox/AudioToolbox.h>
+
+#import "FWApplyFilter.h"
+#import "NCPhotoView.h"
+#import "UIImage+FW.h"
 
 #define kMainScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kMainScreenHeight  [UIScreen mainScreen].bounds.size.height
@@ -50,6 +53,8 @@
 @property (nonatomic, assign) CGFloat effectiveScale;
 
 @property (nonatomic, strong) UIImageView *flashButtonImageView;
+@property (nonatomic, strong) UIImageView *cameraImageView;
+@property (nonatomic, strong) UIButton *takePhotoButton;
 @end
 
 @implementation NCMainCameraViewController{
@@ -60,25 +65,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
     
-    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH)];
+    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT+100, SCREEN_WIDTH)];
     [self.view addSubview:_backView];
-    
-    UIImageView *cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_homepage_background"]];
-    [self.view addSubview:cameraImageView];
-    
-    self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
-    [self.view addSubview:self.flashButtonImageView];
-    self.flashButtonImageView.left = 49+100+66.5;
-    self.flashButtonImageView.top = 80.5;
-    
-    UIButton *flashButton = [UIButton new];
-    [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:flashButton];
-    flashButton.size = CGSizeMake(93.5, 25);
-    flashButton.left = self.flashButtonImageView.left;
-    flashButton.top = self.flashButtonImageView.top;
-    isUsingFlashLight = NO;
     
     [self initAVCaptureSession];
     [self setUpGesture];
@@ -86,47 +76,58 @@
     
     self.effectiveScale = self.beginGestureScale = 1.0f;
     
-    UIButton *takePhotoButton = [UIButton new];
-    [takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter"] forState:UIControlStateNormal];
-    [takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
-    [takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:takePhotoButton];
-    takePhotoButton.size = CGSizeMake(58, 58);
-    takePhotoButton.left = self.view.height-81-58;
-    takePhotoButton.top = 54;
+    self.cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_homepage_background_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]]];
+    [self.backView addSubview:self.cameraImageView];
+    self.cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(someMethod)
-                                                 name:UIApplicationDidBecomeActiveNotification object:nil];
+    self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
+    [self.backView addSubview:self.flashButtonImageView];
+    self.flashButtonImageView.left = 49+100+66.5;
+    self.flashButtonImageView.top = 80.5;
+    
+    UIButton *flashButton = [UIButton new];
+    [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backView addSubview:flashButton];
+    flashButton.size = CGSizeMake(93.5, 25);
+    flashButton.left = self.flashButtonImageView.left;
+    flashButton.top = self.flashButtonImageView.top;
+    isUsingFlashLight = NO;
+    [device lockForConfiguration:nil];
+    [device setTorchMode: AVCaptureTorchModeOff];
+    device.flashMode = AVCaptureFlashModeOff;
+    [device unlockForConfiguration];
+    
+    self.takePhotoButton = [UIButton new];
+    [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter"] forState:UIControlStateNormal];
+    [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
+    [self.takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backView addSubview:self.takePhotoButton];
+    self.takePhotoButton.size = CGSizeMake(58, 58);
+    self.takePhotoButton.left = self.view.height-81-58;
+    self.takePhotoButton.top = 54;
+    
+    // 设置允许摇一摇功能
+    [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
 }
 
-- (void)someMethod {
-    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationLandscapeRight;//横屏
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.navigationController.navigationBar setHidden:YES];
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:YES];
-    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-
-    if([[UIDevice currentDevice]respondsToSelector:@selector(setOrientation:)]) {
-        SEL selector = NSSelectorFromString(@"setOrientation:");
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:[UIDevice instanceMethodSignatureForSelector:selector]];
-        [invocation setSelector:selector];
-        [invocation setTarget:[UIDevice currentDevice]];
-        int val = UIInterfaceOrientationLandscapeRight;//横屏
-        [invocation setArgument:&val atIndex:2];
-        [invocation invoke];
-    }
+    
+//    CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;//时间
+//    [UIView beginAnimations:nil context:nil];
+//    [UIView setAnimationDuration:duration];
+//    [UIView commitAnimations];
+    self.backView.transform = CGAffineTransformIdentity;
+    self.backView.transform = CGAffineTransformMakeRotation(M_PI*.5);//翻转角度
+    self.backView.bounds = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height+100, [[UIScreen mainScreen] bounds].size.width);
+    self.backView.top = 0;
+    self.backView.left = 0;
+    
     if (self.session) {
         [self.session startRunning];
     }
@@ -138,6 +139,23 @@
     if (self.session) {
         [self.session stopRunning];
     }
+}
+
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"开始摇动");
+    return;
+}
+
+- (void)motionCancelled:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    NSLog(@"取消摇动");
+    return;
+}
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (event.subtype == UIEventSubtypeMotionShake) { // 判断是否是摇动结束
+        NSLog(@"摇动结束");
+    }
+    return;
 }
 
 #pragma mark private method
@@ -174,12 +192,12 @@
     //初始化预览图层
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
-    self.previewLayer.frame = CGRectMake(49, 10.5, 100/SCREEN_WIDTH*SCREEN_HEIGHT, 100);
-    self.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationLandscapeRight;
+    self.previewLayer.frame = CGRectMake(self.view.width-10.5-100, 49, 100, 100/SCREEN_WIDTH*SCREEN_HEIGHT);
+    self.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     
     self.backView.layer.masksToBounds = YES;
-    [self.backView.layer addSublayer:self.previewLayer];
-    
+    [self.view.layer addSublayer:self.previewLayer];
+    [self.view bringSubviewToFront:self.backView];
 }
 
 
@@ -258,28 +276,53 @@
     
     [self.stillImageOutput captureStillImageAsynchronouslyFromConnection:stillImageConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
         
-        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
-                                                                    imageDataSampleBuffer,
-                                                                    kCMAttachmentMode_ShouldPropagate);
-        
-        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
-        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
-            //无权限
-            return ;
-        }
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-            
-        }];
+//        NSData *jpegData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+//        CFDictionaryRef attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault,
+//                                                                    imageDataSampleBuffer,
+//                                                                    kCMAttachmentMode_ShouldPropagate);
+//        
+//        ALAuthorizationStatus author = [ALAssetsLibrary authorizationStatus];
+//        if (author == ALAuthorizationStatusRestricted || author == ALAuthorizationStatusDenied){
+//            //无权限
+//            return ;
+//        }
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [library writeImageDataToSavedPhotosAlbum:jpegData metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+//            
+//        }];
         
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-        UIImage * image = [UIImage imageWithData:imageData];
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[image applyDarkEffect]];
-        imageView.frame = CGRectMake(SCREEN_WIDTH/2, 0, SCREEN_WIDTH/2, SCREEN_HEIGHT/2);
-        [self.view addSubview:imageView];
+        UIImage *cropImage = [[UIImage imageWithData:imageData] cropImageWithBounds:CGRectMake(0, 0, 1080, 1080)];
+        UIImage * image = [FWApplyFilter applyNashvilleFilter:cropImage];
+        
+        NCPhotoView *photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
+        [self.view addSubview:photoView];
+        [self.view bringSubviewToFront:self.backView];
+        
+        self.takePhotoButton.alpha = 0;
+        [UIView animateWithDuration:1 animations:^{
+            self.backView.top = -511;
+            
+            float scale = 0;
+            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                scale = 295.5;
+            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                scale = 347;
+            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
+                scale = 383;
+            }
+            self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+            self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+            self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+            self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                self.backView.top = -SCREEN_HEIGHT-100;
+            } completion:^(BOOL finished) {
+                
+            }];
+        }];
     }];
-    
 }
 
 //开关手电筒
