@@ -109,6 +109,10 @@
     
     // 设置允许摇一摇功能
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
+    if (FIRST_LAUNCH_HOMEPAGE) {
+        
+        EVER_LAUNCH_HOMEPAGE
+    }
 }
 
 - (BOOL)prefersStatusBarHidden {
