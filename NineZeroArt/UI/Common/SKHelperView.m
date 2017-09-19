@@ -364,7 +364,7 @@
     UIImageView *imageView2 = [[UIImageView alloc] initWithFrame:_view2.frame];
     [_view2 addSubview:imageView2];
     UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(nextStep_2:)];
-    [_view1 addGestureRecognizer:tap2];
+    [_view2 addGestureRecognizer:tap2];
     
     _view3 = [[UIView alloc] initWithFrame:self.frame];
     UIImageView *imageView3 = [[UIImageView alloc] initWithFrame:_view3.frame];
@@ -394,7 +394,7 @@
 
 - (void)nextStep_2:(UIButton*)sender {
     [_view2 removeFromSuperview];
-    [self addSubview:_view2];
+    [self addSubview:_view3];
 }
 
 - (void)completeButtonClick:(UIButton *)sender {

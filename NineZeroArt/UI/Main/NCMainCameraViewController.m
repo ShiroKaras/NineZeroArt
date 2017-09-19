@@ -16,6 +16,7 @@
 #import "FWApplyFilter.h"
 #import "NCPhotoView.h"
 #import "UIImage+FW.h"
+#import "SKHelperView.h"
 
 #define kMainScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kMainScreenHeight  [UIScreen mainScreen].bounds.size.height
@@ -110,7 +111,8 @@
     // 设置允许摇一摇功能
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
     if (FIRST_LAUNCH_HOMEPAGE) {
-        
+        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) withType:SKHelperGuideViewType1];
+        [self.backView addSubview:helperView];
         EVER_LAUNCH_HOMEPAGE
     }
 }
@@ -123,10 +125,6 @@
     [super viewWillAppear:YES];
     [self.navigationController.navigationBar setHidden:YES];
     
-//    CGFloat duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;//时间
-//    [UIView beginAnimations:nil context:nil];
-//    [UIView setAnimationDuration:duration];
-//    [UIView commitAnimations];
     self.backView.transform = CGAffineTransformIdentity;
     self.backView.transform = CGAffineTransformMakeRotation(M_PI*.5);//翻转角度
     self.backView.bounds = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height+100, [[UIScreen mainScreen] bounds].size.width);
