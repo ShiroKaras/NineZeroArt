@@ -317,13 +317,18 @@
             
         }];
         
+        //上传服务器
         NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
         NSTimeInterval a=[dat timeIntervalSince1970]*1000;
-        NSString *timeString = [NSString stringWithFormat:@"%f", a];
+        NSString *timeString = [NSString stringWithFormat:@"%ld", (long)a];
         NSString *photoKey = [NSString stringWithFormat:@"camera_%@%u", timeString, arc4random()%1000];
+
+        QNConfiguration *config = [QNConfiguration build:^(QNConfigurationBuilder *builder) {
+            builder.zone = [QNFixedZone zone1];
+        }];
         
-        //上传服务器
-        [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+        [upManager putData:imageData key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
             if (info.statusCode == 200) {
                 NSString *url = [NSString qiniuDownloadURLWithFileName:key];
