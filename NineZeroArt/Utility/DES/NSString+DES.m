@@ -14,7 +14,7 @@
 #import "NSData+Base64.h"
 #import "NSString+Base64.h"
 
-#define KEY @"keCzt$IAs"
+#define KEY @"o0OI1l!i"
 
 @implementation NSString(DES)
 

@@ -36,7 +36,6 @@
     _active = true;
     
     [[AFNetworkReachabilityManager sharedManager] startMonitoring];
-    [self registerQiniuService];
     [self registerShareSDK];
     
     [NSThread sleepForTimeInterval:2];
@@ -154,14 +153,6 @@
         
         //        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
     }
-}
-
-#pragma mark - QiNiu
-
-- (void)registerQiniuService {
-    [[[SKServiceManager sharedInstance] commonService]
-     getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token){
-     }];
 }
 
 - (void)registerShareSDK {

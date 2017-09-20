@@ -41,6 +41,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.zacyang.NineZeroCamera</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>wx$(WEIXIN_URL_SCHEMES_SUFFIX)</string>

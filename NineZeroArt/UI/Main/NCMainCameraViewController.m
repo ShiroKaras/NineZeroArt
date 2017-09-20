@@ -115,6 +115,8 @@
         [self.backView addSubview:helperView];
         EVER_LAUNCH_HOMEPAGE
     }
+    
+    [self loadData];
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -158,6 +160,21 @@
         }
     }
     return;
+}
+
+
+#pragma mark - Data 
+
+- (void)loadData {
+    [self registerQiniuService];
+}
+
+#pragma mark - QiNiu
+
+- (void)registerQiniuService {
+    [[[SKServiceManager sharedInstance] commonService]
+     getQiniuPublicTokenWithCompletion:^(BOOL success, NSString *token){
+     }];
 }
 
 #pragma mark private method
@@ -293,11 +310,30 @@
         UIImage *cropImage = [[UIImage imageWithData:imageData] cropImageWithBounds:CGRectMake(0, 0, 1080, 1080)];
         UIImage * image = [FWApplyFilter applyNashvilleFilter:cropImage];
         
+        //保存到相册
         NSData *jdata = UIImagePNGRepresentation(image);
         ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
         [library writeImageDataToSavedPhotosAlbum:jdata metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
             
         }];
+        
+        NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
+        NSTimeInterval a=[dat timeIntervalSince1970]*1000;
+        NSString *timeString = [NSString stringWithFormat:@"%f", a];
+        NSString *photoKey = [NSString stringWithFormat:@"camera_%@%u", timeString, arc4random()%1000];
+        
+        //上传服务器
+        [[[SKServiceManager sharedInstance] qiniuService] putData:imageData key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+            DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+            if (info.statusCode == 200) {
+                NSString *url = [NSString qiniuDownloadURLWithFileName:key];
+                [[[SKServiceManager sharedInstance] photoService] uploadPhotoWithURL:url Callback:^(BOOL success, SKResponsePackage *response) {
+                    
+                }];
+            } else {
+                
+            }
+        } option:nil];
         
         self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
         [self.view addSubview:self.photoView];

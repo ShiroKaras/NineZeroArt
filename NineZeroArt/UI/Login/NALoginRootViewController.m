@@ -128,15 +128,14 @@
                                                                     callback:^(BOOL success, SKResponsePackage *response) {
                                                                         DLog(@"%@", response);
                                                                         if (success) {
-                                                                            if (response.result == 0) {
+                                                                            if (response.code == 0) {
                                                                                 NCMainCameraViewController *controller =  [[NCMainCameraViewController alloc] init];
                                                                                 AppDelegateInstance.mainController = controller;
                                                                                 HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:controller];
                                                                                 AppDelegateInstance.window.rootViewController = navController;
                                                                                 [AppDelegateInstance.window makeKeyAndVisible];
-                                                                                [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
                                                                             } else {
-                                                                                DLog(@"%ld", (long)response.result);
+                                                                                DLog(@"%ld", (long)response.code);
                                                                             }
                                                                         } else {
                                                                             [self showTipsWithText:@"网络连接错误"];

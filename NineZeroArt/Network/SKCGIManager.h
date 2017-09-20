@@ -14,12 +14,9 @@
 
 + (NSString *)loginBaseCGIKey;
 
-+ (NSString *)profileBaseCGIKey;
-
-+ (NSString *)commonBaseCGIKey;
++ (NSString *)photoBaseCGIKey;
 
 + (NSString *)shareBaseCGIKey;
 
-+ (NSString *)scanningBaseCGIKey;
-
++ (NSString *)qiniuBaseCGIKey;
 @end

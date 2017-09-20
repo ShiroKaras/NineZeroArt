@@ -14,20 +14,15 @@
 	return [NSString stringWithFormat:@"%@/otime/api/login/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
-+ (NSString *)profileBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/ArtUser/appIndex", [[ServerConfiguration sharedInstance] appHost]];
-}
-
-+ (NSString *)commonBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Common/appIndex", [[ServerConfiguration sharedInstance] appHost]];
++ (NSString *)photoBaseCGIKey {
+	return [NSString stringWithFormat:@"%@/otime/api/photo/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
 
 + (NSString *)shareBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/Share/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+	return [NSString stringWithFormat:@"%@/otime/h5/share/photo", [[ServerConfiguration sharedInstance] appHost]];
 }
 
-+ (NSString *)scanningBaseCGIKey {
-	return [NSString stringWithFormat:@"%@/ArtScanning/appIndex", [[ServerConfiguration sharedInstance] appHost]];
++ (NSString *)qiniuBaseCGIKey {
+    return [NSString stringWithFormat:@"%@/otime/api/qiNiu/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
-
 @end

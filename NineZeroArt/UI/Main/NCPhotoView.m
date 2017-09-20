@@ -11,6 +11,25 @@
 #import "UIImage+FW.h"
 #import "FWApplyFilter.h"
 
+#import "WXApi.h"
+#import "WeiboSDK.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <CommonCrypto/CommonDigest.h>
+
+typedef NS_ENUM(NSInteger, HTButtonType) {
+    HTButtonTypeShare = 0,
+    HTButtonTypeCancel,
+    HTButtonTypeWechat,
+    HTButtonTypeMoment,
+    HTButtonTypeWeibo,
+    HTButtonTypeQQ,
+    HTButtonTypeReplay
+};
+
+
+
 @interface NCPhotoView ()
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) UIImage *photoPaperImage;
@@ -98,6 +117,190 @@
     } completion:^(BOOL finished) {
         
     }];
+}
+
+- (void)shareWithThirdPlatform:(UIButton *)sender {
+    HTButtonType type = (HTButtonType)sender.tag;
+    switch (type) {
+        case HTButtonTypeWechat: {
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            NSArray *imageArray = @[@"imageurl"];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                                                  title:@""
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatSession
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     DLog(@"State -> %lu", (unsigned long)state);
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeMoment: {
+            if (![WXApi isWXAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[@"imageurl"];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@""
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                                                  title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeWeibo: {
+            if (![WeiboSDK isWeiboAppInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[@"imageurl"];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                                                  title:@"title"
+                                                   type:SSDKContentTypeImage];
+                [ShareSDK share:SSDKPlatformTypeSinaWeibo
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        case HTButtonTypeQQ: {
+            if (![QQApiInterface isQQInstalled]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                message:@"未安装客户端"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            
+            NSArray *imageArray = @[@"imageurl"];
+            if (imageArray) {
+                NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+                [shareParams SSDKEnableUseClientShare];
+                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                 images:imageArray
+                                                    url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                                                  title:@"title"
+                                                   type:SSDKContentTypeAuto];
+                [ShareSDK share:SSDKPlatformSubTypeQQFriend
+                     parameters:shareParams
+                 onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+                     switch (state) {
+                         case SSDKResponseStateSuccess: {
+                             
+                             break;
+                         }
+                         case SSDKResponseStateFail: {
+                             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"分享失败"
+                                                                             message:[NSString stringWithFormat:@"%@", error]
+                                                                            delegate:nil
+                                                                   cancelButtonTitle:@"OK"
+                                                                   otherButtonTitles:nil, nil];
+                             [alert show];
+                             break;
+                         }
+                         default:
+                             break;
+                     }
+                 }];
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 @end

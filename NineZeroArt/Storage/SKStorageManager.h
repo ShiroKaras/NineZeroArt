@@ -15,7 +15,6 @@
 @interface SKStorageManager : NSObject
 
 @property (nonatomic, strong) SKUserInfo *userInfo;
-@property (nonatomic, strong) SKProfileInfo *profileInfo;
 @property (nonatomic, strong) NSString *qiniuPublicToken;
 
 + (instancetype)sharedInstance;

@@ -9,6 +9,7 @@
 #import "SKLoginService.h"
 #import "SKModel.h"
 #import "SKStorageManager.h"
+#import "SKServiceManager.h"
 
 @implementation SKLoginService
 
@@ -78,7 +79,7 @@
 	};
 	[self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         NSDictionary *dataDict = response.data;
-        if (response.result.code == 0) {
+        if (response.code == 0) {
             SKLoginUser *loginUser = [SKLoginUser mj_objectWithKeyValues:dataDict];
             [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
             [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
@@ -93,7 +94,7 @@
                             @"user_id": [[SKStorageManager sharedInstance] getUserID]
                             };
     [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        if (response.result.code == 0) {
+        if (response.code == 0) {
             [self quitLogin];
         }
     }];
@@ -107,7 +108,6 @@
 	[[SKStorageManager sharedInstance] clearLoginUser];
 	[[SKStorageManager sharedInstance] clearUserID];
 	[[SKStorageManager sharedInstance] setUserInfo:[[SKUserInfo alloc] init]];
-	[[SKStorageManager sharedInstance] setProfileInfo:[[SKProfileInfo alloc] init]];
 }
 
 @end

@@ -20,13 +20,17 @@
 	}
 
 @implementation SKResponsePackage
+HTINIT(SKResponsePackage)
+- (NSDictionary *)propertyMapper {
+    NSDictionary *propertyMapper = @{ @"code" : @"result.code",
+                                      @"message" : @"result.message"
+                                      };
+    return propertyMapper;
+}
 @end
 
 @implementation SKLoginUser
 @end
 
 @implementation SKUserInfo
-@end
-
-@implementation SKProfileInfo
 @end

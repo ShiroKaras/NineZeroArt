@@ -10,8 +10,8 @@
 
 @implementation SKServiceManager {
     SKLoginService      *_loginService;
-    SKProfileService    *_profileService;
     SKCommonService     *_commonService;
+    SKPhotoService      *_photoService;
     QNUploadManager     *_qiniuService;
 }
 
@@ -27,8 +27,8 @@
 - (instancetype)init {
     if (self = [super init]) {
         _loginService       = [[SKLoginService alloc] init];
-        _profileService     = [[SKProfileService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
+        _photoService       = [[SKPhotoService alloc] init];
         _qiniuService       = [[QNUploadManager alloc] init];
     }
     return self;
@@ -40,12 +40,12 @@
     return _loginService;
 }
 
-- (SKProfileService *)profileService {
-    return _profileService;
-}
-
 - (SKCommonService *)commonService {
     return _commonService;
+}
+
+- (SKPhotoService *)photoService {
+    return _photoService;
 }
 
 - (QNUploadManager *)qiniuService {
