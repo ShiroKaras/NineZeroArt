@@ -46,17 +46,20 @@
 	[mDict setValue:[NSString stringWithFormat:@"%lld", currentTime] forKey:@"time"];
 	[mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
 	[mDict setValue:@"iOS" forKey:@"client"];
+    [mDict setValue:@1 forKey:@"device_id"];
 
 	NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
 	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	DLog(@"Json ParamString: %@", jsonString);
 
-	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-
+//	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
+    NSDictionary *param = @{ @"data": jsonString };
+    
 	[manager POST:[SKCGIManager loginBaseCGIKey]
 		parameters:param
 		progress:nil
 		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
+            NSLog(@"Response: %@", responseObject);
 		    SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
 		    callback(YES, package);
 		}
@@ -66,117 +69,34 @@
 		}];
 }
 
-//注册
-- (void)registerWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
-    NSDictionary *param;
-    if (user.user_avatar) {
-        param = @{
-                  @"method": @"register",
-                  @"user_name": user.user_name,
-                  @"user_mobile": user.user_mobile,
-                  @"user_avatar": user.user_avatar
-                  };
-    } else {
-        param = @{
-                  @"method": @"register",
-                  @"user_name": user.user_name,
-                  @"user_mobile": user.user_mobile,
-                  };
-    }
-    
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     NSDictionary *dataDict = response.data;
-				     if (response.result == 0) {
-					     [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-					     [[SKStorageManager sharedInstance] updateLoginUser:user];
-				     }
-				     callback(success, response);
-				 }];
-}
-
-//登录
-- (void)loginWith:(SKLoginUser *)user callback:(SKResponseCallback)callback {
-	user.user_password = [NSString confusedPasswordWithLoginUser:user];
-	NSDictionary *param = @{
-		@"method": @"login",
-		@"user_mobile": user.user_mobile,
-        @"vcode" : user.code
-	};
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     NSDictionary *dataDict = response.data;
-				     if (response.result == 0) {
-					     SKLoginUser *loginUser = [SKLoginUser mj_objectWithKeyValues:dataDict];
-					     [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-					     [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
-				     }
-				     callback(success, response);
-				 }];
-}
-
 //第三方登录
 - (void)loginWithThirdPlatform:(SKLoginUser *)user callback:(SKResponseCallback)callback {
 	NSDictionary *param = @{
 		@"method": @"third_login",
-		@"user_name": user.user_name,
-		@"user_avatar": user.user_avatar,
-		@"user_area_id": user.user_area_id,
-		@"third_id": user.third_id
+		@"open_id": user.open_id,
+        @"plant_id": @1
 	};
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     NSDictionary *dataDict = response.data;
-				     if (response.result == 0) {
-					     SKLoginUser *loginUser = [SKLoginUser mj_objectWithKeyValues:dataDict];
-					     [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-					     [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
-				     }
-				     callback(success, response);
-				 }];
+	[self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        NSDictionary *dataDict = response.data;
+        if (response.result.code == 0) {
+            SKLoginUser *loginUser = [SKLoginUser mj_objectWithKeyValues:dataDict];
+            [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
+            [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
+        }
+        callback(success, response);
+    }];
 }
 
-- (void)resetPassword:(SKLoginUser *)user callback:(SKResponseCallback)callback {
-	user.user_password = [NSString confusedPasswordWithLoginUser:user];
-	NSDictionary *param = @{
-		@"method": @"reset",
-		@"user_password": user.user_password,
-		@"user_mobile": user.user_mobile,
-		@"vcode": user.code
-	};
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     NSDictionary *dataDict = response.data;
-				     if (response.result == 0) {
-					     SKLoginUser *loginUser = [SKLoginUser mj_objectWithKeyValues:dataDict];
-					     [[SKStorageManager sharedInstance] updateUserID:[NSString stringWithFormat:@"%@", dataDict[@"user_id"]]];
-					     [[SKStorageManager sharedInstance] updateLoginUser:loginUser];
-				     }
-				     callback(success, response);
-				 }];
-}
-
-//发送验证码
-- (void)sendVerifyCodeWithMobile:(NSString *)mobile callback:(SKResponseCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"sendCode",
-		@"user_mobile": mobile
-	};
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     callback(success, response);
-				 }];
-}
-
-- (void)checkMobileRegisterStatus:(NSString *)mobile callback:(SKResponseCallback)callback {
-	NSDictionary *param = @{
-		@"method": @"check_mobile",
-		@"user_mobile": mobile
-	};
-	[self loginBaseRequestWithParam:param
-				 callback:^(BOOL success, SKResponsePackage *response) {
-				     callback(success, response);
-				 }];
+- (void)logoutCallback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"user_logout",
+                            @"user_id": [[SKStorageManager sharedInstance] getUserID]
+                            };
+    [self loginBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        if (response.result.code == 0) {
+            [self quitLogin];
+        }
+    }];
 }
 
 - (SKLoginUser *)loginUser {

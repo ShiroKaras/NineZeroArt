@@ -78,7 +78,8 @@
     loginButton.backgroundColor = COMMON_GREEN_COLOR;
     [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_wechat_%lf", SCREEN_WIDTH]] forState:UIControlStateNormal];
     [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_wechat_%lf_highlight", SCREEN_WIDTH]] forState:UIControlStateHighlighted];
-    [loginButton addTarget:self action:@selector(didClickLoginButton2:) forControlEvents:UIControlEventTouchUpInside];
+    [loginButton addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
+    loginButton.tag = 100;
     [self.backView addSubview:loginButton];
 }
 
@@ -121,15 +122,10 @@
 
 - (void)loginWithUser:(SSDKUser *)user {
     SKLoginUser *loginUser = [SKLoginUser new];
-    loginUser.user_area_id = AppDelegateInstance.cityCode;
-    loginUser.third_id = user.uid;
-    loginUser.user_name = user.nickname;
-    loginUser.user_avatar = user.icon;
-    [HTProgressHUD show];
+    loginUser.open_id = user.uid;
     
     [[[SKServiceManager sharedInstance] loginService] loginWithThirdPlatform:loginUser
                                                                     callback:^(BOOL success, SKResponsePackage *response) {
-                                                                        [HTProgressHUD dismiss];
                                                                         DLog(@"%@", response);
                                                                         if (success) {
                                                                             if (response.result == 0) {

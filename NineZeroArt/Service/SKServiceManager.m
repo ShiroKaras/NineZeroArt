@@ -11,7 +11,6 @@
 @implementation SKServiceManager {
     SKLoginService      *_loginService;
     SKProfileService    *_profileService;
-    SKScanningService   *_scanningService;
     SKCommonService     *_commonService;
     QNUploadManager     *_qiniuService;
 }
@@ -29,7 +28,6 @@
     if (self = [super init]) {
         _loginService       = [[SKLoginService alloc] init];
         _profileService     = [[SKProfileService alloc] init];
-        _scanningService    = [[SKScanningService alloc] init];
         _commonService      = [[SKCommonService alloc] init];
         _qiniuService       = [[QNUploadManager alloc] init];
     }
@@ -44,10 +42,6 @@
 
 - (SKProfileService *)profileService {
     return _profileService;
-}
-
-- (SKScanningService *)scanningService {
-    return _scanningService;
 }
 
 - (SKCommonService *)commonService {

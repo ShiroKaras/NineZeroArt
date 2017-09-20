@@ -12,10 +12,6 @@
 
 typedef void (^SKProfileInfoCallback) (BOOL success, SKProfileInfo *response);
 typedef void (^SKUserInfoCallback) (BOOL success, SKUserInfo *response);
-typedef void (^SKGetPiecesCallback) (BOOL success, NSArray<SKPiece *> *pieces) ;
-typedef void (^SKGetTicketsCallback) (BOOL suceese, NSArray<SKTicket*> *tickets);
-typedef void (^SKGetRankerListCallbakc) (BOOL success, NSArray<SKRanker*> *rankerList);
-typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification *> *notifications);
 
 @interface SKProfileService : NSObject
 
@@ -24,8 +20,5 @@ typedef void (^SKGetNotificationsCallback) (BOOL success, NSArray<SKNotification
 
 //重新获取用户信息
 - (void)updateUserInfoFromServer;
-
-//获取礼券列表
-- (void)getUserTicketsCallbackCallback:(SKGetTicketsCallback)callback;
 
 @end

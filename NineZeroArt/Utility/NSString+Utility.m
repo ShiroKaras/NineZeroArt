@@ -69,9 +69,9 @@
 	return [NSString stringWithFormat:@"%01$@%02$@%01$@%02$@%01$@%02$@", self, salt];
 }
 
-+ (NSString *)confusedPasswordWithLoginUser:(SKLoginUser *)loginUser {
-	return [[NSString stringWithFormat:@"%01$@%02$@%02$@%02$@", loginUser.user_password, loginUser.user_mobile] sha256];
-}
+//+ (NSString *)confusedPasswordWithLoginUser:(SKLoginUser *)loginUser {
+//	return [[NSString stringWithFormat:@"%01$@%02$@%02$@%02$@", loginUser.user_password, loginUser.user_mobile] sha256];
+//}
 
 #pragma mark - 参数加密
 

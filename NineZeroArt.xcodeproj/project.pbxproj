@@ -114,7 +114,6 @@
 		1169B3241F05F57600CE552B /* SKCommonService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3181F05F57600CE552B /* SKCommonService.m */; };
 		1169B3251F05F57600CE552B /* SKLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B31B1F05F57600CE552B /* SKLoginService.m */; };
 		1169B3261F05F57600CE552B /* SKProfileService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B31D1F05F57600CE552B /* SKProfileService.m */; };
-		1169B3271F05F57600CE552B /* SKScanningService.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B31F1F05F57600CE552B /* SKScanningService.m */; };
 		1169B3281F05F57600CE552B /* SKServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3211F05F57600CE552B /* SKServiceManager.m */; };
 		1169B32C1F05F7C000CE552B /* ServerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B32B1F05F7C000CE552B /* ServerConfiguration.m */; };
 		1169B34D1F06399F00CE552B /* HTAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1169B3341F06399F00CE552B /* HTAlertView.m */; };
@@ -399,7 +398,6 @@
 		11B24BAA1F6A96D70063EDEB /* waldenMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B24B801F6A96D70063EDEB /* waldenMap.png */; };
 		11B24BAB1F6A96D70063EDEB /* xproMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B24B811F6A96D70063EDEB /* xproMap.png */; };
 		11B24BAE1F6BB79D0063EDEB /* NCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B24BAD1F6BB79D0063EDEB /* NCPhotoView.m */; };
-		11E4414A1F6FB79000283C41 /* miku.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 11E441491F6FB79000283C41 /* miku.jpg */; };
 		11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC11F0B86180098F678 /* NALoginRootViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
@@ -643,8 +641,6 @@
 		1169B31B1F05F57600CE552B /* SKLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLoginService.m; sourceTree = "<group>"; };
 		1169B31C1F05F57600CE552B /* SKProfileService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKProfileService.h; sourceTree = "<group>"; };
 		1169B31D1F05F57600CE552B /* SKProfileService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKProfileService.m; sourceTree = "<group>"; };
-		1169B31E1F05F57600CE552B /* SKScanningService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKScanningService.h; sourceTree = "<group>"; };
-		1169B31F1F05F57600CE552B /* SKScanningService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKScanningService.m; sourceTree = "<group>"; };
 		1169B3201F05F57600CE552B /* SKServiceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKServiceManager.h; sourceTree = "<group>"; };
 		1169B3211F05F57600CE552B /* SKServiceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKServiceManager.m; sourceTree = "<group>"; };
 		1169B32A1F05F7C000CE552B /* ServerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerConfiguration.h; sourceTree = "<group>"; };
@@ -1161,7 +1157,6 @@
 		11B24B811F6A96D70063EDEB /* xproMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xproMap.png; sourceTree = "<group>"; };
 		11B24BAC1F6BB79D0063EDEB /* NCPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NCPhotoView.h; path = Main/NCPhotoView.h; sourceTree = "<group>"; };
 		11B24BAD1F6BB79D0063EDEB /* NCPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NCPhotoView.m; path = Main/NCPhotoView.m; sourceTree = "<group>"; };
-		11E441491F6FB79000283C41 /* miku.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = miku.jpg; path = ../../../Pictures/miku.jpg; sourceTree = "<group>"; };
 		11F00DC01F0B86180098F678 /* NALoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginRootViewController.h; path = Login/NALoginRootViewController.h; sourceTree = "<group>"; };
 		11F00DC11F0B86180098F678 /* NALoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginRootViewController.m; path = Login/NALoginRootViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1732,8 +1727,6 @@
 				1169B31B1F05F57600CE552B /* SKLoginService.m */,
 				1169B31C1F05F57600CE552B /* SKProfileService.h */,
 				1169B31D1F05F57600CE552B /* SKProfileService.m */,
-				1169B31E1F05F57600CE552B /* SKScanningService.h */,
-				1169B31F1F05F57600CE552B /* SKScanningService.m */,
 				1169B3201F05F57600CE552B /* SKServiceManager.h */,
 				1169B3211F05F57600CE552B /* SKServiceManager.m */,
 			);
@@ -2411,7 +2404,6 @@
 		11FFFCEE1F05067000CEC7EB /* NineZeroArt */ = {
 			isa = PBXGroup;
 			children = (
-				11E441491F6FB79000283C41 /* miku.jpg */,
 				11B245D21F690E160063EDEB /* 369.mp3 */,
 				11B245D31F690E160063EDEB /* flash.mp3 */,
 				11FFFCF21F05067000CEC7EB /* AppDelegate.h */,
@@ -2675,7 +2667,6 @@
 				11B24B991F6A96D70063EDEB /* nashvilleMap.png in Resources */,
 				11FFFCFA1F05067000CEC7EB /* Main.storyboard in Resources */,
 				11B24B961F6A96D70063EDEB /* inkwellMap.png in Resources */,
-				11E4414A1F6FB79000283C41 /* miku.jpg in Resources */,
 				11B24B9C1F6A96D70063EDEB /* sierraMap.png in Resources */,
 				1169B29C1F05151100CE552B /* ar_overlay.png in Resources */,
 				1169B29A1F05151100CE552B /* ARObject.xib in Resources */,
@@ -2992,7 +2983,6 @@
 				11B248131F6A64C80063EDEB /* GPUImageAverageColor.m in Sources */,
 				11B248651F6A6DA70063EDEB /* FWEarlybirdFilter.m in Sources */,
 				1169B2D11F05151100CE552B /* MJRefreshNormalHeader.m in Sources */,
-				1169B3271F05F57600CE552B /* SKScanningService.m in Sources */,
 				11B248671F6A6DA70063EDEB /* FWHefeFilter.m in Sources */,
 				11B247F31F6A64C80063EDEB /* GPUImageSketchFilter.m in Sources */,
 				11B248771F6A6EC90063EDEB /* FWApplyFilter.m in Sources */,

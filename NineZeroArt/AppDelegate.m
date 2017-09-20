@@ -152,7 +152,7 @@
         //			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
         //		}
         
-        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        //        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
     }
 }
 

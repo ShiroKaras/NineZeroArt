@@ -12,7 +12,6 @@
 #import "SKLoginService.h"
 #import "SKProfileService.h"
 #import "SKCommonService.h"
-#import "SKScanningService.h"
 #import <Qiniu/QiniuSDK.h>
 
 @interface SKServiceManager : NSObject
@@ -24,9 +23,6 @@
 
 /** profileService, 负责个人主页相关业务 */
 - (SKProfileService *)profileService;
-
-/** scanningService, 负责扫一扫相关业务 */
-- (SKScanningService *)scanningService;
 
 /** commonService, 负责公共部分相关业务 */
 - (SKCommonService *)commonService;
