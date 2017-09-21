@@ -53,8 +53,8 @@
 	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	DLog(@"Json ParamString: %@", jsonString);
 
-//	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-    NSDictionary *param = @{ @"data": jsonString };
+	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
+//    NSDictionary *param = @{ @"data": jsonString };
     
 	[manager POST:[SKCGIManager loginBaseCGIKey]
 		parameters:param

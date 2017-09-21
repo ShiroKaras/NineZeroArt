@@ -19,13 +19,10 @@
 #import <CommonCrypto/CommonDigest.h>
 
 typedef NS_ENUM(NSInteger, HTButtonType) {
-    HTButtonTypeShare = 0,
-    HTButtonTypeCancel,
-    HTButtonTypeWechat,
+    HTButtonTypeWechat = 100,
     HTButtonTypeMoment,
     HTButtonTypeWeibo,
-    HTButtonTypeQQ,
-    HTButtonTypeReplay
+    HTButtonTypeQQ
 };
 
 
@@ -35,14 +32,19 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIImage *photoPaperImage;
 @property (nonatomic, strong) UIView *photoPaperView;
 @property (nonatomic, strong) UIImageView *cropImageView;
+@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) UIImageView *shareTitleImageView;
+@property (nonatomic, strong) UIImageView *guideImageView;
 @end
 
 @implementation NCPhotoView
 
-- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage *)image {
+- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage *)image imageURL:(NSString *)imageURL time:(NSString *)time {
     self = [super initWithFrame:frame];
     if (self) {
         self.image = image;
+        self.time = time;
         [self createUI];
     }
     return self;
@@ -54,6 +56,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     blurImageView.frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     [self addSubview:blurImageView];
     
+    //相纸
     self.photoPaperImage = [UIImage imageNamed:[NSString stringWithFormat:@"img_printingpage_frame_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]];
     
     self.photoPaperView = [UIView new];
@@ -85,17 +88,42 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     imageView.top = 0;
     imageView.left = 0;
     
-    UIImageView *shareTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_share"]];
-    [self addSubview:shareTitleImageView];
-    shareTitleImageView.centerX = self.centerX;
-    shareTitleImageView.bottom = self.bottom -ROUND_HEIGHT_FLOAT(96);
+    //时间戳
+    UILabel *timeLabel = [UILabel new];
+    timeLabel.text = [self timeWithTimeIntervalString:self.time];
+    timeLabel.textColor = [UIColor colorWithHex:0x6d6d52];
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        timeLabel.font = PINGFANG_FONT_OF_SIZE(14);
+    } else {
+        timeLabel.font = PINGFANG_FONT_OF_SIZE(16);
+    }
+    [timeLabel sizeToFit];
+    [self.photoPaperView addSubview:timeLabel];
+    timeLabel.bottom = self.photoPaperView.height - 78;
+    timeLabel.right = self.photoPaperView.width - 22;
+    
+    self.guideImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_floating"]];
+    _guideImageView.alpha = 0;
+    [self addSubview:_guideImageView];
+    _guideImageView.centerX = self.centerX;
+    _guideImageView.bottom = self.bottom - ROUND_HEIGHT_FLOAT(47);
+    
+    //分享
+    self.shareTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_share"]];
+    self.shareTitleImageView.alpha = 0;
+    [self addSubview:self.shareTitleImageView];
+    self.shareTitleImageView.centerX = self.centerX;
+    self.shareTitleImageView.bottom = self.bottom -ROUND_HEIGHT_FLOAT(96);
     
     NSArray *loginArray = @[@"wechat", @"moments", @"weibo", @"qq"];
     float padding = ROUND_WIDTH_FLOAT((SCREEN_WIDTH-30-63*4)/3);
     for (int i=0; i<4; i++) {
         UIButton *button = [UIButton new];
+        button.alpha = 0;
+        button.tag = 100+i;
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_printingpage_%@", loginArray[i]]] forState:UIControlStateNormal];
         [button setBackgroundImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_printingpage_%@_highlight", loginArray[i]]] forState:UIControlStateHighlighted];
+        [button addTarget:self action:@selector(shareWithThirdPlatform:) forControlEvents:UIControlEventTouchUpInside];
         button.size = CGSizeMake(ROUND_WIDTH_FLOAT(63), ROUND_WIDTH_FLOAT(60));
         button.left = ROUND_WIDTH_FLOAT(17+(padding+63)*i);
         button.bottom = self.bottom - ROUND_WIDTH_FLOAT(17);
@@ -106,16 +134,43 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.cropImageView.alpha = 0;
     [UIView animateWithDuration:1.5 delay:1 options:UIViewAnimationOptionCurveLinear animations:^{
         self.photoPaperView.bottom = self.bottom-126.5;
+        _guideImageView.alpha = 1;
     } completion:^(BOOL finished) {
         
     }];
+    
+    [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {
+        self.imageURL = response.data[@"url_addr"];
+        NSLog(@"imageURL:%@", self.imageURL);
+    }];
+}
+
+- (NSString *)timeWithTimeIntervalString:(NSString *)timeString
+{
+    // 格式化时间
+    NSDateFormatter* formatter = [[NSDateFormatter alloc] init];
+    formatter.timeZone = [NSTimeZone timeZoneWithName:@"shanghai"];
+    [formatter setDateStyle:NSDateFormatterMediumStyle];
+    [formatter setTimeStyle:NSDateFormatterShortStyle];
+    [formatter setDateFormat:@"yyyy/MM/dd"];
+    
+    // 毫秒值转化为秒
+    NSDate* date = [NSDate dateWithTimeIntervalSince1970:[timeString doubleValue]/ 1000.0];
+    NSString* dateString = [formatter stringFromDate:date];
+    return dateString;
 }
 
 - (void)showPhoto {
     [UIView animateWithDuration:2 delay:1.5 options:UIViewAnimationOptionCurveLinear animations:^{
         self.cropImageView.alpha = 1;
+        self.shareTitleImageView.alpha = 1;
+        [self viewWithTag:100].alpha = 1;
+        [self viewWithTag:101].alpha = 1;
+        [self viewWithTag:102].alpha = 1;
+        [self viewWithTag:103].alpha = 1;
+        self.guideImageView.alpha = 0;
     } completion:^(BOOL finished) {
-        
+        [self.guideImageView removeFromSuperview];
     }];
 }
 
@@ -132,7 +187,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[@"imageurl"];
+            NSArray *imageArray = @[self.imageURL];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -177,7 +232,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[@"imageurl"];
+            NSArray *imageArray = @[self.imageURL];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -221,7 +276,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[@"imageurl"];
+            NSArray *imageArray = @[self.imageURL];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -265,7 +320,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[@"imageurl"];
+            NSArray *imageArray = @[self.imageURL];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];

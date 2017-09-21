@@ -69,6 +69,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
+    NSLog(@"DES %@" , [NSString encryptUseDES:@"111" key:nil]);
+    
     self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT+100, SCREEN_WIDTH)];
     [self.view addSubview:_backView];
     
@@ -328,10 +330,39 @@
         }];
         
         QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
-        [upManager putData:imageData key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+        [upManager putData:jdata key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
             DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
             if (info.statusCode == 200) {
                 NSString *url = [NSString qiniuDownloadURLWithFileName:key];
+                
+                self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:url time:timeString];
+                [self.view addSubview:self.photoView];
+                [self.view bringSubviewToFront:self.backView];
+                
+                self.takePhotoButton.alpha = 0;
+                [UIView animateWithDuration:1 animations:^{
+                    self.backView.top = -511;
+                    
+                    float scale = 0;
+                    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                        scale = 295.5;
+                    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                        scale = 347;
+                    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
+                        scale = 383;
+                    }
+                    self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+                    self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                    self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                    self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                        self.backView.top = -SCREEN_HEIGHT-100;
+                    } completion:^(BOOL finished) {
+                        
+                    }];
+                }];
+                
                 [[[SKServiceManager sharedInstance] photoService] uploadPhotoWithURL:url Callback:^(BOOL success, SKResponsePackage *response) {
                     
                 }];
@@ -339,34 +370,6 @@
                 
             }
         } option:nil];
-        
-        self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image];
-        [self.view addSubview:self.photoView];
-        [self.view bringSubviewToFront:self.backView];
-        
-        self.takePhotoButton.alpha = 0;
-        [UIView animateWithDuration:1 animations:^{
-            self.backView.top = -511;
-            
-            float scale = 0;
-            if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-                scale = 295.5;
-            } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-                scale = 347;
-            } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
-                scale = 383;
-            }
-            self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
-            self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
-            self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
-            self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
-        } completion:^(BOOL finished) {
-            [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
-                self.backView.top = -SCREEN_HEIGHT-100;
-            } completion:^(BOOL finished) {
-                
-            }];
-        }];
     }];
 }
 

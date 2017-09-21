@@ -53,8 +53,8 @@
     NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     DLog(@"Json ParamString: %@", jsonString);
     
-//    NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-    NSDictionary *param = @{ @"data": jsonString };
+    NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
+//    NSDictionary *param = @{ @"data": jsonString };
     
     [manager POST:[SKCGIManager photoBaseCGIKey]
        parameters:param
@@ -77,7 +77,9 @@
                             };
     
     [self photoBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
-        
+        if (response.code == 0) {
+            callback(YES, response);
+        }
     }];
 }
 
@@ -87,7 +89,7 @@
                             };
     [self photoBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (response.code == 0) {
-            
+            callback(YES, response);
         }
     }];
 }

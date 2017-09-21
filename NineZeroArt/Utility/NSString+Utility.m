@@ -120,7 +120,7 @@
 }
 
 + (NSString *)qiniuDownloadURLWithFileName:(NSString *)fileName {
-	NSString *downloadURL = [NSString stringWithFormat:@"http://7xryb0.com1.z0.glb.clouddn.com/%@", [fileName urlencode]];
+	NSString *downloadURL = [NSString stringWithFormat:@"http://owic0i46w.bkt.clouddn.com/%@", [fileName urlencode]];
 	return downloadURL;
 }
 
