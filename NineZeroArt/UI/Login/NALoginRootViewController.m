@@ -75,12 +75,22 @@
     backImageView.left = 0;
     
     UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH-50, SCREEN_HEIGHT, 50)];
-    loginButton.backgroundColor = COMMON_GREEN_COLOR;
     [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_wechat_%lf", SCREEN_WIDTH]] forState:UIControlStateNormal];
     [loginButton setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_wechat_%lf_highlight", SCREEN_WIDTH]] forState:UIControlStateHighlighted];
     [loginButton addTarget:self action:@selector(didClickLoginButton:) forControlEvents:UIControlEventTouchUpInside];
     loginButton.tag = 100;
     [self.backView addSubview:loginButton];
+    
+    [[[SKServiceManager sharedInstance] commonService] isOnlineCallback:^(BOOL success, SKResponsePackage *response) {
+        long isOnline = [response.data[@"is_onlein"] longValue];
+        if (!isOnline) {
+            UIButton *guestLogin = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH-100-15, SCREEN_HEIGHT, 50)];
+            [guestLogin setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_tourist_%lf", SCREEN_WIDTH]] forState:UIControlStateNormal];
+            [guestLogin setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_tourist_%lf_highlight", SCREEN_WIDTH]] forState:UIControlStateHighlighted];
+            [guestLogin addTarget:self action:@selector(didClickLoginButton2:) forControlEvents:UIControlEventTouchUpInside];
+            [self.backView addSubview:guestLogin];
+        }
+    }];
 }
 
 - (void)didClickLoginButton2:(UIButton*)sender {

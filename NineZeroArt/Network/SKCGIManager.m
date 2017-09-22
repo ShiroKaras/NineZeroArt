@@ -25,4 +25,8 @@
 + (NSString *)qiniuBaseCGIKey {
     return [NSString stringWithFormat:@"%@/otime/api/qiNiu/appIndex", [[ServerConfiguration sharedInstance] appHost]];
 }
+
++ (NSString *)isOnline {
+    return [NSString stringWithFormat:@"%@/otime/api/ios/appIndex", [[ServerConfiguration sharedInstance] appHost]];
+}
 @end

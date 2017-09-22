@@ -73,7 +73,7 @@
         NSString *imageURL = response.data[@"url_addr"];
         NSString *createTime = [NSString stringWithFormat:@"%@000",response.data[@"create_time"]];
         if (imageURL) {
-            self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:nil imageURL:imageURL time:createTime];
+            self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:nil imageURL:imageURL time:createTime showAnimation:NO];
             [self.view addSubview:self.photoView];
         } else {
             self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT+100, SCREEN_WIDTH)];
@@ -342,7 +342,7 @@
             if (info.statusCode == 200) {
                 NSString *url = [NSString qiniuDownloadURLWithFileName:key];
                 
-                self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:url time:timeString];
+                self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:url time:timeString showAnimation:YES];
                 [self.view addSubview:self.photoView];
                 [self.view bringSubviewToFront:self.backView];
                 

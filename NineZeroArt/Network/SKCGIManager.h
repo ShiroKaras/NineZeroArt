@@ -19,4 +19,6 @@
 + (NSString *)shareBaseCGIKey;
 
 + (NSString *)qiniuBaseCGIKey;
+
++ (NSString *)isOnline;
 @end

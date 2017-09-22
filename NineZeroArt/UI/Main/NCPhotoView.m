@@ -38,14 +38,17 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 @property (nonatomic, strong) UIImageView *guideImageView;
 @end
 
-@implementation NCPhotoView
+@implementation NCPhotoView {
+    BOOL _showAnimation;
+}
 
-- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage *)image imageURL:(NSString *)imageURL time:(NSString *)time {
+- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage *)image imageURL:(NSString *)imageURL time:(NSString *)time showAnimation:(BOOL)flag{
     self = [super initWithFrame:frame];
     if (self) {
         self.image = image;
         self.imageURL = imageURL;
         self.time = time;
+        _showAnimation = flag;
         [self createUI];
     }
     return self;
@@ -109,11 +112,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     timeLabel.bottom = self.photoPaperView.height - 78;
     timeLabel.right = self.photoPaperView.width - 22;
     
-    self.guideImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_floating"]];
-    _guideImageView.alpha = 0;
-    [self addSubview:_guideImageView];
-    _guideImageView.centerX = self.centerX;
-    _guideImageView.bottom = self.bottom - ROUND_HEIGHT_FLOAT(47);
+    if (_showAnimation) {
+        self.guideImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_floating"]];
+        _guideImageView.alpha = 0;
+        [self addSubview:_guideImageView];
+        _guideImageView.centerX = self.centerX;
+        _guideImageView.bottom = self.bottom - ROUND_HEIGHT_FLOAT(47);
+    }
     
     //分享
     self.shareTitleImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_share"]];
@@ -143,7 +148,9 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
         self.photoPaperView.bottom = self.bottom-126.5;
         _guideImageView.alpha = 1;
     } completion:^(BOOL finished) {
-        
+        if (!_showAnimation) {
+            [self showPhoto];
+        }
     }];
     
     [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {

@@ -13,6 +13,6 @@
 
 @interface NCPhotoView : UIView
 
-- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage*)image imageURL:(NSString*)imageURL time:(NSString*)time;
+- (instancetype)initWithFrame:(CGRect)frame withImage:(UIImage*)image imageURL:(NSString*)imageURL time:(NSString*)time showAnimation:(BOOL)flag;
 - (void)showPhoto;
 @end

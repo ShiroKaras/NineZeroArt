@@ -27,4 +27,6 @@ typedef void (^SKGetTokenCallback) (BOOL success, NSString *token);
  */
 - (void)getQiniuDownloadURLsWithKeys:(NSArray<NSString *> *)keys callback:(SKResponseCallback)callback;
 
+- (void)isOnlineCallback:(SKResponseCallback)callback;
+
 @end
