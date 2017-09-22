@@ -69,46 +69,53 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     
-    NSLog(@"DES %@" , [NSString encryptUseDES:@"111" key:nil]);
-    
-    self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT+100, SCREEN_WIDTH)];
-    [self.view addSubview:_backView];
-    
-    [self initAVCaptureSession];
-    [self setUpGesture];
-    isUsingFrontFacingCamera = NO;
-    
-    self.effectiveScale = self.beginGestureScale = 1.0f;
-    
-    self.cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_homepage_background_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]]];
-    [self.backView addSubview:self.cameraImageView];
-    self.cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
-    
-    self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
-    [self.backView addSubview:self.flashButtonImageView];
-    self.flashButtonImageView.left = 49+100+66.5;
-    self.flashButtonImageView.top = 80.5;
-    
-    UIButton *flashButton = [UIButton new];
-    [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backView addSubview:flashButton];
-    flashButton.size = CGSizeMake(93.5, 25);
-    flashButton.left = self.flashButtonImageView.left;
-    flashButton.top = self.flashButtonImageView.top;
-    isUsingFlashLight = NO;
-    [device lockForConfiguration:nil];
-    [device setTorchMode: AVCaptureTorchModeOff];
-    device.flashMode = AVCaptureFlashModeOff;
-    [device unlockForConfiguration];
-    
-    self.takePhotoButton = [UIButton new];
-    [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter"] forState:UIControlStateNormal];
-    [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
-    [self.takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backView addSubview:self.takePhotoButton];
-    self.takePhotoButton.size = CGSizeMake(58, 58);
-    self.takePhotoButton.left = self.view.height-81-58;
-    self.takePhotoButton.top = 54;
+    [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {
+        NSString *imageURL = response.data[@"url_addr"];
+        NSString *createTime = [NSString stringWithFormat:@"%@000",response.data[@"create_time"]];
+        if (imageURL) {
+            self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:nil imageURL:imageURL time:createTime];
+            [self.view addSubview:self.photoView];
+        } else {
+            self.backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT+100, SCREEN_WIDTH)];
+            [self.view addSubview:_backView];
+            
+            [self initAVCaptureSession];
+            [self setUpGesture];
+            isUsingFrontFacingCamera = NO;
+            
+            self.effectiveScale = self.beginGestureScale = 1.0f;
+            
+            self.cameraImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"img_homepage_background_%lf", MIN(SCREEN_WIDTH, SCREEN_HEIGHT)]]];
+            [self.backView addSubview:self.cameraImageView];
+            self.cameraImageView.contentMode = UIViewContentModeScaleAspectFill;
+            
+            self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
+            [self.backView addSubview:self.flashButtonImageView];
+            self.flashButtonImageView.left = 49+100+66.5;
+            self.flashButtonImageView.top = 80.5;
+            
+            UIButton *flashButton = [UIButton new];
+            [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [self.backView addSubview:flashButton];
+            flashButton.size = CGSizeMake(93.5, 25);
+            flashButton.left = self.flashButtonImageView.left;
+            flashButton.top = self.flashButtonImageView.top;
+            isUsingFlashLight = NO;
+            [device lockForConfiguration:nil];
+            [device setTorchMode: AVCaptureTorchModeOff];
+            device.flashMode = AVCaptureFlashModeOff;
+            [device unlockForConfiguration];
+            
+            self.takePhotoButton = [UIButton new];
+            [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter"] forState:UIControlStateNormal];
+            [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
+            [self.takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+            [self.backView addSubview:self.takePhotoButton];
+            self.takePhotoButton.size = CGSizeMake(58, 58);
+            self.takePhotoButton.left = self.view.height-81-58;
+            self.takePhotoButton.top = 54;
+        }
+    }];
     
     // 设置允许摇一摇功能
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;

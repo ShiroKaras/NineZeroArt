@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>AppStoreID</key>
-	<string>1256280807</string>
+	<string>1282231162</string>
 	<key>ShareSDKAppKey</key>
 	<string>1f39e1d17460a</string>
 	<key>SSDKPlatformTypeSinaWeiboAppKey</key>
-	<string>3217782787</string>
+	<string>3339181339</string>
 	<key>SSDKPlatformTypeSinaWeiboAppSecret</key>
-	<string>88475bce83cd3cf4663cb1d804647d41</string>
+	<string>98308d3fb2ad463b8282c8b41b4c054a</string>
 	<key>SSDKPlatformTypeSinaWeiboRedirectUri</key>
 	<string>http://www.sharesdk.cn</string>
 	<key>SSDKPlatformTypeWechatAppId</key>
@@ -17,9 +17,9 @@
 	<key>SSDKPlatformTypeWechatAppSecret</key>
 	<string>e21e3553124737a8a505ed5ea07c0526</string>
 	<key>SSDKPlatformTypeQQAppId</key>
-	<string>1106277470</string>
+	<string>1106339305</string>
 	<key>SSDKPlatformTypeQQAppKey</key>
-	<string>vJnlhHW0rMWcFFjd</string>
+	<string>Uzwp7hq5QqkMQXEk</string>
 	<key>UMAnalyticsConfigAppKey</key>
 	<string></string>
 	<key>TalkingDataSession</key>

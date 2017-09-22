@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self = [super initWithFrame:frame];
     if (self) {
         self.image = image;
+        self.imageURL = imageURL;
         self.time = time;
         [self createUI];
     }
@@ -73,10 +74,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     [self.photoPaperView addSubview:grayView];
     
     //剪裁
-    float iw = self.image.size.width;
-    float ih = self.image.size.height;
-    UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([self.image CGImage], CGRectMake(0,0, MIN(iw, ih), MIN(iw, ih))) scale:1 orientation:UIImageOrientationLeft];
-    self.cropImageView = [[UIImageView alloc] initWithImage:resizeImage];
+    if (self.image) {
+        float iw = self.image.size.width;
+        float ih = self.image.size.height;
+        UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([self.image CGImage], CGRectMake(0,0, MIN(iw, ih), MIN(iw, ih))) scale:1 orientation:UIImageOrientationLeft];
+        self.cropImageView = [[UIImageView alloc] initWithImage:resizeImage];
+    } else {
+        self.cropImageView = [UIImageView new];
+        NSLog(@"%@", self.imageURL);
+        [self.cropImageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL]];
+    }
     self.cropImageView.size = CGSizeMake(335, 335);
     self.cropImageView.top = 20.5;
     self.cropImageView.centerX = self.photoPaperView.width/2;
@@ -141,7 +148,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {
         self.imageURL = response.data[@"url_addr"];
-        NSLog(@"imageURL:%@", self.imageURL);
+        
     }];
 }
 
@@ -191,10 +198,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                [shareParams SSDKSetupShareParamsByText:@"于是，我拍了这个……"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
-                                                  title:@""
+                                                  title:@"这只相机一生只能拍一张"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatSession
                      parameters:shareParams
@@ -239,7 +246,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [shareParams SSDKSetupShareParamsByText:@""
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
-                                                  title:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                                                  title:@"这只相机一生只能拍一张，于是，我拍了这个……"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeWechatTimeline
                      parameters:shareParams
@@ -280,7 +287,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验 %@ 来自@九零APP", SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
+                [shareParams SSDKSetupShareParamsByText:[NSString stringWithFormat:@"这只相机一生只能拍一张，于是，我拍了这个…… %@", SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
                                                   title:@"title"
@@ -324,10 +331,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
-                [shareParams SSDKSetupShareParamsByText:@"你会是下一个被选召的人吗？不是所有人都能完成这道考验"
+                [shareParams SSDKSetupShareParamsByText:@"于是，我拍了这个……"
                                                  images:imageArray
                                                     url:[NSURL URLWithString:SHARE_URL([[SKStorageManager sharedInstance] getUserID])]
-                                                  title:@"title"
+                                                  title:@"这只相机一生只能拍一张"
                                                    type:SSDKContentTypeAuto];
                 [ShareSDK share:SSDKPlatformSubTypeQQFriend
                      parameters:shareParams
