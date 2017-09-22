@@ -71,26 +71,33 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     
     UIView *grayView = [UIView new];
     grayView.backgroundColor = [UIColor colorWithHex:0xd8d8d8];
-    grayView.size = CGSizeMake(335, 335);
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        grayView.size = CGSizeMake(286, 286);
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        grayView.size = CGSizeMake(335, 335);
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        grayView.size = CGSizeMake(370, 370);
+    }
     grayView.top = 20.5;
     grayView.centerX = self.photoPaperView.width/2;
     [self.photoPaperView addSubview:grayView];
     
     //剪裁
     if (self.image) {
-        float iw = self.image.size.width;
-        float ih = self.image.size.height;
-        UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([self.image CGImage], CGRectMake(0,0, MIN(iw, ih), MIN(iw, ih))) scale:1 orientation:UIImageOrientationLeft];
-        self.cropImageView = [[UIImageView alloc] initWithImage:resizeImage];
+        self.cropImageView = [[UIImageView alloc] initWithImage:self.image];
+        self.cropImageView.contentMode = UIViewContentModeScaleAspectFill;
     } else {
         self.cropImageView = [UIImageView new];
-        NSLog(@"%@", self.imageURL);
-        [self.cropImageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-            UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([image CGImage], CGRectMake(0,0, MIN(image.size.width, image.size.height), MIN(image.size.width, image.size.height))) scale:1 orientation:UIImageOrientationLeft];
-            self.cropImageView.image = resizeImage;
-        }];
+        self.cropImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [self.cropImageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL]];
     }
-    self.cropImageView.size = CGSizeMake(335, 335);
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        self.cropImageView.size = CGSizeMake(286, 286);
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+        self.cropImageView.size = CGSizeMake(335, 335);
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        self.cropImageView.size = CGSizeMake(370, 370);
+    }
     self.cropImageView.top = 20.5;
     self.cropImageView.centerX = self.photoPaperView.width/2;
     [self.photoPaperView addSubview:self.cropImageView];
@@ -212,7 +219,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[self.imageURL];
+            NSArray *imageArray = @[self.image];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -257,7 +264,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.imageURL];
+            NSArray *imageArray = @[self.image];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -301,7 +308,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.imageURL];
+            NSArray *imageArray = @[self.image];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -345,7 +352,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.imageURL];
+            NSArray *imageArray = @[self.image];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];

@@ -63,6 +63,7 @@
     BOOL isUsingFrontFacingCamera;
     BOOL isUsingFlashLight;
     AVCaptureDevice *device;
+    BOOL isGuest;
 }
 
 - (void)viewDidLoad {
@@ -290,7 +291,9 @@
         
         NSData * imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
         UIImage *cropImage = [[UIImage imageWithData:imageData] cropImageWithBounds:CGRectMake(0, 0, 1080, 1080)];
-        UIImage * image = [FWApplyFilter applyNashvilleFilter:cropImage];
+//        UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([cropImage CGImage], CGRectMake(0,0, MIN(cropImage.size.width, cropImage.size.height), MIN(cropImage.size.width, cropImage.size.height))) scale:1 orientation:UIImageOrientationRight];
+        UIImage *resizeImage = [self image:cropImage rotation:UIImageOrientationLeft];
+        UIImage * image = [FWApplyFilter applyNashvilleFilter:resizeImage];
         
         //保存到相册
         NSData *jdata = UIImagePNGRepresentation(image);
@@ -309,58 +312,155 @@
             builder.zone = [QNFixedZone zone1];
         }];
         
-        QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
-        [upManager putData:jdata key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
-            DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
-            if (info.statusCode == 200) {
-                NSString *url = [NSString qiniuDownloadURLWithFileName:key];
+        if ([[[SKStorageManager sharedInstance] getUserID] isEqualToString:@""] || [[SKStorageManager sharedInstance] getUserID]==nil) {
+            self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:nil time:timeString showAnimation:YES];
+            [self.view addSubview:self.photoView];
+            [self.view bringSubviewToFront:self.backView];
+            
+            self.takePhotoButton.alpha = 0;
+            [UIView animateWithDuration:1 animations:^{
+                self.backView.top = -511;
                 
-                self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:url time:timeString showAnimation:YES];
-                [self.view addSubview:self.photoView];
-                [self.view bringSubviewToFront:self.backView];
+                float scale = 0;
+                if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                    scale = 295.5;
+                } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                    scale = 347;
+                } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
+                    scale = 383;
+                }
+                self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+                self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+            } completion:^(BOOL finished) {
+                // 声明要保存音效文件的变量
+                SystemSoundID soundID;
+                //快门声
+                NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"photoout" ofType:@"mp3"]];
+                AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
+                // 播放短频音效
+                AudioServicesPlayAlertSound(soundID);
+                // 增加震动效果，如果手机处于静音状态，提醒音将自动触发震动
+                AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
                 
-                self.takePhotoButton.alpha = 0;
-                [UIView animateWithDuration:1 animations:^{
-                    self.backView.top = -511;
-                    
-                    float scale = 0;
-                    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
-                        scale = 295.5;
-                    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
-                        scale = 347;
-                    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
-                        scale = 383;
-                    }
-                    self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
-                    self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
-                    self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
-                    self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+                [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                    self.backView.top = -SCREEN_HEIGHT-100;
                 } completion:^(BOOL finished) {
-                    // 声明要保存音效文件的变量
-                    SystemSoundID soundID;
-                    //快门声
-                    NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"takephoto" ofType:@"mp3"]];
-                    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
-                    // 播放短频音效
-                    AudioServicesPlayAlertSound(soundID);
-                    // 增加震动效果，如果手机处于静音状态，提醒音将自动触发震动
-                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
                     
-                    [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
-                        self.backView.top = -SCREEN_HEIGHT-100;
+                }];
+            }];
+        } else {
+            QNUploadManager *upManager = [[QNUploadManager alloc] initWithConfiguration:config];
+            [upManager putData:jdata key:photoKey token:[[SKStorageManager sharedInstance] qiniuPublicToken] complete:^(QNResponseInfo *info, NSString *key, NSDictionary *resp) {
+                DLog(@"data = %@, key = %@, resp = %@", info, key, resp);
+                if (info.statusCode == 200) {
+                    NSString *url = [NSString qiniuDownloadURLWithFileName:key];
+                    
+                    self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:image imageURL:url time:timeString showAnimation:YES];
+                    [self.view addSubview:self.photoView];
+                    [self.view bringSubviewToFront:self.backView];
+                    
+                    self.takePhotoButton.alpha = 0;
+                    [UIView animateWithDuration:1 animations:^{
+                        self.backView.top = -511;
+                        
+                        float scale = 0;
+                        if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+                            scale = 295.5;
+                        } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH) {
+                            scale = 347;
+                        } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH){
+                            scale = 383;
+                        }
+                        self.cameraImageView.width = SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
+                        self.cameraImageView.height = SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                        self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
+                        self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
                     } completion:^(BOOL finished) {
+                        // 声明要保存音效文件的变量
+                        SystemSoundID soundID;
+                        //快门声
+                        NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"photoout" ofType:@"mp3"]];
+                        AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
+                        // 播放短频音效
+                        AudioServicesPlayAlertSound(soundID);
+                        // 增加震动效果，如果手机处于静音状态，提醒音将自动触发震动
+                        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+                        
+                        [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
+                            self.backView.top = -SCREEN_HEIGHT-100;
+                        } completion:^(BOOL finished) {
+                            
+                        }];
+                    }];
+                    
+                    [[[SKServiceManager sharedInstance] photoService] uploadPhotoWithURL:url Callback:^(BOOL success, SKResponsePackage *response) {
                         
                     }];
-                }];
-                
-                [[[SKServiceManager sharedInstance] photoService] uploadPhotoWithURL:url Callback:^(BOOL success, SKResponsePackage *response) {
+                } else {
                     
-                }];
-            } else {
-                
-            }
-        } option:nil];
+                }
+            } option:nil];
+        }
     }];
+}
+
+- (UIImage *)image:(UIImage *)image rotation:(UIImageOrientation)orientation
+{
+    long double rotate = 0.0;
+    CGRect rect;
+    float translateX = 0;
+    float translateY = 0;
+    float scaleX = 1.0;
+    float scaleY = 1.0;
+    
+    switch (orientation) {
+        case UIImageOrientationLeft:
+            rotate = M_PI_2;
+            rect = CGRectMake(0, 0, image.size.height, image.size.width);
+            translateX = 0;
+            translateY = -rect.size.width;
+            scaleY = rect.size.width/rect.size.height;
+            scaleX = rect.size.height/rect.size.width;
+            break;
+        case UIImageOrientationRight:
+            rotate = 3 * M_PI_2;
+            rect = CGRectMake(0, 0, image.size.height, image.size.width);
+            translateX = -rect.size.height;
+            translateY = 0;
+            scaleY = rect.size.width/rect.size.height;
+            scaleX = rect.size.height/rect.size.width;
+            break;
+        case UIImageOrientationDown:
+            rotate = M_PI;
+            rect = CGRectMake(0, 0, image.size.width, image.size.height);
+            translateX = -rect.size.width;
+            translateY = -rect.size.height;
+            break;
+        default:
+            rotate = 0.0;
+            rect = CGRectMake(0, 0, image.size.width, image.size.height);
+            translateX = 0;
+            translateY = 0;
+            break;
+    }
+    
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    //做CTM变换
+    CGContextTranslateCTM(context, 0.0, rect.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    CGContextRotateCTM(context, rotate);
+    CGContextTranslateCTM(context, translateX, translateY);
+    
+    CGContextScaleCTM(context, scaleX, scaleY);
+    //绘制图片
+    CGContextDrawImage(context, CGRectMake(0, 0, rect.size.width, rect.size.height), image.CGImage);
+    
+    UIImage *newPic = UIGraphicsGetImageFromCurrentImageContext();
+    
+    return newPic;
 }
 
 //开关手电筒
@@ -381,12 +481,12 @@
         [device setTorchMode:AVCaptureTorchModeOn];
         device.flashMode = AVCaptureFlashModeOn;
         [UIView animateWithDuration:0.2 animations:^{
-            self.flashButtonImageView.left += 45;
+            self.flashButtonImageView.left += ROUND_HEIGHT_FLOAT(45);
         }];
     }
     else {
         [UIView animateWithDuration:0.2 animations:^{
-            self.flashButtonImageView.left -= 45;
+            self.flashButtonImageView.left -= ROUND_HEIGHT_FLOAT(45);
         }];
         [device setTorchMode: AVCaptureTorchModeOff];
         device.flashMode = AVCaptureFlashModeOff;

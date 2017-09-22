@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "ServerConfiguration.h"
 
-#define SHARE_URL(u) [NSString stringWithFormat:@"%@/otime/h5/share/photo/u_id=%@", [[ServerConfiguration sharedInstance] appHost], (u)]
+#define SHARE_URL(u) [NSString stringWithFormat:@"https://90app.tv/otime/h5/share/photo/u_id=%@", (u)]
 
 @interface NCPhotoView : UIView
 
