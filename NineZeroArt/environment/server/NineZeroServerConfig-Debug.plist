@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>APPHOST</key>
-	<string>http://101.201.39.169:30000</string>
+	<string>https://api.90app.tv</string>
 </dict>
 </plist>

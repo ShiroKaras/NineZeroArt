@@ -112,8 +112,16 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }
     [timeLabel sizeToFit];
     [self.photoPaperView addSubview:timeLabel];
-    timeLabel.bottom = self.photoPaperView.height - 78;
-    timeLabel.right = self.photoPaperView.width - 22;
+    if (SCREEN_WIDTH == IPHONE5_SCREEN_WIDTH) {
+        timeLabel.bottom = self.photoPaperView.height - 38;
+        timeLabel.right = self.photoPaperView.width - 17;
+    } else if (SCREEN_WIDTH == IPHONE6_SCREEN_WIDTH){
+        timeLabel.bottom = self.photoPaperView.height - 50;
+        timeLabel.right = self.photoPaperView.width - 20;
+    } else if (SCREEN_WIDTH == IPHONE6_PLUS_SCREEN_WIDTH) {
+        timeLabel.bottom = self.photoPaperView.height - 51;
+        timeLabel.right = self.photoPaperView.width - 22;
+    }
     
     if (_showAnimation) {
         self.guideImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"img_printingpage_floating"]];
@@ -131,7 +139,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self.shareTitleImageView.bottom = self.bottom -ROUND_HEIGHT_FLOAT(96);
     
     NSArray *loginArray = @[@"wechat", @"moments", @"weibo", @"qq"];
-    float padding = ROUND_WIDTH_FLOAT((SCREEN_WIDTH-30-63*4)/3);
+    float padding = (SCREEN_WIDTH-ROUND_WIDTH_FLOAT(34)-ROUND_WIDTH_FLOAT(63)*4)/3;
     for (int i=0; i<4; i++) {
         UIButton *button = [UIButton new];
         button.alpha = 0;

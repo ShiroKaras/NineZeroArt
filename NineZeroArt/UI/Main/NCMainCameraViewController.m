@@ -67,7 +67,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    self.view.backgroundColor = [UIColor blackColor];
     
     [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {
         NSString *imageURL = response.data[@"url_addr"];
@@ -91,8 +91,8 @@
             
             self.flashButtonImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"btn_homepage_flashlamp"]];
             [self.backView addSubview:self.flashButtonImageView];
-            self.flashButtonImageView.left = 49+100+66.5;
-            self.flashButtonImageView.top = 80.5;
+            self.flashButtonImageView.left = ROUND_HEIGHT_FLOAT(49+100+66.5);
+            self.flashButtonImageView.top = ROUND_WIDTH_FLOAT(80.5);
             
             UIButton *flashButton = [UIButton new];
             [flashButton addTarget:self action:@selector(flashButtonClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -111,9 +111,9 @@
             [self.takePhotoButton setBackgroundImage:[UIImage imageNamed:@"btn_homepage_shutter_highlight"] forState:UIControlStateHighlighted];
             [self.takePhotoButton addTarget:self action:@selector(takePhotoButtonClick:) forControlEvents:UIControlEventTouchUpInside];
             [self.backView addSubview:self.takePhotoButton];
-            self.takePhotoButton.size = CGSizeMake(58, 58);
-            self.takePhotoButton.left = self.view.height-81-58;
-            self.takePhotoButton.top = 54;
+            self.takePhotoButton.size = CGSizeMake(ROUND_WIDTH_FLOAT(58), ROUND_WIDTH_FLOAT(58));
+            self.takePhotoButton.left = self.view.height-ROUND_HEIGHT_FLOAT(81)-58;
+            self.takePhotoButton.top = ROUND_WIDTH_FLOAT(54);
             
             self.backView.transform = CGAffineTransformIdentity;
             self.backView.transform = CGAffineTransformMakeRotation(M_PI*.5);//翻转角度

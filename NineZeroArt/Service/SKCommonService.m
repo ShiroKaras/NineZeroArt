@@ -88,6 +88,7 @@
     DLog(@"Json ParamString: %@", jsonString);
     
     NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
+    NSLog(@"param:%@", param);
     
     [manager POST:[SKCGIManager isOnline]
        parameters:param
