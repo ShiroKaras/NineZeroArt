@@ -72,7 +72,7 @@
     [[[SKServiceManager sharedInstance] photoService] showPhotoCallback:^(BOOL success, SKResponsePackage *response) {
         NSString *imageURL = response.data[@"url_addr"];
         NSString *createTime = [NSString stringWithFormat:@"%@000",response.data[@"create_time"]];
-        if (imageURL) {
+        if (success) {
             self.photoView = [[NCPhotoView alloc] initWithFrame:self.view.bounds withImage:nil imageURL:imageURL time:createTime showAnimation:NO];
             [self.view addSubview:self.photoView];
         } else {
@@ -114,6 +114,16 @@
             self.takePhotoButton.size = CGSizeMake(58, 58);
             self.takePhotoButton.left = self.view.height-81-58;
             self.takePhotoButton.top = 54;
+            
+            self.backView.transform = CGAffineTransformIdentity;
+            self.backView.transform = CGAffineTransformMakeRotation(M_PI*.5);//翻转角度
+            self.backView.bounds = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height+100, [[UIScreen mainScreen] bounds].size.width);
+            self.backView.top = 0;
+            self.backView.left = 0;
+            
+            if (self.session) {
+                [self.session startRunning];
+            }
         }
     }];
     
@@ -135,16 +145,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:YES];
     [self.navigationController.navigationBar setHidden:YES];
-    
-    self.backView.transform = CGAffineTransformIdentity;
-    self.backView.transform = CGAffineTransformMakeRotation(M_PI*.5);//翻转角度
-    self.backView.bounds = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.height+100, [[UIScreen mainScreen] bounds].size.width);
-    self.backView.top = 0;
-    self.backView.left = 0;
-    
-    if (self.session) {
-        [self.session startRunning];
-    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -256,39 +256,12 @@
 }
 
 #pragma mark respone method
-//切换镜头
-- (void)switchCameraSegmentedControlClick:(UISegmentedControl *)sender {
-    
-    NSLog(@"%ld",(long)sender.selectedSegmentIndex);
-    
-    AVCaptureDevicePosition desiredPosition;
-    if (isUsingFrontFacingCamera){
-        desiredPosition = AVCaptureDevicePositionBack;
-    }else{
-        desiredPosition = AVCaptureDevicePositionFront;
-    }
-    
-    for (AVCaptureDevice *d in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
-        if ([d position] == desiredPosition) {
-            [self.previewLayer.session beginConfiguration];
-            AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:d error:nil];
-            for (AVCaptureInput *oldInput in self.previewLayer.session.inputs) {
-                [[self.previewLayer session] removeInput:oldInput];
-            }
-            [self.previewLayer.session addInput:input];
-            [self.previewLayer.session commitConfiguration];
-            break;
-        }
-    }
-    
-    isUsingFrontFacingCamera = !isUsingFrontFacingCamera;
-}
 
 - (void)takePhotoButtonClick:(UIBarButtonItem *)sender {
     // 声明要保存音效文件的变量
     SystemSoundID soundID;
     //快门声
-    NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"flash" ofType:@"mp3"]];
+    NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"takephoto" ofType:@"mp3"]];
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
     // 播放短频音效
     AudioServicesPlayAlertSound(soundID);
@@ -363,6 +336,16 @@
                     self.cameraImageView.top = SCREEN_WIDTH - SCREEN_WIDTH/(scale/SCREEN_WIDTH);
                     self.cameraImageView.left = SCREEN_HEIGHT - SCREEN_HEIGHT/(scale/SCREEN_WIDTH);
                 } completion:^(BOOL finished) {
+                    // 声明要保存音效文件的变量
+                    SystemSoundID soundID;
+                    //快门声
+                    NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"takephoto" ofType:@"mp3"]];
+                    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
+                    // 播放短频音效
+                    AudioServicesPlayAlertSound(soundID);
+                    // 增加震动效果，如果手机处于静音状态，提醒音将自动触发震动
+                    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+                    
                     [UIView animateWithDuration:1 delay:2.5 options:UIViewAnimationOptionCurveLinear animations:^{
                         self.backView.top = -SCREEN_HEIGHT-100;
                     } completion:^(BOOL finished) {
@@ -383,6 +366,16 @@
 //开关手电筒
 -(void)turnOnLed:(bool)update
 {
+    // 声明要保存音效文件的变量
+    SystemSoundID soundID;
+    //快门声
+    NSURL *fileURL = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:@"flashopen" ofType:@"wav"]];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileURL), &soundID);
+    // 播放短频音效
+    AudioServicesPlayAlertSound(soundID);
+    // 增加震动效果，如果手机处于静音状态，提醒音将自动触发震动
+    AudioServicesPlayAlertSound(kSystemSoundID_Vibrate);
+    
     [device lockForConfiguration:nil];
     if (update) {
         [device setTorchMode:AVCaptureTorchModeOn];

@@ -85,7 +85,10 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     } else {
         self.cropImageView = [UIImageView new];
         NSLog(@"%@", self.imageURL);
-        [self.cropImageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL]];
+        [self.cropImageView sd_setImageWithURL:[NSURL URLWithString:self.imageURL] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+            UIImage *resizeImage = [[UIImage alloc] initWithCGImage:CGImageCreateWithImageInRect([image CGImage], CGRectMake(0,0, MIN(image.size.width, image.size.height), MIN(image.size.width, image.size.height))) scale:1 orientation:UIImageOrientationLeft];
+            self.cropImageView.image = resizeImage;
+        }];
     }
     self.cropImageView.size = CGSizeMake(335, 335);
     self.cropImageView.top = 20.5;

@@ -152,8 +152,6 @@
 		11AF98911F134D4100C1B378 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98901F134D4100C1B378 /* JavaScriptCore.framework */; };
 		11AF98931F134D4A00C1B378 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AF98921F134D4A00C1B378 /* ImageIO.framework */; };
 		11B245D11F67CC940063EDEB /* NCMainCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B245D01F67CC940063EDEB /* NCMainCameraViewController.m */; };
-		11B245D41F690E160063EDEB /* 369.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11B245D21F690E160063EDEB /* 369.mp3 */; };
-		11B245D51F690E160063EDEB /* flash.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11B245D31F690E160063EDEB /* flash.mp3 */; };
 		11B247851F6A64C80063EDEB /* GPUImage3x3ConvolutionFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B2460C1F6A64C60063EDEB /* GPUImage3x3ConvolutionFilter.m */; };
 		11B247861F6A64C80063EDEB /* GPUImage3x3TextureSamplingFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B2460E1F6A64C60063EDEB /* GPUImage3x3TextureSamplingFilter.m */; };
 		11B247871F6A64C80063EDEB /* GPUImageAdaptiveThresholdFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B246101F6A64C60063EDEB /* GPUImageAdaptiveThresholdFilter.m */; };
@@ -398,6 +396,9 @@
 		11B24BAB1F6A96D70063EDEB /* xproMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 11B24B811F6A96D70063EDEB /* xproMap.png */; };
 		11B24BAE1F6BB79D0063EDEB /* NCPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B24BAD1F6BB79D0063EDEB /* NCPhotoView.m */; };
 		11DA189D1F72704500A3FC04 /* SKPhotoService.m in Sources */ = {isa = PBXBuildFile; fileRef = 11DA189C1F72704500A3FC04 /* SKPhotoService.m */; };
+		11DA18A11F75043100A3FC04 /* photoout.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11DA189E1F75043100A3FC04 /* photoout.mp3 */; };
+		11DA18A21F75043100A3FC04 /* takephoto.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 11DA189F1F75043100A3FC04 /* takephoto.mp3 */; };
+		11DA18A31F75043100A3FC04 /* flashopen.wav in Resources */ = {isa = PBXBuildFile; fileRef = 11DA18A01F75043100A3FC04 /* flashopen.wav */; };
 		11F00DC21F0B86180098F678 /* NALoginRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 11F00DC11F0B86180098F678 /* NALoginRootViewController.m */; };
 		11FFFCF11F05067000CEC7EB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF01F05067000CEC7EB /* main.m */; };
 		11FFFCF41F05067000CEC7EB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 11FFFCF31F05067000CEC7EB /* AppDelegate.m */; };
@@ -711,8 +712,6 @@
 		11AF98921F134D4A00C1B378 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		11B245CF1F67CC940063EDEB /* NCMainCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NCMainCameraViewController.h; path = Main/NCMainCameraViewController.h; sourceTree = "<group>"; };
 		11B245D01F67CC940063EDEB /* NCMainCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NCMainCameraViewController.m; path = Main/NCMainCameraViewController.m; sourceTree = "<group>"; };
-		11B245D21F690E160063EDEB /* 369.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 369.mp3; sourceTree = "<group>"; };
-		11B245D31F690E160063EDEB /* flash.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = flash.mp3; sourceTree = "<group>"; };
 		11B2460B1F6A64C60063EDEB /* GPUImage3x3ConvolutionFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImage3x3ConvolutionFilter.h; sourceTree = "<group>"; };
 		11B2460C1F6A64C60063EDEB /* GPUImage3x3ConvolutionFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GPUImage3x3ConvolutionFilter.m; sourceTree = "<group>"; };
 		11B2460D1F6A64C60063EDEB /* GPUImage3x3TextureSamplingFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GPUImage3x3TextureSamplingFilter.h; sourceTree = "<group>"; };
@@ -1157,6 +1156,9 @@
 		11B24BAD1F6BB79D0063EDEB /* NCPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NCPhotoView.m; path = Main/NCPhotoView.m; sourceTree = "<group>"; };
 		11DA189B1F72704500A3FC04 /* SKPhotoService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKPhotoService.h; sourceTree = "<group>"; };
 		11DA189C1F72704500A3FC04 /* SKPhotoService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKPhotoService.m; sourceTree = "<group>"; };
+		11DA189E1F75043100A3FC04 /* photoout.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = photoout.mp3; path = "../../../Downloads/iOS/Camera/一次相机音效/photoout.mp3"; sourceTree = "<group>"; };
+		11DA189F1F75043100A3FC04 /* takephoto.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = takephoto.mp3; path = "../../../Downloads/iOS/Camera/一次相机音效/takephoto.mp3"; sourceTree = "<group>"; };
+		11DA18A01F75043100A3FC04 /* flashopen.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = flashopen.wav; path = "../../../Downloads/iOS/Camera/一次相机音效/flashopen.wav"; sourceTree = "<group>"; };
 		11F00DC01F0B86180098F678 /* NALoginRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NALoginRootViewController.h; path = Login/NALoginRootViewController.h; sourceTree = "<group>"; };
 		11F00DC11F0B86180098F678 /* NALoginRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NALoginRootViewController.m; path = Login/NALoginRootViewController.m; sourceTree = "<group>"; };
 		11FFFCEC1F05067000CEC7EB /* NineZeroArt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NineZeroArt.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2404,8 +2406,9 @@
 		11FFFCEE1F05067000CEC7EB /* NineZeroArt */ = {
 			isa = PBXGroup;
 			children = (
-				11B245D21F690E160063EDEB /* 369.mp3 */,
-				11B245D31F690E160063EDEB /* flash.mp3 */,
+				11DA189E1F75043100A3FC04 /* photoout.mp3 */,
+				11DA189F1F75043100A3FC04 /* takephoto.mp3 */,
+				11DA18A01F75043100A3FC04 /* flashopen.wav */,
 				11FFFCF21F05067000CEC7EB /* AppDelegate.h */,
 				11FFFCF31F05067000CEC7EB /* AppDelegate.m */,
 				11FFFCF51F05067000CEC7EB /* ViewController.h */,
@@ -2650,16 +2653,16 @@
 				11B24BAB1F6A96D70063EDEB /* xproMap.png in Resources */,
 				11B24B8C1F6A96D70063EDEB /* earlyBirdCurves.png in Resources */,
 				11B24BA21F6A96D70063EDEB /* toasterColorShift.png in Resources */,
+				11DA18A31F75043100A3FC04 /* flashopen.wav in Resources */,
 				11AF987E1F13466800C1B378 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				11B245D51F690E160063EDEB /* flash.mp3 in Resources */,
 				11B24BA01F6A96D70063EDEB /* sutroEdgeBurn.png in Resources */,
 				1169B2A81F05151100CE552B /* LICENSE in Resources */,
 				11B24B841F6A96D70063EDEB /* amaroMap.png in Resources */,
+				11DA18A11F75043100A3FC04 /* photoout.mp3 in Resources */,
 				11B24B881F6A96D70063EDEB /* brannanLuma.png in Resources */,
 				11B24B981F6A96D70063EDEB /* lomoMap.png in Resources */,
 				11B24B871F6A96D70063EDEB /* brannanContrast.png in Resources */,
 				11B24BA81F6A96D70063EDEB /* valenciaMap.png in Resources */,
-				11B245D41F690E160063EDEB /* 369.mp3 in Resources */,
 				11B24B951F6A96D70063EDEB /* hudsonMap.png in Resources */,
 				11B24B941F6A96D70063EDEB /* hudsonBackground.png in Resources */,
 				11AF98821F13466800C1B378 /* read_me.txt in Resources */,
@@ -2680,6 +2683,7 @@
 				11B24B861F6A96D70063EDEB /* brannanBlowout.png in Resources */,
 				11B24B8B1F6A96D70063EDEB /* earlybirdBlowout.png in Resources */,
 				11B24BA41F6A96D70063EDEB /* toasterMetal.png in Resources */,
+				11DA18A21F75043100A3FC04 /* takephoto.mp3 in Resources */,
 				1169B29F1F05151100CE552B /* RadarMV.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

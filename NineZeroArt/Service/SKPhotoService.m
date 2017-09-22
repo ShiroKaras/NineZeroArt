@@ -60,7 +60,6 @@
        parameters:param
          progress:nil
           success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
-              NSLog(@"Response: %@", responseObject);
               SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
               callback(YES, package);
           }
@@ -90,6 +89,8 @@
     [self photoBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
         if (response.code == 0) {
             callback(YES, response);
+        } else {
+            callback(NO, response);
         }
     }];
 }
