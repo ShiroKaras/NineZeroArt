@@ -29,6 +29,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 
 @interface NCPhotoView ()
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) UIImage *thumbImage;
 @property (nonatomic, strong) UIImage *photoPaperImage;
 @property (nonatomic, strong) UIView *photoPaperView;
 @property (nonatomic, strong) UIImageView *cropImageView;
@@ -46,6 +47,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self = [super initWithFrame:frame];
     if (self) {
         self.image = image;
+        self.thumbImage = [self imageCompressWithSimple:self.image scaledToSize:CGSizeMake(100, 100)];
         self.imageURL = imageURL;
         self.time = time;
         _showAnimation = flag;
@@ -177,6 +179,14 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     }];
 }
 
+-(UIImage*)imageCompressWithSimple:(UIImage*)image scaledToSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0,0,size.width,size.height)];
+    UIImage *newImage=UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 - (NSString *)timeWithTimeIntervalString:(NSString *)timeString
 {
     // 格式化时间
@@ -219,7 +229,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[self.image];
+            NSArray *imageArray = @[self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -264,7 +274,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image];
+            NSArray *imageArray = @[self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -308,7 +318,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image];
+            NSArray *imageArray = @[self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -352,7 +362,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image];
+            NSArray *imageArray = @[self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];

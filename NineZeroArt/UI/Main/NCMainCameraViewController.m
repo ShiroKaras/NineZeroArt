@@ -125,17 +125,17 @@
             if (self.session) {
                 [self.session startRunning];
             }
+            
+            if (FIRST_LAUNCH_HOMEPAGE) {
+                SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) withType:SKHelperGuideViewType1];
+                [self.backView addSubview:helperView];
+                EVER_LAUNCH_HOMEPAGE
+            }
         }
     }];
     
     // 设置允许摇一摇功能
     [UIApplication sharedApplication].applicationSupportsShakeToEdit = YES;
-    if (FIRST_LAUNCH_HOMEPAGE) {
-        SKHelperGuideView *helperView = [[SKHelperGuideView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_HEIGHT, SCREEN_WIDTH) withType:SKHelperGuideViewType1];
-        [self.backView addSubview:helperView];
-        EVER_LAUNCH_HOMEPAGE
-    }
-    
     [self loadData];
 }
 
