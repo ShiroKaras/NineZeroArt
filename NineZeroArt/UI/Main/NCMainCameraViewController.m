@@ -259,6 +259,8 @@
 #pragma mark respone method
 
 - (void)takePhotoButtonClick:(UIBarButtonItem *)sender {
+    self.takePhotoButton.alpha = 0;
+    
     // 声明要保存音效文件的变量
     SystemSoundID soundID;
     //快门声
@@ -317,7 +319,6 @@
             [self.view addSubview:self.photoView];
             [self.view bringSubviewToFront:self.backView];
             
-            self.takePhotoButton.alpha = 0;
             [UIView animateWithDuration:1 animations:^{
                 self.backView.top = -511;
                 

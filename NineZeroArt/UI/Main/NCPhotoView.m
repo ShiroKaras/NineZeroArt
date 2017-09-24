@@ -229,7 +229,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[self.thumbImage];
+            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -274,7 +274,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.thumbImage];
+            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -318,7 +318,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.thumbImage];
+            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -362,7 +362,7 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.thumbImage];
+            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
