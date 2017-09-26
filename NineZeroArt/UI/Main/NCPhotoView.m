@@ -47,7 +47,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
     self = [super initWithFrame:frame];
     if (self) {
         self.image = image;
-        self.thumbImage = [self imageCompressWithSimple:self.image scaledToSize:CGSizeMake(100, 100)];
         self.imageURL = imageURL;
         self.time = time;
         _showAnimation = flag;
@@ -217,6 +216,13 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
 }
 
 - (void)shareWithThirdPlatform:(UIButton *)sender {
+    if (self.image) {
+        self.thumbImage = [self imageCompressWithSimple:self.image scaledToSize:CGSizeMake(100, 100)];
+    } else {
+        self.thumbImage = [self imageCompressWithSimple:self.cropImageView.image scaledToSize:CGSizeMake(100, 100)];
+    }
+    NSArray *imageArray = @[self.thumbImage];
+    
     HTButtonType type = (HTButtonType)sender.tag;
     switch (type) {
         case HTButtonTypeWechat: {
@@ -229,7 +235,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 [alert show];
                 return;
             }
-            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -274,7 +279,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -318,7 +322,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
@@ -362,7 +365,6 @@ typedef NS_ENUM(NSInteger, HTButtonType) {
                 return;
             }
             
-            NSArray *imageArray = @[self.image==nil?self.imageURL:self.thumbImage];
             if (imageArray) {
                 NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
                 [shareParams SSDKEnableUseClientShare];
