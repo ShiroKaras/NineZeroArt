@@ -72,7 +72,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>4</string>
+	<string>7</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>sinaweibo</string>
@@ -98,9 +98,11 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>九零Art想要访问您的相机</string>
+	<string>一次相机想要访问您的相机</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>一次相机想要加入您的相册</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>九零想要访问您的相册</string>
+	<string>一次相机想要访问您的相册</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
