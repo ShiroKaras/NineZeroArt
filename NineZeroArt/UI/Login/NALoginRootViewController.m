@@ -50,10 +50,10 @@
         //无权限
         return ;
     }
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    [library writeImageDataToSavedPhotosAlbum:nil metadata:(__bridge id)nil completionBlock:^(NSURL *assetURL, NSError *error) {
-        
-    }];
+//    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//    [library writeImageDataToSavedPhotosAlbum:nil metadata:(__bridge id)nil completionBlock:^(NSURL *assetURL, NSError *error) {
+//        
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

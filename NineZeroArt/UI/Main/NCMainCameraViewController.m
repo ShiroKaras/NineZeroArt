@@ -299,10 +299,10 @@
         
         //保存到相册
         NSData *jdata = UIImagePNGRepresentation(image);
-        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-        [library writeImageDataToSavedPhotosAlbum:jdata metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
-            
-        }];
+//        ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+//        [library writeImageDataToSavedPhotosAlbum:jdata metadata:(__bridge id)attachments completionBlock:^(NSURL *assetURL, NSError *error) {
+//
+//        }];
         
         //上传服务器
         NSDate* dat = [NSDate dateWithTimeIntervalSinceNow:0];
