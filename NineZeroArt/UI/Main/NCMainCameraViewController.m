@@ -221,7 +221,7 @@
     //初始化预览图层
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
-    self.previewLayer.frame = CGRectMake(self.view.width-10.5-100, 49, 100, 100/SCREEN_WIDTH*SCREEN_HEIGHT);
+    self.previewLayer.frame = CGRectMake(self.view.width-ROUND_WIDTH_FLOAT(10.5+100), ROUND_WIDTH_FLOAT(49), ROUND_WIDTH_FLOAT(100), ROUND_WIDTH_FLOAT(100/SCREEN_WIDTH*SCREEN_HEIGHT));
     self.previewLayer.connection.videoOrientation = AVCaptureVideoOrientationPortrait;
     
     self.backView.layer.masksToBounds = YES;
