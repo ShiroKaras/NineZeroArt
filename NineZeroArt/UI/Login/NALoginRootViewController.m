@@ -82,7 +82,7 @@
     [self.backView addSubview:loginButton];
     
     [[[SKServiceManager sharedInstance] commonService] isOnlineCallback:^(BOOL success, SKResponsePackage *response) {
-        long isOnline = [response.data[@"is_onlein"] longValue];
+        long isOnline = [response.data[@"is_online"] longValue];
         if (!isOnline) {
             UIButton *guestLogin = [[UIButton alloc] initWithFrame:CGRectMake(0, SCREEN_WIDTH-100-15, SCREEN_HEIGHT, 50)];
             [guestLogin setImage:[UIImage imageNamed:[NSString stringWithFormat:@"btn_login_tourist_%lf", SCREEN_WIDTH]] forState:UIControlStateNormal];
