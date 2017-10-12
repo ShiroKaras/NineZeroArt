@@ -242,9 +242,9 @@
 {
     AVCaptureVideoOrientation result = (AVCaptureVideoOrientation)deviceOrientation;
     if ( deviceOrientation == UIDeviceOrientationLandscapeLeft )
-        result = AVCaptureVideoOrientationLandscapeRight;
-    else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
         result = AVCaptureVideoOrientationLandscapeLeft;
+    else if ( deviceOrientation == UIDeviceOrientationLandscapeRight )
+        result = AVCaptureVideoOrientationLandscapeRight;
     return result;
 }
 
