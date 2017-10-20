@@ -26,5 +26,7 @@
 	<string></string>
 	<key>EasyARAppKey</key>
 	<string>sWYNtkEoedrfTy3DKAKcKXLkMEL0ZmzReTlW9qtTDJi3AMJilp9cSfYmvMQWXAafdn7rIfYYDmYE10t6Ydxec61iasnHztyWdlHw85b059d06cf60d8ae19d64cc1025e567JSAwZaHcBQjMWeZz6FCxxGIVszc2OXYkOAsBONAx7fydAPVGtZsa2U0Eqg0Bst76gZfW</string>
+	<key>AMapServicesAPIKey</key>
+	<string>3b3cd005f3aae97d3f999d99ae1ae0c8</string>
 </dict>
 </plist>

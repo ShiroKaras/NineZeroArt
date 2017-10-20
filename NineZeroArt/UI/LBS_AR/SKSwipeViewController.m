@@ -24,12 +24,17 @@
 #import "DemoDanmakuItem.h"
 #import "NAClueDetailViewController.h"
 
+#import <CoreLocation/CoreLocation.h>
+#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <AMapLocationKit/AMapLocationKit.h>
+#import <MAMapKit/MAMapKit.h>
+
 #define CurrentDevice [UIDevice currentDevice]
 #define CurrentOrientation [[UIDevice currentDevice] orientation]
 #define ScreenScale [UIScreen mainScreen].scale
 #define NotificationCetner [NSNotificationCenter defaultCenter]
 
-@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate, FXDanmakuDelegate, UITextFieldDelegate>
+@interface SKSwipeViewController () <OpenGLViewDelegate, SKScanningRewardDelegate, SKScanningImageViewDelegate, SKScanningPuzzleViewDelegate, SKPopupGetPuzzleViewDelegate, FXDanmakuDelegate, UITextFieldDelegate, AMapLocationManagerDelegate>
 
 @property (nonatomic, strong) SKScanningImageView *scanningImageView;
 @property (nonatomic, strong) SKScanningPuzzleView *scanningPuzzleView;
@@ -55,6 +60,10 @@
 @property (nonatomic, strong) UIView *bottomView;
 @property (nonatomic, strong) UITextField *commentTextField;
 @property (nonatomic, strong) UIButton *danmakuSwitchButton;
+
+@property (nonatomic, strong) AMapLocationManager *locationManager;
+@property (nonatomic, strong) AMapLocationManager *singleLocationManager;
+
 @end
 
 @implementation SKSwipeViewController {
@@ -62,10 +71,16 @@
     BOOL danmakuSwith;
     int currentImageOrder;
     BOOL danmakuIsGet;
+    BOOL startFlag;
+    
+    CLLocation *_currentLocation;
+    CLLocationCoordinate2D _testMascotPoint;
+    float mDistance;
 }
 
 - (instancetype)initWithScanning:(SKScanning*)scanning {
 	if (self = [super init]) {
+        startFlag = false;
 		_swipeType = SKScanTypeImage;
         self.scanning = scanning;
 	}
@@ -76,6 +91,8 @@
 	[super viewDidLoad];
     self.view.backgroundColor = COMMON_BG_COLOR;
     currentImageOrder = -1;
+    
+    [self registerLocation];    //注册地图服务
     [self createUI];
     
     [self setupDanmaku];
@@ -200,13 +217,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [_commentTextField resignFirstResponder];    //主要是[receiver resignFirstResponder]在哪调用就能把receiver对应的键盘往下收
+    [_commentTextField resignFirstResponder];
 
-//    DemoDanmakuItemData *data = [DemoDanmakuItemData data];
-//    data.avatarName = [[SKStorageManager sharedInstance] userInfo].user_avatar;
-//    data.desc = _commentTextField.text;
-//    data.backColor = COMMON_GREEN_COLOR;
-//    [self.danmaku addData:data];
     if ([_commentTextField.text isEqualToString:@""]) {
         [self showTipsWithText:@"评论不能为空~"];
     }
@@ -249,7 +261,84 @@
     return YES;
 }
 
-//Danmaku
+#pragma mark - Location
+
+- (void)registerLocation {
+    self.singleLocationManager = [[AMapLocationManager alloc] init];
+    // 带逆地理信息的一次定位（返回坐标和地址信息）
+    [self.singleLocationManager setDesiredAccuracy:kCLLocationAccuracyHundredMeters];
+    //   定位超时时间，可修改，最小2s
+    self.singleLocationManager.locationTimeout = 2;
+    //   逆地理请求超时时间，可修改，最小2s
+    self.singleLocationManager.reGeocodeTimeout = 2;
+    
+    // 带逆地理（返回坐标和地址信息）
+    [self.singleLocationManager requestLocationWithReGeocode:YES
+                                             completionBlock:^(CLLocation *location, AMapLocationReGeocode *regeocode, NSError *error) {
+                                                 if (error) {
+                                                     DLog(@"locError:{%ld - %@};", (long)error.code, error.localizedDescription);
+                                                 }
+                                                 _testMascotPoint = [self getCurrentLocationWith:location];
+                                                 
+                                                 self.locationManager = [[AMapLocationManager alloc] init];
+                                                 self.locationManager.delegate = self;
+                                                 [self.locationManager startUpdatingLocation];
+                                                 
+                                             }];
+}
+
+
+- (CLLocationCoordinate2D)getCurrentLocationWith:(CLLocation *)location {
+    CLLocationDistance currentDistance = -1;
+    CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+    
+    //悠唐国际 坐标
+    double lat = 39.9213000000;
+    double lng = 116.4404200000;
+    
+    //1.将两个经纬度点转成投影点
+    MAMapPoint point1 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(lat, lng));
+    MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude));
+    //2.计算距离
+    CLLocationDistance distance = MAMetersBetweenMapPoints(point1, point2);
+    
+    if (currentDistance < 0 || distance < currentDistance) {
+        currentDistance = distance;
+        currentPoint = CLLocationCoordinate2DMake(lat, lng);
+    }
+    
+    startFlag = true;
+    return currentPoint;
+}
+
+#pragma mark - AMapDelegate
+
+- (void)amapLocationManager:(AMapLocationManager *)manager didUpdateLocation:(CLLocation *)location {
+    if (startFlag) {
+        _currentLocation = location;
+        
+        CLLocationDistance currentDistance = -1;
+        CLLocationCoordinate2D currentPoint = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude);
+        
+        //悠唐国际 坐标
+        double lat = 39.9213000000;
+        double lng = 116.4404200000;
+        
+        //1.将两个经纬度点转成投影点
+        MAMapPoint point1 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(lat, lng));
+        MAMapPoint point2 = MAMapPointForCoordinate(CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude));
+        //2.计算距离
+        CLLocationDistance distance = MAMetersBetweenMapPoints(point1, point2);
+        
+        if (currentDistance < 0 || distance < currentDistance) {
+            currentDistance = distance;
+            currentPoint = CLLocationCoordinate2DMake(lat, lng);
+        }
+        mDistance = currentDistance;
+        NSLog(@"Distance: %f", currentDistance);
+        
+    }
+}
 
 #pragma mark - Danmaku Views
 - (void)setupDanmaku {
@@ -567,6 +656,10 @@
 #pragma mark - OpenGLViewDelegate
 
 - (void)isRecognizedTarget:(BOOL)flag targetId:(int)targetId {
+    if (mDistance>300) {
+        return;
+    }
+    
 	if (flag && targetId >= 0) {
         //扫到目标图
         [self.scanningImageView.scanningGridLine setHidden:YES];
