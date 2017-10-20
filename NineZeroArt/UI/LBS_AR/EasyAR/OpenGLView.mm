@@ -179,6 +179,9 @@ namespace EasyAR{
 						
 						__block NSString *videoPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeVideo_%d.mp4", index]];
 						
+                        //调用扫到图片的接口
+                        
+                        ////
 						
 						if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
 							if (texid[index] && video == NULL) {

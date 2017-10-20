@@ -41,7 +41,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    [self loadData];
+//    [self loadData];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,7 +64,6 @@
     _webView.scrollView.showsVerticalScrollIndicator = NO;
     _webView.allowsInlineMediaPlayback = YES;
     _webView.delegate = self;
-    [_webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]]];
     _webView.mediaPlaybackRequiresUserAction = NO;
     [self.view addSubview:_webView];
     
