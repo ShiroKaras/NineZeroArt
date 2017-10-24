@@ -43,4 +43,7 @@ typedef void (^SKScanningListCallback)(BOOL success, NSArray<SKScanning*>* scann
 //图片识别弹幕详情接口
 - (void)getScanningBarrageWithImageID:(NSString *)imageID callback:(SKDanmakuListCallback)callback;
 
+//图片识别扫描到图片调用接口
+- (void)userScanActivityPictureWithSid:(NSString *)sid Pid:(NSString *)pid callback:(SKResponseCallback)callback;
+
 @end

@@ -12,6 +12,8 @@
 #import "HTUIHeader.h"
 #import "ClientConfiguration.h"
 
+#import <AFNetworking.h>
+
 #import <AMapLocationKit/AMapLocationKit.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
@@ -122,8 +124,39 @@
 }
 
 - (void)createWindowAndVisibleWithOptions:(NSDictionary *)launchOptions {
+    [self Postpath:@"http://itunes.apple.com/lookup?id=1256280807"];
+}
+
+-(void)Postpath:(NSString *)path {
+    NSURL *url = [NSURL URLWithString:path];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response,NSData *data,NSError *error){
+        NSMutableDictionary *receiveStatusDic=[[NSMutableDictionary alloc]init];
+        if (data) {
+            NSDictionary *receiveDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            if ([[receiveDic valueForKey:@"resultCount"] intValue]>0) {
+                [receiveStatusDic setValue:@"1" forKey:@"status"];
+                [receiveStatusDic setValue:[[[receiveDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"version"]   forKey:@"version"];
+            }else{
+                [receiveStatusDic setValue:@"-1" forKey:@"status"];
+            }
+        }else{
+            [receiveStatusDic setValue:@"-1" forKey:@"status"];
+        }
+        [self performSelectorOnMainThread:@selector(receiveData:) withObject:receiveStatusDic waitUntilDone:NO];
+    }];
+}
+
+-(void)receiveData:(id)sender {
+    long compare = (long)[sender[@"version"] compare:[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"] options:NSCaseInsensitiveSearch];
+    NSLog(@"%@", sender[@"version"]);
     NSString *userID = [[SKStorageManager sharedInstance] getUserID];
-    if (userID != nil) {
+    if (compare<0) {
         self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
         _mainController = [[NAClueListViewController alloc] init];
         HTNavigationController *navController =
@@ -131,32 +164,23 @@
         self.window.rootViewController = navController;
         [self.window makeKeyAndVisible];
     } else {
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
-        HTNavigationController *navController =
-        [[HTNavigationController alloc] initWithRootViewController:rootController];
-        self.window.rootViewController = navController;
-        [self.window makeKeyAndVisible];
-        
-        //		if (![UD boolForKey:@"everLaunch"]) {
-        //			self.launchViewController = [[SKLaunchAnimationViewController alloc] init];
-        //			[self.window addSubview:self.launchViewController.view];
-        //			__weak AppDelegate *weakSelf = self;
-        //			self.launchViewController.didSelectedEnter = ^() {
-        //			    [UIView animateWithDuration:0.3
-        //				    animations:^{
-        //					weakSelf.launchViewController.view.alpha = 0;
-        //				    }
-        //				    completion:^(BOOL finished) {
-        //					weakSelf.launchViewController = nil;
-        //					//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        //				    }];
-        //			};
-        //		} else {
-        //			//[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-        //		}
-        
-        [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        if (userID != nil) {
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            _mainController = [[NAClueListViewController alloc] init];
+            HTNavigationController *navController =
+            [[HTNavigationController alloc] initWithRootViewController:_mainController];
+            self.window.rootViewController = navController;
+            [self.window makeKeyAndVisible];
+        } else {
+            self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+            NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
+            HTNavigationController *navController =
+            [[HTNavigationController alloc] initWithRootViewController:rootController];
+            self.window.rootViewController = navController;
+            [self.window makeKeyAndVisible];
+            
+            [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
+        }    
     }
 }
 

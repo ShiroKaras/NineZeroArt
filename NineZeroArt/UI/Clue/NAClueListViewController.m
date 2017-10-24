@@ -15,6 +15,7 @@
 @interface NAClueListViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray<SKScanning*>* clueArray;
+@property (nonatomic, strong) NSDictionary *dummyDict;
 @end
 
 @implementation NAClueListViewController
@@ -73,25 +74,69 @@
 //        _blankView.center = converView.center;
 //    } else {
 //    }
-    [self loadData];
+    [self Postpath:@"http://itunes.apple.com/lookup?id=1256280807"];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (void)loadData {
-    [[[SKServiceManager sharedInstance] scanningService] getScanningListWithCallBack:^(BOOL success, NSArray<SKScanning *> *scanningList) {
-        self.clueArray = scanningList;
+- (void)loadData:(id)sender {
+    long compare = (long)[sender[@"version"] compare:[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"] options:NSCaseInsensitiveSearch];
+    
+    if (compare<0) {
+        NSMutableArray<SKScanning*>*clueList = [NSMutableArray array];
+        for (int i = 0; i < [[self dummyData][@"data"] count]; i++) {
+            SKScanning *clueItem = [SKScanning mj_objectWithKeyValues:[self dummyData][@"data"][i]];
+            [clueList addObject:clueItem];
+        }
+        self.clueArray = clueList;
         [self.tableView reloadData];
+    } else {
+        [[[SKServiceManager sharedInstance] scanningService] getScanningListWithCallBack:^(BOOL success, NSArray<SKScanning *> *scanningList) {
+            self.clueArray = scanningList;
+            [self.tableView reloadData];
+        }];
+    }
+}
+
+-(void)Postpath:(NSString *)path {
+    NSURL *url = [NSURL URLWithString:path];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url
+                                                           cachePolicy:NSURLRequestReloadIgnoringCacheData
+                                                       timeoutInterval:10];
+    [request setHTTPMethod:@"POST"];
+    NSOperationQueue *queue = [NSOperationQueue new];
+    
+    [NSURLConnection sendAsynchronousRequest:request queue:queue completionHandler:^(NSURLResponse *response,NSData *data,NSError *error){
+        NSMutableDictionary *receiveStatusDic=[[NSMutableDictionary alloc]init];
+        if (data) {
+            NSDictionary *receiveDic = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            if ([[receiveDic valueForKey:@"resultCount"] intValue]>0) {
+                [receiveStatusDic setValue:@"1" forKey:@"status"];
+                [receiveStatusDic setValue:[[[receiveDic valueForKey:@"results"] objectAtIndex:0] valueForKey:@"version"]   forKey:@"version"];
+            }else{
+                [receiveStatusDic setValue:@"-1" forKey:@"status"];
+            }
+        }else{
+            [receiveStatusDic setValue:@"-1" forKey:@"status"];
+        }
+        [self performSelectorOnMainThread:@selector(loadData:) withObject:receiveStatusDic waitUntilDone:NO];
     }];
 }
 
 #pragma mark - Actions
 
 - (void)didClickProfileButton:(UIButton *)sender {
-    NAProfileViewController *controller = [[NAProfileViewController alloc] init];
-    [self.navigationController pushViewController:controller animated:YES];
+    if ([[SKStorageManager sharedInstance] getUserID] == nil) {
+        [[[SKServiceManager sharedInstance] loginService] quitLogin];
+        NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    } else {
+        NAProfileViewController *controller = [[NAProfileViewController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -115,12 +160,19 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([[SKStorageManager sharedInstance] getUserID] == nil) {
+        [[[SKServiceManager sharedInstance] loginService] quitLogin];
+        NALoginRootViewController *rootController = [[NALoginRootViewController alloc] init];
+        HTNavigationController *navController = [[HTNavigationController alloc] initWithRootViewController:rootController];
+        [[[UIApplication sharedApplication] delegate] window].rootViewController = navController;
+    } else {
 #ifdef DEBUG
-    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"http://112.74.133.183:9092/Home/ArtActivity/art_activity_detail/sid/%@.html", self.clueArray[indexPath.row].sid]];
+        NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"http://112.74.133.183:9092//Home/ArtActivity/art_activity_detail/sid/%@/uid/%@.html", self.clueArray[indexPath.row].sid, [[SKStorageManager sharedInstance] getUserID]]];
 #else
-    NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"https://admin.90app.tv/Home/ArtActivity/art_activity_detail/sid/%@.html", self.clueArray[indexPath.row].sid]];
+        NAClueDetailViewController *controller =  [[NAClueDetailViewController alloc] initWithScanning:self.clueArray[indexPath.row] urlString:[NSString stringWithFormat:@"https://admin.90app.tv/Home/ArtActivity/art_activity_detail/sid/%@/uid/%@.html", self.clueArray[indexPath.row].sid, [[SKStorageManager sharedInstance] getUserID]]];
 #endif
-    [self.navigationController pushViewController:controller animated:YES];
+        [self.navigationController pushViewController:controller animated:YES];
+    }
 }
 
 #pragma mark - UITableViewDataSource
@@ -133,6 +185,52 @@
     return 1;
 }
 
+- (NSDictionary *)dummyData {
+    NSDictionary *dict = @{
+        @"method": @"getScanningList",
+        @"data": @[
+                 @{
+                     @"sid": @"61",
+                     @"activity_name": @"莲花盛开",
+                     @"activity_place": @"国家大剧院",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/529D_170921_bj_guojiadajuyuan_activity.png?e=1506071749&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:JzM7i-nF3wSnZwl6K6qa49FGH7Y="
+                     },
+                 @{
+                     @"sid": @"60",
+                     @"activity_name": @"官舍",
+                     @"activity_place": @"官舍",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/529D_170823_bj_thegrandsummit_activity.png?e=1503560951&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:1sEWXmIYUyDBkVWZv164PmgcH4A="
+                     },
+                 @{
+                     @"sid": @"59",
+                     @"activity_name": @"悠唐“捉鬼”",
+                     @"activity_place": @"北京",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/529DART_170809_bj_activity1.png?e=1502285465&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:5cAIgrjHfswuyVeOzJZmLSY7rvQ="
+                     },
+                 @{
+                     @"is_haved_ticket": @"1",
+                     @"sid": @"58",
+                     @"activity_name": @"遇见达芬奇创意画展",
+                     @"activity_place": @"北京",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/minghualb.png?e=1499863374&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:WwoUPY0YKLS4NB80qGtCbRqnEpw="
+                     },
+                 @{
+                     @"sid": @"57",
+                     @"activity_name": @"“腋”长梦到腋毛展",
+                     @"activity_place": @"北京",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/yemaozhanlb.png?e=1499863051&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:Ec4wOrCthjBRFtJWY3qC4YIsNc0="
+                     },
+                 @{
+                     @"sid": @"56",
+                     @"activity_name": @"盐映画B面艺术展",
+                     @"activity_place": @"北京",
+                     @"list_pic": @"http://7xryb0.com1.z0.glb.clouddn.com/yanyinghuaa.png?e=1499862656&token=OWCQidcz6GT1EhCiiexVi8pq-T5hPZaoHiCPtHWa:v4KkKNLEJ14dGCy_3j1K3TExaP8="
+                     }
+                 ],
+            @"result": @0
+        };
+    return dict;
+}
 
 @end
 

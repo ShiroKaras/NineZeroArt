@@ -48,15 +48,15 @@
 
 	NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
 	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	DLog(@"Param:%@", jsonString);
 
 	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
-
+    
 	[manager POST:[SKCGIManager scanningBaseCGIKey]
 		parameters:param
 		progress:nil
 		success:^(NSURLSessionDataTask *_Nonnull task, id _Nullable responseObject) {
 		    SKResponsePackage *package = [SKResponsePackage mj_objectWithKeyValues:responseObject];
+            NSLog(@"%@", package.data);
 		    callback(YES, package);
 		}
 		failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
@@ -192,6 +192,17 @@
             [danmakuList addObject:danmakuItem];
         }
         callback(success, danmakuList);
+    }];
+}
+
+- (void)userScanActivityPictureWithSid:(NSString *)sid Pid:(NSString *)pid callback:(SKResponseCallback)callback {
+    NSDictionary *param = @{
+                            @"method": @"userScanActivityPicture",
+                            @"activity_id" : sid,
+                            @"picture_id" : pid
+                            };
+    [self scanningBaseRequestWithParam:param callback:^(BOOL success, SKResponsePackage *response) {
+        callback(success, response);
     }];
 }
 

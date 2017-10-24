@@ -37,7 +37,7 @@ typedef NS_ENUM(NSUInteger, SKScanType) {
 - (void)stop;
 - (void)resize:(CGRect)frame orientation:(UIInterfaceOrientation)orientation;
 - (void)setOrientation:(UIInterfaceOrientation)orientation;
-- (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs;
+- (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs sid:(NSString *)sid pidArray:(NSArray*)pidArray;
 - (void)setupProgressView:(NSProgress *)downloadProgress;
 
 @end

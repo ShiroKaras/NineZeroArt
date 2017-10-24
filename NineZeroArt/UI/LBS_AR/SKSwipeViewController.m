@@ -448,7 +448,7 @@
 						if (succeeded) {
 							// 加载识别图
 							[self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
-							[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
+							[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url sid:scanning.sid pidArray:scanning.lid];
 							completionHandler();
 						} else {
 							NSLog(@"zip解压失败:%@", error);
@@ -477,13 +477,13 @@
 			completionHandler:^(NSString *_Nonnull path, BOOL succeeded, NSError *_Nonnull error) {
 			    // 加载识别图
 			    [self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
-			    [self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
+			    [self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url sid:scanning.sid pidArray:scanning.lid];
 			    completionHandler();
 			}];
 	} else {
 		// 直接加载识别图
 		[self setupOpenGLViewWithTargetNumber:scanning.link_url.count];
-		[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url];
+		[self.glView startWithFileName:scanning.file_url videoURLs:scanning.link_url sid:scanning.sid pidArray:scanning.lid];
 		completionHandler();
 	}
 }

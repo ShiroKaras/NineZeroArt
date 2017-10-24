@@ -39,7 +39,9 @@ namespace EasyAR{
             virtual void render();
             virtual bool clear();
             int flag = 0;
+            NSString *sid;
 			NSArray *videoURLs;
+            NSArray *pidArray;
 			id progressDelegate;
 			int lastTrackedTargetId;
 			
@@ -180,7 +182,10 @@ namespace EasyAR{
 						__block NSString *videoPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeVideo_%d.mp4", index]];
 						
                         //调用扫到图片的接口
-                        
+                        NSLog(@"%@, %@", sid, pidArray[index]);
+                        [[[SKServiceManager sharedInstance] scanningService] userScanActivityPictureWithSid:sid Pid:pidArray[index] callback:^(BOOL success, SKResponsePackage *response) {
+                            NSLog(@"%@", response.data);
+                        }];
                         ////
 						
 						if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
@@ -379,9 +384,11 @@ EasyAR::samples::HelloAR ar;
 	ar.start();
 }
 
-- (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs {
+- (void)startWithFileName:(NSString *)fileName videoURLs:(NSArray *)videoURLs sid:(NSString *)sid pidArray:(NSArray *)pidArray{
 	ar.initCamera();
 	ar.videoURLs = videoURLs;
+    ar.sid = sid;
+    ar.pidArray = pidArray;
 	ar.progressDelegate = self;
 	
 	// cache目录
