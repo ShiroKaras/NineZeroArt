@@ -158,7 +158,6 @@ namespace EasyAR{
             
             //Custom
             ////////////////////////////////START////////////////////////////////
-            
             AugmentedTarget::Status status = frame.targets()[0].status();
             if(status == AugmentedTarget::kTargetStatusTracked){
                 int tid = frame.targets()[0].target().id();
@@ -176,23 +175,25 @@ namespace EasyAR{
 						NSString *filePath = [[NSString stringWithUTF8String:frame.targets()[0].target().name()] stringByDeletingLastPathComponent];
                         NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
                         int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
-						
+                        BOOL isTransparent = [targetImageName containsString:@"_touming_"];
 						lastTrackedTargetId = index;
-						
+                        NSLog(@"%@, %c", targetImageName, isTransparent);
 						__block NSString *videoPath = [filePath stringByAppendingPathComponent:[NSString stringWithFormat:@"swipeVideo_%d.mp4", index]];
 						
                         //调用扫到图片的接口
-                        NSLog(@"%@, %@", sid, pidArray[index]);
                         [[[SKServiceManager sharedInstance] scanningService] userScanActivityPictureWithSid:sid Pid:pidArray[index] callback:^(BOOL success, SKResponsePackage *response) {
                             NSLog(@"%@", response.data);
                         }];
                         ////
-						
 						if ([[NSFileManager defaultManager] fileExistsAtPath:videoPath]) {
 							if (texid[index] && video == NULL) {
 								video = new ARVideo;
 								std::string videoName = videoPath.UTF8String;
-								video->openVideoFile(videoName, texid[index]);
+                                if (isTransparent) {
+                                    video->openTransparentVideoFile(videoName, texid[index]);
+                                } else {
+                                    video->openVideoFile(videoName, texid[index]);
+                                }
 								video_renderer = renderer[index];
 							}
 						} else {
@@ -204,20 +205,24 @@ namespace EasyAR{
 							} completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
 								if ([filePath.relativePath isEqual:videoPath]) {
 									if (texid[index] && video == NULL) {
-									video = new ARVideo;
-									std::string videoName = filePath.relativePath.UTF8String;
-									video->openVideoFile(videoName, texid[index]);
-									video_renderer = renderer[index];
-									}
+                                        video = new ARVideo;
+                                        std::string videoName = filePath.relativePath.UTF8String;
+                                        if (isTransparent) {
+                                            video->openTransparentVideoFile(videoName, texid[index]);
+                                        } else {
+                                            video->openVideoFile(videoName, texid[index]);
+                                        }
+                                        video_renderer = renderer[index];
+                                    }
 								}
-								
 							}];
 						}
-					} else if (swipeType == 1) {
-                        NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
-                        int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
-						lastTrackedTargetId = index;
-					}
+                    }
+//                    else if (swipeType == 1) {
+//                        NSString *targetImageName = [[NSString stringWithUTF8String:frame.targets()[0].target().name()]  lastPathComponent];
+//                        int index = [[[targetImageName componentsSeparatedByString:@"_"] lastObject] intValue];
+//                        lastTrackedTargetId = index;
+//                    }
                     if (video) {
                         video->onFound();
                         tracked_target = tid;

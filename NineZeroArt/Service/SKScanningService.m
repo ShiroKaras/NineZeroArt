@@ -45,10 +45,11 @@
 	[mDict setValue:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"] forKey:@"edition"];
 	[mDict setValue:@"iOS" forKey:@"client"];
 	[mDict setValue:[[SKStorageManager sharedInstance] getUserID] forKey:@"user_id"];
-
+    
 	NSData *data = [NSJSONSerialization dataWithJSONObject:mDict options:NSJSONWritingPrettyPrinted error:nil];
 	NSString *jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-
+    NSLog(@"param:%@", jsonString);
+    
 	NSDictionary *param = @{ @"data": [NSString encryptUseDES:jsonString key:nil] };
     
 	[manager POST:[SKCGIManager scanningBaseCGIKey]

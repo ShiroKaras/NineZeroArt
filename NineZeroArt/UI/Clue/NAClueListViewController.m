@@ -83,20 +83,20 @@
 }
 
 - (void)loadData {
-    if ([[SKStorageManager sharedInstance] getUserID] == nil) {
-        NSMutableArray<SKScanning*>*clueList = [NSMutableArray array];
-        for (int i = 0; i < [[self dummyData][@"data"] count]; i++) {
-            SKScanning *clueItem = [SKScanning mj_objectWithKeyValues:[self dummyData][@"data"][i]];
-            [clueList addObject:clueItem];
-        }
-        self.clueArray = clueList;
-        [self.tableView reloadData];
-    } else {
+//    if ([[SKStorageManager sharedInstance] getUserID] == nil) {
+//        NSMutableArray<SKScanning*>*clueList = [NSMutableArray array];
+//        for (int i = 0; i < [[self dummyData][@"data"] count]; i++) {
+//            SKScanning *clueItem = [SKScanning mj_objectWithKeyValues:[self dummyData][@"data"][i]];
+//            [clueList addObject:clueItem];
+//        }
+//        self.clueArray = clueList;
+//        [self.tableView reloadData];
+//    } else {
         [[[SKServiceManager sharedInstance] scanningService] getScanningListWithCallBack:^(BOOL success, NSArray<SKScanning *> *scanningList) {
             self.clueArray = scanningList;
             [self.tableView reloadData];
         }];
-    }
+//    }
 }
 
 - (void)loadData:(id)sender {
