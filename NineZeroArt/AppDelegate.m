@@ -156,14 +156,14 @@
     long compare = (long)[sender[@"version"] compare:[[[NSBundle mainBundle]infoDictionary] objectForKey:@"CFBundleShortVersionString"] options:NSCaseInsensitiveSearch];
     NSLog(@"%@", sender[@"version"]);
     NSString *userID = [[SKStorageManager sharedInstance] getUserID];
-//    if (compare<0) {
-//        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//        _mainController = [[NAClueListViewController alloc] init];
-//        HTNavigationController *navController =
-//        [[HTNavigationController alloc] initWithRootViewController:_mainController];
-//        self.window.rootViewController = navController;
-//        [self.window makeKeyAndVisible];
-//    } else {
+    if (compare<0) {
+        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        _mainController = [[NAClueListViewController alloc] init];
+        HTNavigationController *navController =
+        [[HTNavigationController alloc] initWithRootViewController:_mainController];
+        self.window.rootViewController = navController;
+        [self.window makeKeyAndVisible];
+    } else {
         if (userID != nil) {
             self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
             _mainController = [[NAClueListViewController alloc] init];
@@ -181,7 +181,7 @@
             
             [[[SKServiceManager sharedInstance] profileService] updateUserInfoFromServer];
         }    
-//    }
+    }
 }
 
 #pragma mark - Location
