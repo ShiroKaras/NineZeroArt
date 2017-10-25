@@ -123,7 +123,7 @@
 
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-    _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50)];
+    _webView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height-50);
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
