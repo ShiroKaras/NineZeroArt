@@ -110,10 +110,10 @@
             [ShareSDK getUserInfo:SSDKPlatformTypeWechat
                    onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error) {
                        if (state == SSDKResponseStateSuccess) {
-                           DLog(@"uid=%@", user.uid);
-                           DLog(@"%@", user.credential);
-                           DLog(@"token=%@", user.credential.token);
-                           DLog(@"nickname=%@", user.nickname);
+                           NSLog(@"uid=%@", user.uid);
+                           NSLog(@"%@", user.credential);
+                           NSLog(@"token=%@", user.credential.token);
+                           NSLog(@"nickname=%@", user.nickname);
                            
                            [self loginWithUser:user];
                        }
